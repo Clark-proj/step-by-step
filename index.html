@@ -730,11 +730,11 @@ body.g3 button,body.g3 input{font-family:inherit}
 .g3 .sub3,.g3 .qs,.g3 .wm,.g3 .wh,.g3 .gt small,.g3 .nt small,.g3 .dh3 span,.g3 .sh3 span{font-weight:600;color:var(--mut)}
 .g3 .nt b,.g3 .gt b,.g3 .sh3 b,.g3 .ok3 b,.g3 .sec3 b,.g3 .opts3 b,.g3 .acch b,.g3 .tlh b,.g3 .more3 b,.g3 .o5home .h b{font-weight:800;color:var(--ink)}
 /* box: bianchi, morbidi, angoli come l'onboarding */
-.g3 .r3,.g3 .gc3,.g3 .gg3,.g3 .card3,.g3 .em3,.g3 .ok3,.g3 .opts3 button,.g3 .none3,.g3 .ob3,.g3 .an3,.g3 .more3,.g3 .o5home,.g3 .wk3c,.g3 .panel,.g3 .tile,.g3 .lp3,.g3 .w3 .leg3 .lb>div{background:#fff!important;border:1.5px solid transparent;box-shadow:var(--sh)!important}
+.g3 .r3,.g3 .gc3,.g3 .gg3,.g3 .card3,.g3 .em3,.g3 .ok3,.g3 .opts3 button,.g3 .none3,.g3 .ob3,.g3 .an3,.g3 .more3,.g3 .o5home,.g3 .wk3c,.g3 .panel,.g3 .tile,.g3 .lp3,.g3 .w3 .leg3 .lb>div{background:#fff!important;border:0 solid transparent;box-shadow:var(--sh)!important}
 .g3 .r3{border-radius:20px}.g3 .gc3,.g3 .gg3{border-radius:22px}.g3 .card3,.g3 .ok3,.g3 .more3{border-radius:20px}.g3 .sec3{border-radius:18px;background:#fff;border:1.5px solid transparent;box-shadow:var(--sh)}
 /* selezione: lilla chiaro con bordo lavanda, come nelle tessere */
 .g3 .chips3 [aria-pressed="true"],.g3 .tb3[aria-pressed="true"],.g3 .seg3 [aria-pressed="true"],.g3 .dsel3 [aria-pressed="true"],.g3 .sec3[aria-pressed="true"],.g3 .sec3[aria-expanded="true"],.g3 .wtabs [aria-pressed="true"],.g3 .wk3 [aria-pressed="true"] b,.g3 .gpick [aria-pressed="true"],.g3 .chips3.wrap [aria-pressed="true"],.g3 .sc3 [aria-pressed="true"],.g3 .opt[aria-pressed="true"],.g3 .chip[aria-pressed="true"]{background:var(--sel)!important;box-shadow:inset 0 0 0 .5px var(--selb)!important;color:var(--ink)!important}
-.g3 .r3.cur{border-color:var(--selb);background:var(--sel)!important}
+.g3 .r3.cur{background:var(--sel)!important}
 /* spunte: cerchio viola, segno bianco */
 .g3 .ck3{background:#fff;box-shadow:inset 0 0 0 .5px #dedbe9;color:#c9c6d6}.g3 .ck3[aria-pressed="true"],.g3 .ok3[aria-pressed="true"] svg,.g3 .dc[aria-pressed="true"]{background:var(--vi)!important;color:#fff!important;box-shadow:0 0 0 2px #fff,0 2px 8px rgba(109,79,216,.3)!important}
 .g3 .ok3 svg{background:var(--sel);color:var(--vi)}.g3 .ti3{background:var(--sel);color:var(--vi)}
@@ -976,6 +976,11 @@ body.g3 .app{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))!importa
 .g3 .r3.cur .pp3{order:6!important;margin:6px 0 0!important}
 .g3 .r3 .brk{display:none}
 .g3 .dx5t{width:100%;justify-content:flex-start}.g3 .dx5t svg{margin-left:auto}
+
+/* bordi colorati: solo una linea sottilissima */
+.g3 .o4c[aria-pressed="true"],.g3 .o4plan[aria-pressed="true"]{box-shadow:0 6px 16px rgba(40,44,70,.08)!important;border-width:.5px!important}
+.g3 .r3 .pp3{border-width:.5px!important}
+.g3 .o4sel span{border-width:.5px!important}
 </style>
 
 <div class="app" id="app"><main id="scr"></main></div>
@@ -2138,7 +2143,7 @@ document.addEventListener("touchcancel",()=>{const o=ovEl();if(o){o.style.transf
  m.setAttribute("content",PAGE)})();
 </script>
 <script>/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica */
-(function(){const BUILD='2026-10-24p';let busy=false;
+(function(){const BUILD='2026-10-24q';let busy=false;
 async function chk(){if(busy||!navigator.onLine)return;busy=true;try{
  const r=await fetch('index.html?u='+Date.now(),{cache:'no-store'});const s=await r.text();
  const m=s.match(/const BUILD='([^']+)'/);
