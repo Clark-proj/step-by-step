@@ -754,6 +754,8 @@ body.g3 button,body.g3 input{font-family:inherit}
 /* barra in basso: vetro liquido, testi nello stesso font */
 .g3 .lg3 button{font-weight:700;color:var(--mut)}.g3 .lg3 [aria-current="page"]{color:var(--vi)!important}
 .g3 .snack{font-family:inherit;font-weight:600}
+
+.ess{object-fit:contain}
 </style>
 
 <div class="app" id="app"><main id="scr"></main></div>
@@ -958,6 +960,7 @@ const icSrc=id=>{const a=ACT[id]||ACT[OLDACT[id]];return a&&READY.has(a.asset)?a
 const OLDHC={lettura:"mente__lettura",studio:"mente__studio",lingue:"mente__pratica-una-lingua",forza:"corpo__allenamento-di-forza",camminata:"corpo__camminata",mobilita:"corpo__mobilita-articolare",cucina:"corpo__cucina-un-pasto",sonno:"riposo__rituale-della-sera",deep:"lavoro__lavoro-profondo",pianifica:"lavoro__pianifica-la-giornata",creativo:"mente__sperimenta-una-tecnica-creativa",meditazione:"riposo__meditazione",respiro:"riposo__respirazione-tranquilla",diario:"mente__scrittura-personale",legami:"legami__tempo-insieme",spese:"vita-pratica__controlla-le-spese",revisione:"lavoro__rifletti-sul-lavoro-svolto"};
 const BYNAME={};for(const id in ACT)BYNAME[ACT[id].n.toLowerCase()]=id;
 const actOf=h=>h.act&&ACT[h.act]?h.act:(OLDACT[h.ic]||OLDHC[h.k]||BYNAME[String(h.title||"").toLowerCase()]||null);
+const essIcon=(f,cls)=>{const a=AREAS[f]||AREAS[figOf(f)];return a?`<img class="${cls} ess" src="${a.fig}.png" alt="">`:`<span class="${cls} vuoto" aria-hidden="true"></span>`};
 const actIcon=(h,cls)=>{const id=actOf(h);return id?actImg(id,cls):""};
 
 const thumb=g=>`<span class="th3" style="background-image:url(${IMG[figOf(g)]}_c.webp)" aria-hidden="true"></span>`;
@@ -1017,7 +1020,7 @@ function row3(id,h,ds,o={}){const f=figOf(h.guide);const d=doneV(chk(ds,id));con
   const when=o.when!=null?o.when:esc(cap(h.anchor||MOML[h.when]));
   const info=[md?"mini":durTxt(h),tag].filter(Boolean).join(" · ");
   const extra=`${when} · ${capFact(h,id,ds)}`;
-  return `<div class="r3 ${d?"dn":""} ${o.cur?"cur":""}"><button class="nb" data-open="${id}">${actOf(h)?actIcon(h,"ra icn"):badge(f,"ra")}<span class="nt">${o.cur?`<em>${later(ds,id)?"Più tardi":"Adesso"}</em>`:""}<b>${movedIn(ds,id)?"↪ ":""}${esc(h.title)}</b><small><i class="gd" style="background:${AC[f].dot}"></i>${AREAS[f].name} · ${info}</small><small class="x">${extra}</small></span></button>${can?`<button class="ck3" data-ck="${id}" data-ds="${ds}" data-val="${md?"m":"f"}" aria-pressed="${d}" aria-label="${d?"Segna come non fatta":"Segna come fatta"}: ${esc(h.title)}">${icon("l3ck",1.8)}</button>`:""}${o.cur&&!d?`<i class="brk"></i><button class="pp3" data-ppopen="${id}">${icon("clock",1.5)}<span>Rimanda</span></button>`:""}</div>`}
+  return `<div class="r3 ${d?"dn":""} ${o.cur?"cur":""}"><button class="nb" data-open="${id}">${essIcon(f,"ra icn")}<span class="nt">${o.cur?`<em>${later(ds,id)?"Più tardi":"Adesso"}</em>`:""}<b>${movedIn(ds,id)?"↪ ":""}${esc(h.title)}</b><small><i class="gd" style="background:${AC[f].dot}"></i>${AREAS[f].name} · ${info}</small><small class="x">${extra}</small></span></button>${can?`<button class="ck3" data-ck="${id}" data-ds="${ds}" data-val="${md?"m":"f"}" aria-pressed="${d}" aria-label="${d?"Segna come non fatta":"Segna come fatta"}: ${esc(h.title)}">${icon("l3ck",1.8)}</button>`:""}${o.cur&&!d?`<i class="brk"></i><button class="pp3" data-ppopen="${id}">${icon("clock",1.5)}<span>Rimanda</span></button>`:""}</div>`}
 const TABS=["oggi","cal","guide"];
 function ensureBar(){let lg=$("#tabs .lg3");if(!lg){const tb=$("#tabs");tb.className="tabs3";tb.innerHTML=`<div class="lg3"><span class="lens" aria-hidden="true"></span>${[["oggi","Oggi","l3list"],["cal","Calendario","l3cal"],["guide","Aree","l3fig"]].map(([k,l,i])=>`<button data-tab="${k}">${icon(i,1.4)}<span>${l}</span></button>`).join("")}</div>`;lg=$("#tabs .lg3")}lg.style.setProperty("--i",Math.max(0,TABS.indexOf(S.tab)));lg.querySelectorAll("[data-tab]").forEach(b=>b.dataset.tab===S.tab?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"))}
 function tabBar(){return `<div class="lg3">${[["oggi","Oggi","l3list"],["cal","Calendario","l3cal"],["guide","Aree","l3fig"]].map(([k,l,i])=>`<button data-tab="${k}" ${S.tab===k?'aria-current="page"':""}>${icon(i,2)}<span>${l}</span></button>`).join("")}</div>`}
@@ -1396,10 +1399,10 @@ function drawAdd(){const m=OV;const have=new Set(H().map(([,h])=>h.title));
     openOv(`${navBack("close")}<h1 class="q">Cosa aggiungiamo?</h1><p class="qs">Ogni attività appartiene a un'area, con la sua Essenza.</p>
      <div class="chips3"><button data-afl="" aria-pressed="${!fl}">Tutte</button>${AREA_KEYS.map(f=>`<button data-afl="${f}" aria-pressed="${fl===f}">${badge(f,"cb3")}${AREAS[f].name}</button>`).join("")}</div>
      <div class="nl3"><button class="r3 new3" data-acustom><span class="nb"><span class="ra ic">${icon("l3plus",1.5)}</span><span class="nt"><b>Crea la tua</b><small>un'attività tutta tua, nell'area che scegli</small></span></span>${icon("l3chev",1.5)}</button>
-     ${ks.map(f=>CAT[f].filter(x=>!have.has(x.n)).map(x=>`<button class="r3" data-acat="${x.id}"><span class="nb">${actImg(x.id,"ra icn")}<span class="nt"><b>${x.n}</b><small><i class="gd" style="background:${AREAS[f].dot}"></i>${AREAS[f].name} · ${x.m?`circa ${x.m} min`:"nella giornata"}</small></span></span>${icon("l3chev",1.5)}</button>`).join("")).join("")}</div>
+     ${ks.map(f=>CAT[f].filter(x=>!have.has(x.n)).map(x=>`<button class="r3" data-acat="${x.id}"><span class="nb">${essIcon(f,"ra icn")}<span class="nt"><b>${x.n}</b><small><i class="gd" style="background:${AREAS[f].dot}"></i>${AREAS[f].name} · ${x.m?`circa ${x.m} min`:"nella giornata"}</small></span></span>${icon("l3chev",1.5)}</button>`).join("")).join("")}</div>
      <div class="foot3"><button class="lnk3" data-replan>Oppure ripensa tutto il percorso</button></div>`,{keep:m._d==="l"});m._d="l";return}
   const c=addSrc(m),x=m.x,f=figOf(c.g);
-  openOv(`${navBack("aback")}<div class="cfg3">${c.act?actImg(c.act,"bigi"):`<span class="bigb" style="background-image:url(${fimg(f,"c")})" aria-hidden="true"></span>`}<h1 class="q">${esc(c.t)}</h1><p class="qs">${AREAS[f].name} · con ${AREAS[f].fig} · tempi modificabili</p></div>
+  openOv(`${navBack("aback")}<div class="cfg3">${essIcon(f,"bigi")}<h1 class="q">${esc(c.t)}</h1><p class="qs">${AREAS[f].name} · con ${AREAS[f].fig} · tempi modificabili</p></div>
    <div class="card3"><div class="edrow"><span>Volte a settimana</span><span class="stp"><button data-af="-1" aria-label="Meno">−</button><b>${x.f}×</b><button data-af="1" aria-label="Più">+</button></span></div>
    <div class="edrow"><span>Minuti per volta</span><span class="stp"><button data-am="-5" aria-label="Meno">−</button><b>${x.m}′</b><button data-am="5" aria-label="Più">+</button></span></div>
    <div class="edrow col"><span>Momento</span><div class="seg3">${MOMS.map(w=>`<button data-aw="${w}" aria-pressed="${x.w===w}">${cap(MOML[w])}</button>`).join("")}</div></div>
@@ -1423,7 +1426,7 @@ function drawSheet(first){const id=SH.id,h=norm(S.habits[id]);if(!h){closeSheet(
     const key="t"+t.k;return `<div class="tl3 ${acc[key]&&!lock?"open":""} ${lock?"lock":""}"><button class="tlh" ${lock?"disabled":`data-acc="${key}"`} aria-expanded="${!!acc[key]}"><span class="ti3">${icon(TIC[t.k],1.5)}</span><span class="nt"><b>${t.n}</b><small>${state}</small></span>${icon(lock?"l3lock":"l3chev",1.5)}</button><div class="exp"><div><div class="tlb">${b}</div></div></div></div>`}).join("");
   const nxt=(()=>{for(let i=1;i<8;i++){const ds=iso(addD(new Date(),i));if(sched(h,ds))return i===1?"domani":GIORNI[parse(ds).getDay()].toLowerCase()}return ""})();
   const inner=`<div class="grab"></div>
-   <div class="shh">${actOf(h)?actIcon(h,"shb icn"):badge(f,"shb")}<div class="nt"><h2>${esc(h.title)}</h2><small><i class="gd" style="background:${AC[f].dot}"></i>${AREAS[f].name} · con ${AREAS[f].fig} · ${durTxt(h)}</small><span class="dl3">${WDS.map((w,i)=>`<i class="${h.days.includes(i)?"on":""}">${w}</i>`).join("")}</span></div><button class="xb3" data-shx aria-label="Chiudi">${icon("l3x",1.6)}</button></div>
+   <div class="shh">${essIcon(f,"shb icn")}<div class="nt"><h2>${esc(h.title)}</h2><small><i class="gd" style="background:${AC[f].dot}"></i>${AREAS[f].name} · con ${AREAS[f].fig} · ${durTxt(h)}</small><span class="dl3">${WDS.map((w,i)=>`<i class="${h.days.includes(i)?"on":""}">${w}</i>`).join("")}</span></div><button class="xb3" data-shx aria-label="Chiudi">${icon("l3x",1.6)}</button></div>
    ${sc?`<button class="ok3" data-ck="${id}" data-val="${md?"m":"f"}" aria-pressed="${!!(d&&(md||c.v==="f"))}">${icon("l3ck",1.8)}<span><b>${d&&(md||c.v==="f")?"Fatta":"Fatto"}</b><small>${d&&(md||c.v==="f")?"tocca di nuovo per annullare":md?`versione mini · ${esc(h.mini)}`:durTxt(h)}</small></span></button>
     <div class="two3">${md?"":`<button class="sec3" data-ck="${id}" data-val="m" aria-pressed="${!!(c&&c.v==="m")}">${icon("bolt",1.5)}<span><b>${c&&c.v==="m"?"Fatta mini":"Solo la mini"}</b><small>${esc(h.mini)}</small></span></button>`}<button class="sec3" data-pptog aria-expanded="${!!SH.pp}" ${d?"disabled":""}>${icon("clock",1.5)}<span><b>Rimanda</b><small>${c&&c.v==="p"?"già rimandata":"scegli quando"}</small></span></button></div>
     <div class="exp ${SH.pp?"open":""}" id="ppx"><div><div class="opts3">${ppOptions(id).filter(o=>o.k!=="mini").map(o=>`<button data-pp="${o.k}" ${o.to?`data-to="${o.to}"`:""}><b>${o.t}</b><small>${o.d}</small></button>`).join("")}</div></div></div>`
@@ -1619,7 +1622,7 @@ document.addEventListener("touchmove",e=>{if(e.touches.length>1)return;let n=e.t
  const se=document.scrollingElement||document.documentElement||document.body;if(!se)return;if(se.scrollHeight<=innerHeight+1||(dy>0&&se.scrollTop<=0)||(dy<0&&se.scrollTop+innerHeight>=se.scrollHeight-1))e.preventDefault()},{passive:false})})();
 </script>
 <script>/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica */
-(function(){const BUILD='2026-10-24b';let busy=false;
+(function(){const BUILD='2026-10-24c';let busy=false;
 async function chk(){if(busy||!navigator.onLine)return;busy=true;try{
  const r=await fetch('index.html?u='+Date.now(),{cache:'no-store'});const s=await r.text();
  const m=s.match(/const BUILD='([^']+)'/);
