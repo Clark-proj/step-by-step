@@ -1281,7 +1281,7 @@ function row3(id,h,ds,o={}){const f=figOf(h.guide);const d=doneV(chk(ds,id));con
   const when=o.when!=null?o.when:esc(cap(h.anchor||MOML[h.when]));
   const info=[md?"mini":durTxt(h),tag].filter(Boolean).join(" · ");
   const extra=`${when} · ${capFact(h,id,ds)}`;
-  return `<div class="r3 ${d?"dn":""} ${o.cur?"cur":""}" style="--selb:${AC[f].dot}"><button class="nb" data-open="${id}">${faceIcon(f,"ra icn")}<span class="nt">${o.cur?`<em>${later(ds,id)?"Più tardi":"Adesso"}</em>`:""}<b>${movedIn(ds,id)?"↪ ":""}${esc(h.title)}</b><small><i class="gd" style="background:${AC[f].dot}"></i>${AREAS[f].name} · ${info}</small><small class="x">${extra}</small></span></button>${can?`<button class="ck3" data-ck="${id}" data-ds="${ds}" data-val="${md?"m":"f"}" aria-pressed="${d}" aria-label="${d?"Segna come non fatta":"Segna come fatta"}: ${esc(h.title)}">${icon("l3ck",1.8)}</button>`:""}${o.cur&&!d?`<i class="brk"></i><button class="pp3" data-ppopen="${id}">${icon("clock",1.5)}<span>Rimanda</span></button>`:""}${dxHTML(id,h,f)}</div>`}
+  return `<div class="r3 ${d?"dn":""} ${o.cur?"cur":""}" style="--selb:${AC[f].dot}"><button class="nb" data-open="${id}">${faceIcon(f,"ra icn")}<span class="nt">${o.cur?`<em>${later(ds,id)?"Più tardi":"Adesso"}</em>`:""}<b>${movedIn(ds,id)?"↪ ":""}${esc(h.title)}</b><small><i class="gd" style="background:${AC[f].dot}"></i>${AREAS[f].name} · ${info}</small><small class="x">${extra}</small></span></button>${can?`<button class="ck3" data-ck="${id}" data-ds="${ds}" data-val="${md?"m":"f"}" aria-pressed="${d}" aria-label="${d?"Segna come non fatta":"Segna come fatta"}: ${esc(h.title)}">${icon("l3ck",1.8)}</button>`:""}${dxHTML(id,h,f)}</div>`}
 /* giorni della settimana di un'attività: striscia compatta, si espande per cambiarli */
 function dxHTML(id,h,f){const open=S.dx&&S.dx.id===id;const days=open?S.dx.days:(h.days||[]);const tw=wd(new Date());
   const strip=`<button class="dx5t" data-dx="${id}" aria-expanded="${open}" aria-label="Giorni attivi: ${days.map(d=>WDL[d]).join(", ")||"nessuno"}. ${open?"Chiudi":"Modifica"}"><span class="dx5d">${WDS.map((w,i)=>`<i class="${days.includes(i)?"on":""}"></i>`).join("")}</span><span class="dx5l">${days.length===7?"ogni giorno":`${days.length} ${days.length===1?"giorno":"giorni"}`}</span>${icon("l3chev",1.5)}</button>`;
@@ -2094,7 +2094,17 @@ let snT=null;function snack(text,undo){clearTimeout(snT);$("#snack").innerHTML=`
 window.addEventListener("error",e=>snack("Errore: "+(e.message||"sconosciuto")));
 window.__ip={FIGS,emit,complete,stats,bondUp,set fail(v){S.failNext=v}};
 /* ================= AVVIO ================= */
-function afterLoad(){S.loaded=true;render();if(!meta().profile&&!H().length)startOnb3();else setTimeout(()=>emit(EV.SCREEN_OPEN,{},{once:true,key:`greet:${today()}`}),500)}
+/* senza spunta = rimandata: le attività non segnate nei giorni scorsi passano al primo giorno libero, senza chiedere nulla */
+let carrying=false;
+async function autoCarry(){if(carrying||!S.loaded)return;carrying=true;try{const tS=today();const done=[];const mv={...moves()};let changed=false;
+  const once=new Set();for(let b=1;b<=3;b++){const ds=iso(addD(new Date(),-b));for(const [id,h] of H()){if(!sched(h,ds)||chk(ds,id))continue;
+    let to=null;if(!once.has(id))for(let i=0;i<7;i++){const d2=iso(addD(new Date(),i));if(sched(h,d2)||(mv[d2]||[]).includes(id)||doneV(chk(d2,id)))continue;to=d2;break}
+    const k=ds+"__"+id;try{await saveNow("checks",k,to?{v:"p",at:Date.now(),to,auto:true}:{v:"s",at:Date.now(),auto:true})}catch(e){continue}
+    once.add(id);if(to){mv[to]=[...new Set([...(mv[to]||[]),id])];changed=true;done.push([h.title,to])}}}
+  if(changed){for(const d0 of Object.keys(mv))if(d0<iso(addD(new Date(),-14)))delete mv[d0];setMeta({moves:mv})}
+  if(done.length){render();const [t0,to]=done[0];const when=to===tS?"a oggi":`a ${GIORNI[parse(to).getDay()].toLowerCase()}`;snack(done.length===1?`«${t0}» non era segnata: l'ho spostata ${when}`:`${done.length} attività non segnate: le ho spostate nei prossimi giorni liberi`)}}finally{carrying=false}}
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")setTimeout(autoCarry,400)});
+function afterLoad(){S.loaded=true;render();setTimeout(autoCarry,700);if(!meta().profile&&!H().length)startOnb3();else setTimeout(()=>emit(EV.SCREEN_OPEN,{},{once:true,key:`greet:${today()}`}),500)}
 (async()=>{let db=null,user=null,id=null;
   try{db=window.claude&&window.claude.use?await window.claude.use("db"):null}catch(e){db=null}
   try{user=window.claude&&window.claude.use?await window.claude.use("user"):null}catch(e){user=null}
@@ -2143,7 +2153,7 @@ document.addEventListener("touchcancel",()=>{const o=ovEl();if(o){o.style.transf
  m.setAttribute("content",PAGE)})();
 </script>
 <script>/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica */
-(function(){const BUILD='2026-10-24q';let busy=false;
+(function(){const BUILD='2026-10-24r';let busy=false;
 async function chk(){if(busy||!navigator.onLine)return;busy=true;try{
  const r=await fetch('index.html?u='+Date.now(),{cache:'no-store'});const s=await r.text();
  const m=s.match(/const BUILD='([^']+)'/);
