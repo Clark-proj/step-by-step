@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Step by Step">
-<meta name="theme-color" content="#f1f2f5">
+<meta name="theme-color" content="#fdfcff">
 <style>
 /* Mobile app, lavender style. Guides are intact 2D illustrations that move as a whole. */
 :root{
@@ -547,6 +547,213 @@ body.g3 .app{padding:calc(16px + env(safe-area-inset-top,0px)) 22px calc(124px +
 .g3 .snack{display:flex!important;align-items:center;gap:14px;padding:13px 18px!important;border-radius:24px!important;background:rgba(44,46,60,.9)!important;color:#fff!important;font-size:14.5px!important;box-shadow:0 10px 30px rgba(40,44,70,.25)!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);animation:up3 .3s var(--ease)}
 .g3 .snack button{color:#cfc6f2!important;font-weight:700}
 .g3 .mv3{display:block;width:100%;text-align:left;padding:12px 0 14px;border-bottom:1px solid #f0f0f4;margin-bottom:6px}.g3 .mv3 b{display:block;font-size:16px;color:var(--acc)}.g3 .mv3 small{display:block;font-size:13.5px;color:var(--mut);margin-top:2px}
+
+/* schermata ferma: niente rimbalzo quando trascini col pollice */
+html,body{overscroll-behavior:none;touch-action:manipulation}
+html{height:100%;-webkit-text-size-adjust:100%}
+/* ===== onboarding illustrato ===== */
+html,body{overflow-x:hidden;max-width:100%}.g3 .ov{overflow-x:hidden}
+.g3 .o4{display:flex;flex-direction:column;min-height:calc(100dvh - 48px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
+.g3 .o4h{display:flex;align-items:center;gap:14px;min-height:56px}.g3 .o4h .rb3{width:46px;height:46px}
+.g3 .o4s{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.g3 .o4s div{display:flex;flex-direction:column;align-items:center;gap:7px}
+.g3 .o4s span{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b0b2bb}.g3 .o4s i{display:block;width:100%;height:4px;border-radius:2px;background:#e6e5ee;overflow:hidden;position:relative}
+.g3 .o4s i::after{content:"";position:absolute;inset:0;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.g3 .o4s .dn i::after{transform:none}.g3 .o4s .on i::after{transform:scaleX(.5)}.g3 .o4s .on span{color:var(--acc)}.g3 .o4s .dn span{color:var(--ink)}
+.g3 .o4left{text-align:right;font-size:12.5px;color:var(--mut);margin-top:6px}
+.g3 .o4q{font-size:27px;font-weight:800;letter-spacing:-.02em;line-height:1.12;margin-top:14px;color:var(--ink);text-align:left}.g3 .o4q.c,.g3 .o4p.c{text-align:center}
+.g3 .o4p{font-size:15.5px;color:var(--mut);line-height:1.45;margin-top:8px;text-align:left}
+.g3 .o4h2{font-size:18px;font-weight:800;margin:24px 0 10px;text-align:left}
+.g3 .o4c{position:relative;background:#fff;border:1px solid #e6e4ec;border-radius:20px;box-shadow:0 2px 6px rgba(40,44,70,.05);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:14px 8px;text-align:center;transition:border-color .2s,box-shadow .2s,background-color .2s}
+.g3 .o4c b{font-size:14.5px;font-weight:700}.g3 .o4c small{font-size:12px;color:var(--mut)}
+.g3 .o4c[aria-pressed="true"]{border-color:var(--ac,var(--acc));box-shadow:0 0 0 1.5px var(--ac,var(--acc)),0 6px 16px rgba(40,44,70,.08)}
+.g3 .o4k{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;background:var(--ac,var(--acc));color:#fff;display:grid;place-items:center;transform:scale(0);transition:transform .25s var(--spring)}.g3 .o4k svg{width:13px;height:13px}
+.g3 .o4c[aria-pressed="true"] .o4k,.g3 .o4plan[aria-pressed="true"] .o4k{transform:scale(1)}
+.g3 .o4c:active:not(:disabled),.g3 .o4plan:active{transform:none!important}
+.g3 .o4c img.ti{display:block;width:100%;height:84px;object-fit:contain;transform-origin:50% 75%;pointer-events:none}.g3 .o4c img.ti.big{height:108px}
+.g3 .o4row{display:flex;gap:8px;margin-top:16px}.g3 .o4row .o4c{flex:1;min-height:58px;padding:10px 4px}.g3 .o4row .o4k{top:-6px;right:-6px;width:20px;height:20px}
+.g3 .o4grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.g3 .o4c.tall{padding:14px 6px 12px}.g3 .o4c.tall img.ti{height:96px}
+.g3 .o4grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.g3 .o4c.area{min-height:150px}.g3 .o4c.area img.ti{height:92px}.g3 .o4c.act{min-height:190px}
+.g3 .o4note{margin-top:14px;padding:13px 16px;border-radius:16px;background:#ebeaf1;font-size:13.5px;color:#4e515d;line-height:1.45;text-align:left}.g3 .o4note b{color:var(--ink)}
+.g3 .o4hint{font-size:12.5px;color:var(--mut);margin-top:10px;text-align:left}
+.g3 .o4foot{margin-top:auto;padding-top:22px;display:flex;flex-direction:column;gap:4px}
+.g3 .o4cta{width:100%;min-height:58px;border-radius:30px;background:#fff;border:1px solid #d7d5df;box-shadow:0 6px 16px rgba(40,44,70,.08);font-size:17px;font-weight:700;color:var(--ink)}.g3 .o4cta:disabled{opacity:.5;box-shadow:none}
+/* benvenuto */
+.g3 .o4w{display:flex;flex-direction:column;flex:1;text-align:center}.g3 .o4hero{position:relative;height:min(58vh,470px);margin:0 -22px}
+.g3 .o4sun{position:absolute;left:50%;top:6%;width:360px;height:360px;margin-left:-180px;border-radius:50%;background:radial-gradient(circle,#fff 0,#f3eefb 55%,rgba(241,242,245,0) 72%)}
+.g3 .o4hero img{position:absolute;object-fit:contain;animation:o4in .7s var(--ease) both}.g3 .o4hero .a{left:4%;bottom:34%;width:34%}.g3 .o4hero .b{right:2%;bottom:30%;width:36%;animation-delay:.08s}.g3 .o4hero .c{left:2%;bottom:6%;width:32%;animation-delay:.16s}.g3 .o4hero .d{left:28%;bottom:4%;width:50%;animation-delay:.24s}
+.g3 .o4gr{position:absolute;left:12%;right:12%;bottom:2%;height:30px;border-radius:50%;background:radial-gradient(closest-side,rgba(40,44,70,.13),transparent)}
+@keyframes o4in{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+.g3 .o4t{font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.12;color:var(--ink)}.g3 .o4w .o4p{text-align:center;margin:10px auto 0;max-width:330px}
+/* area */
+.g3 .o4area{text-align:center}.g3 .o4ess{height:240px;margin-top:4px}.g3 .o4ess .gf-aura{display:none}.g3 .o4eye{color:var(--ac);font-weight:700;font-size:14px;margin-top:4px}
+.g3 .o4area .o4grid2{text-align:center}
+/* percorsi */
+.g3 .o4plan{position:relative;width:100%;display:flex;flex-direction:column;gap:6px;text-align:left;background:#fff;border:1px solid #e6e4ec;border-radius:22px;padding:14px 16px;margin-top:10px;box-shadow:0 2px 6px rgba(40,44,70,.05);color:var(--ink)}
+.g3 .o4plan[aria-pressed="true"]{border-color:var(--acc);box-shadow:0 0 0 1.5px var(--acc),0 6px 16px rgba(40,44,70,.08)}
+.g3 .o4plan .pt{display:flex;align-items:center;gap:8px;padding-right:30px}.g3 .o4plan .pt b{font-size:17px;font-weight:800}.g3 .o4plan em{font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--acc);padding:3px 8px;border-radius:9px}
+.g3 .o4plan .pm{margin-left:auto;white-space:nowrap;font-size:12.5px;color:var(--mut);font-weight:600}.g3 .o4plan .pd{font-size:13.5px;color:#5d606c}.g3 .o4plan .pi{display:flex;gap:2px}.g3 .o4plan .pi img{width:34px;height:34px;object-fit:contain}
+.g3 .o4plan .o4k{top:14px;right:12px}
+.g3 .o4own{margin-top:14px;padding:14px 16px;border-radius:20px;background:#ebeaf1}.g3 .o4it{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid rgba(40,44,70,.06)}.g3 .o4it:first-of-type{border-top:0}
+.g3 .o4it img{width:44px;height:44px;object-fit:contain;flex:none}.g3 .o4it .nt b{font-size:14.5px}.g3 .o4it .nt small{font-size:12px}
+.g3 .o4st{display:flex;flex-direction:column;gap:4px}.g3 .o4st .stp button{width:30px!important;height:30px!important;font-size:16px!important;background:#fff!important}.g3 .o4st .stp b{min-width:36px;font-size:14px}
+.g3 .o4tot{font-size:13.5px;color:#4e515d;margin-top:8px}
+/* icone delle attività */
+.g3 img.icn{object-fit:contain;background:none!important;box-shadow:none!important;border-radius:0!important}
+.g3 .r3 img.ra.icn{width:62px;height:62px}.g3 .r3.cur img.ra.icn{width:78px;height:78px}.g3 .shh img.shb{width:84px;height:84px}
+.g3 .bigi{width:150px;height:150px;object-fit:contain;margin-bottom:8px}
+.g3 .wm{max-width:48%}.g3 .w3 h2{max-width:60%}
+/* ===== onboarding step 1 ===== */
+.g3 .ov:has(.o4){background:#fbf8f3!important}
+.g3 .vuoto{display:block;background:#fff;border-radius:18px}
+.g3 .o4c .ti.vuoto{width:100%;height:84px;box-shadow:inset 0 0 0 1px #f0eee9}.g3 .o4c .ti.big.vuoto{height:108px}
+.g3 .r3 .ra.icn.vuoto,.g3 .shh .shb.icn.vuoto{border-radius:50%!important;background:#fff!important;box-shadow:inset 0 0 0 1px #eceaf1!important}
+.g3 .bigi.vuoto{width:150px;height:150px;border-radius:50%;box-shadow:inset 0 0 0 1px #eceaf1}
+.g3 .o4c{background:#fff;border-color:#e8e5df}
+/* benvenuto: illustrazione sopra i titoli, fusa con il bianco caldo */
+.g3 .o4w .o4hero{height:auto;margin:-16px -22px 0;aspect-ratio:2/3;max-height:62vh;overflow:hidden;position:relative}
+.g3 .o4bg{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 20%;-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent 100%);mask-image:linear-gradient(180deg,#000 70%,transparent 100%)}
+.g3 .o4bg.vuoto{background:#fbf8f3}
+.g3 .o4w .o4t{margin-top:-6px}
+/* tempo: quattro clessidre */
+.g3 .o4grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}.g3 .o4c.clx{padding:10px 4px 12px}.g3 .o4c.clx .ti{height:96px}.g3 .o4c.clx b{font-size:13.5px}
+.g3 .o4days{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}.g3 .o4days>span{font-size:14.5px;font-weight:600}.g3 .o4days .seg3{flex:none;width:170px;background:#efede8}.g3 .o4days .seg3 button{font-size:14px}
+.g3 .o4days .seg3 [aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(40,44,70,.12),inset 0 0 0 1.5px var(--acc)}
+.g3 .o4note{background:#f1eee8}
+/* aree */
+.g3 .o4an{display:flex;align-items:center;gap:6px}.g3 .o4pt{display:flex}.g3 .o4pt i{width:22px;height:22px;border-radius:50%;background:#fff center/86% no-repeat;box-shadow:0 0 0 1.5px #fff,0 1px 3px rgba(40,44,70,.15)}.g3 .o4pt i+i{margin-left:-7px}
+.g3 .o4c.area{min-height:156px}.g3 .o4c.area .ti{height:86px}
+/* attività dell'area */
+.g3 .o4ah{display:flex;align-items:center;gap:12px;margin-top:12px;padding:10px 12px;border-radius:20px;background:#fff;border:1px solid #ece9e3}
+.g3 .o4ap{width:60px;height:60px;border-radius:50%;flex:none;background:#f7f5f0 center/84% no-repeat}.g3 .o4ah b{display:block;font-size:15px;color:var(--ac)}.g3 .o4ah small{display:block;font-size:13px;color:var(--mut);line-height:1.35;margin-top:2px}
+.g3 .o4grid2.acts{margin-top:12px}.g3 .o4c.act{min-height:178px;padding:12px 8px}.g3 .o4c.act b{font-size:13.5px;line-height:1.25}
+.g3 #o4more{margin-top:0}.g3 #o4more .o4grid2{margin-top:10px}
+.g3 .o4dis{display:block;margin:12px auto 0;padding:12px 20px;border-radius:24px;background:#fff;border:1px solid #e3e0da;font-weight:600;font-size:14.5px;color:var(--ink)}
+.g3 .o4sel{margin-top:12px;font-size:13px;color:var(--mut);display:flex;flex-wrap:wrap;gap:6px;align-items:center}.g3 .o4sel span{padding:5px 10px;border-radius:14px;background:#fff;border:1px solid var(--selb);color:var(--ink);font-weight:600}
+.g3 .o4hint.c{text-align:center;margin:0 0 4px}
+/* percorsi con illustrazioni */
+.g3 .o4plan{display:grid;grid-template-columns:1fr 42%;grid-template-areas:"t i" "d i" "l i";column-gap:10px;row-gap:4px;align-items:start;min-height:118px;padding:14px 14px 14px 16px;background:#fff;border-color:#e8e5df}
+.g3 .o4plan .pt{grid-area:t;flex-wrap:wrap;padding-right:0}.g3 .o4plan .pm{margin-left:0;width:100%;font-size:12.5px}.g3 .o4plan .pd{grid-area:d;font-size:13px}.g3 .o4plan .pl{grid-area:l;font-size:11.5px;color:#9a9ca6;line-height:1.35}
+.g3 .o4plan .pimg{grid-area:i;width:100%;height:100px;object-fit:contain;align-self:center;transform-origin:50% 70%}.g3 .o4plan .pimg.vuoto{background:#fff;border-radius:16px;box-shadow:inset 0 0 0 1px #f0eee9}
+.g3 .o4plan .o4k{top:10px;right:10px}.g3 .o4plan:disabled{opacity:.5}
+.g3 .o4plan.own{min-height:96px}.g3 .o4plan.own .pimg{height:70px}
+.g3 .o4own{background:#f1eee8}.g3 .o4it .oi{width:44px;height:44px;object-fit:contain;flex:none}.g3 .o4it .oi.vuoto{border-radius:50%;background:#fff}.g3 .o4free{font-size:12.5px;color:var(--mut);padding:6px 0}
+.g3 .o4cta{background:#fff;border-color:#d9d6cf}
+/* ===== onboarding come il riferimento: Nunito, viola, box bianchi morbidi ===== */
+@font-face{font-family:"Nunito";font-weight:600;font-display:swap;src:url(nunito-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"Nunito";font-weight:700;font-display:swap;src:url(nunito-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Nunito";font-weight:800;font-display:swap;src:url(nunito-latin-800-normal.woff2) format("woff2")}
+.g3 .ov:has(.o4){background:#fdfcff!important}
+.g3 .o4{--vi:#6d4fd8;--vl:#b9a9ef;--vb:#f6f2ff;--nv:#1e1b4b;--gr:#8a87a3;font-family:"Nunito",-apple-system,system-ui,sans-serif;color:var(--nv)}
+.g3 .o4 *{font-family:inherit}
+/* testata: indietro + tre passi con sottolineatura */
+.g3 .o4h{gap:16px;min-height:52px}.g3 .o4h .rb3{width:44px;height:44px;box-shadow:0 2px 10px rgba(30,27,75,.10)}.g3 .o4h .rb3 svg{width:18px;height:18px;color:var(--nv)}
+.g3 .o4s span{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:#a6a3bb}.g3 .o4s .on span{color:var(--vi)}.g3 .o4s .dn span{color:#a6a3bb}
+.g3 .o4s i{height:3px;background:#ecebf3}.g3 .o4s i::after{background:var(--vi)}.g3 .o4s .on i::after{transform:none}.g3 .o4s .dn i::after{transform:none;background:#cfc6f3}
+/* testi */
+.g3 .o4q{font-size:29px;font-weight:800;letter-spacing:-.01em;line-height:1.15;color:var(--nv);margin-top:22px}
+.g3 .o4p{font-size:15.5px;font-weight:600;color:var(--gr);margin-top:6px}
+.g3 .o4h2{font-size:23px;font-weight:800;color:var(--nv);margin:30px 0 14px}
+.g3 .o4hint{font-weight:600;color:#a09db6}
+/* box */
+.g3 .o4c{background:#fff;border:1.5px solid transparent;border-radius:18px;box-shadow:0 4px 16px rgba(30,27,75,.07),0 1px 2px rgba(30,27,75,.04);gap:6px}
+.g3 .o4c b{font-size:14px;font-weight:700;color:var(--nv)}.g3 .o4c small{font-size:12px;font-weight:600;color:var(--gr)}
+.g3 .o4c[aria-pressed="true"]{border-color:var(--vl);background:var(--vb);box-shadow:0 4px 16px rgba(109,79,216,.12)}
+.g3 .o4k{width:22px;height:22px;top:7px;right:7px;background:var(--vi);box-shadow:0 0 0 2px #fff}.g3 .o4c[aria-pressed="true"] .o4k{transform:scale(1)}
+.g3 .o4row .o4k,.g3 .o4grid4 .o4k{top:6px;right:6px;width:20px;height:20px}
+/* tempo: quattro box alti e stretti */
+.g3 .o4grid4{gap:9px;margin-top:22px}.g3 .o4c.clx{height:168px;padding:12px 4px 14px;justify-content:space-between}.g3 .o4c.clx .ti{height:112px;width:100%;object-fit:contain}.g3 .o4c.clx b{font-size:13.5px}
+/* energia: tre box alti */
+.g3 .o4grid3{gap:10px}.g3 .o4c.tall{height:200px;padding:14px 6px 16px;justify-content:space-between}.g3 .o4c.tall .ti{height:132px;width:100%;object-fit:contain}.g3 .o4c.tall b{font-size:13px}
+/* giorni: controllo compatto */
+.g3 .o4days{margin-top:18px}.g3 .o4days>span{font-size:15px;font-weight:700;color:var(--nv)}.g3 .o4days .seg3{background:#f1eff7;width:168px}
+.g3 .o4days .seg3 button{font-weight:800;color:var(--gr)}.g3 .o4days .seg3 [aria-pressed="true"]{background:#fff;color:var(--vi);box-shadow:0 2px 8px rgba(30,27,75,.10),inset 0 0 0 1.5px var(--vl)}
+.g3 .o4note{background:#f5f3fb;color:#5b5878;font-weight:600;font-size:13.5px}.g3 .o4note b{color:var(--nv)}
+/* aree e attività: due colonne, immagine grande */
+.g3 .o4grid2{gap:12px;margin-top:20px}.g3 .o4c.area{height:158px;min-height:0;padding:12px 8px 14px;justify-content:space-between}.g3 .o4c.area .ti{height:100px;width:100%;object-fit:contain}.g3 .o4c.area b{font-size:15px;font-weight:800}
+.g3 .o4c.act{height:170px;min-height:0;padding:12px 8px 12px;justify-content:space-between}.g3 .o4c.act .ti.big{height:96px;width:100%;object-fit:contain}.g3 .o4c.act b{font-size:14px;line-height:1.2}
+.g3 .o4c .ti.vuoto{background:#fff;box-shadow:none;border-radius:14px}.g3 .o4c[aria-pressed="true"] .ti.vuoto{background:transparent}
+.g3 .o4ah{border:0;background:transparent;padding:0;margin-top:14px;gap:14px}.g3 .o4ap{width:76px;height:76px;background-color:#fff;box-shadow:0 4px 14px rgba(30,27,75,.10)}
+.g3 .o4ah b{font-size:17px;font-weight:800;color:var(--nv)}.g3 .o4ah b span{color:var(--vi)}.g3 .o4ah small{font-size:14px;font-weight:600;color:var(--gr)}
+.g3 .o4dis{font-weight:700;color:var(--nv);border:1.5px solid #e4e1ef;box-shadow:0 2px 8px rgba(30,27,75,.06)}
+.g3 .o4sel span{border-color:var(--vl);background:var(--vb);color:var(--nv)}
+/* percorsi */
+.g3 .o4plan{border:1.5px solid transparent;border-radius:20px;box-shadow:0 4px 16px rgba(30,27,75,.07);min-height:128px;padding:16px 14px 14px 18px;grid-template-columns:1fr 46%}
+.g3 .o4plan[aria-pressed="true"]{border-color:var(--vl);background:var(--vb);box-shadow:0 4px 16px rgba(109,79,216,.12)}
+.g3 .o4plan .pt b{font-size:19px;font-weight:800;color:var(--nv)}.g3 .o4plan em{background:var(--vi);font-weight:800;font-size:10px;letter-spacing:.06em}
+.g3 .o4plan .pm{font-weight:700;color:var(--gr)}.g3 .o4plan .pd{font-weight:600;color:#5b5878;font-size:13.5px}.g3 .o4plan .pl{font-weight:600}
+.g3 .o4plan .pimg{height:108px}.g3 .o4plan .o4k{background:var(--vi)}
+.g3 .o4plan.own{min-height:84px;grid-template-columns:1fr 30%}.g3 .o4plan.own .pimg{height:60px}
+.g3 .o4own{background:#f5f3fb}.g3 .o4own .kc3{color:var(--vi)}
+/* pulsante principale bianco */
+.g3 .o4cta{min-height:58px;border-radius:30px;border:1.5px solid #dcd8ea;background:#fff;box-shadow:0 4px 14px rgba(30,27,75,.08);font-size:18px;font-weight:700;color:var(--nv)}
+.g3 .o4w .o4t{font-size:31px;font-weight:800;color:var(--nv);line-height:1.15}.g3 .o4w .o4p{color:#6f6c8a}
+.g3 .o4w .lnk3{color:var(--vi);font-weight:700}
+
+.g3 .o4c.tall .ti{height:146px}.g3 .o4c.tall{height:214px}
+.g3 .o4plan{grid-template-columns:1fr 44%;grid-template-areas:"t t" "d i" "l i";row-gap:6px;min-height:150px}
+.g3 .o4plan .pt{flex-wrap:nowrap;padding-right:28px}.g3 .o4plan .pm{margin-left:auto;width:auto;white-space:nowrap;font-size:12.5px}
+.g3 .o4plan .pl{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.g3 .o4plan[aria-pressed="false"] .pl{display:none}
+.g3 .o4plan .pimg{height:96px;align-self:end}
+.g3 .o4c.tall img.ti{height:146px}.g3 .o4c.clx img.ti{height:112px}.g3 .o4c.area img.ti{height:100px}.g3 .o4c.act img.ti.big{height:96px}
+/* ===== percorso a tappe ===== */
+.g3 .o5 .o4s span{font-size:12px}
+.g3 .o4grid2.ess{gap:12px;margin-top:18px}.g3 .o4c.essbox{aspect-ratio:1/1.02;height:auto;min-height:0;padding:10px 8px 12px;justify-content:space-between}
+.g3 .o4c.essbox img.ti{height:auto;flex:1;min-height:0;width:100%;object-fit:contain;transform-origin:50% 80%}.g3 .o4c.essbox b{font-size:15.5px;font-weight:800}.g3 .o4c.essbox small{margin-top:-4px}
+.g3 .o5tip{margin-top:14px;padding:12px 14px;border-radius:16px;background:#f5f3fb;font-size:13.5px;font-weight:600;color:#5b5878;line-height:1.4;text-align:left}.g3 .o5tip:empty{display:none}.g3 .o5tip b{color:var(--nv)}
+.g3 .o5tip.warn{background:#fff6ea;color:#7a5a2c;box-shadow:inset 0 0 0 1.5px #f1d9b2}.g3 .o5tip.warn b{color:#5f4119}
+.g3 .o5en{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}.g3 .o4c.enbox{flex-direction:row;justify-content:flex-start;gap:6px;padding:8px 8px;min-height:62px;text-align:left}
+.g3 .o4c.enbox img.ti{width:30px;height:46px;flex:none;object-fit:contain}.g3 .o4c.enbox b{font-size:12.5px;line-height:1.15}.g3 .o5en .o4k{top:-6px;right:-6px;width:20px;height:20px}
+.g3 .o5t{margin-top:12px}.g3 .o5t .pt{flex-wrap:wrap;row-gap:0}.g3 .o5n{width:100%;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--vi)}
+.g3 .o5t .pl{display:block!important;font-size:12px;color:#6f6c8a;-webkit-line-clamp:unset}.g3 .o5t:disabled{opacity:.55}
+.g3 .o5sec{margin-top:22px}.g3 .o5sec:first-of-type{margin-top:16px}.g3 .o5sec .o4ah{margin-top:0}
+.g3 .o4foot.sticky{position:sticky;bottom:0;padding:14px 0 calc(6px + env(safe-area-inset-bottom,0px));background:linear-gradient(180deg,rgba(253,252,255,0),#fdfcff 30%);margin-top:16px}
+.g3 .o5k{font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--vi);margin-top:20px;text-align:left}
+.g3 .o5path{position:relative;height:140px;margin:6px 0 4px}.g3 .o5path svg{position:absolute;inset:0;width:100%;height:100%}
+.g3 .o5path .st{position:absolute;display:flex;flex-direction:column;align-items:center;gap:3px;transform:translate(-50%,-14px)}.g3 .o5path .st i{width:22px;height:22px;border-radius:50%;background:#fff;border:2.5px solid #d9d4ea;display:block}
+.g3 .o5path .st span{font-size:11px;font-weight:800;color:#a6a3bb;white-space:nowrap}.g3 .o5path .st.on i{width:30px;height:30px;background:var(--vi);border-color:#fff;box-shadow:0 0 0 5px rgba(109,79,216,.18)}.g3 .o5path .st.on span{color:var(--vi);font-size:12.5px}
+.g3 .o5path .st.dn i{background:#cfc6f3;border-color:#cfc6f3}.g3 .o5path .st.on{transform:translate(-50%,-18px)}
+.g3 .o5card{margin-top:10px;padding:14px 16px;border-radius:20px;background:#fff;box-shadow:0 4px 16px rgba(30,27,75,.07)}.g3 .o5card .o5k{margin:0 0 4px}
+.g3 .o5row{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid #f0eef6;text-align:left}.g3 .o5row:first-of-type{border-top:0}
+.g3 .o5ic{width:48px;height:48px;flex:none;object-fit:contain}.g3 .o5ic.vuoto{border-radius:14px;background:#fff;box-shadow:inset 0 0 0 1px #eeecf4}.g3 .o5row b{display:block;font-size:15px;font-weight:800}.g3 .o5row small{font-size:12.5px;font-weight:600;color:var(--gr)}
+.g3 .o5rule{margin-top:12px;padding:12px 14px;border-radius:16px;background:#f5f3fb;font-size:13px;font-weight:600;color:#5b5878;line-height:1.4;text-align:left}.g3 .o5rule b{color:var(--nv)}
+.g3 .o5home{margin-top:14px;padding:14px 16px 12px;border-radius:24px;background:#fff;box-shadow:var(--sh)}.g3 .o5home .h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.g3 .o5home .h b{font-size:16px;font-weight:800}.g3 .o5home .h span{font-size:12.5px;color:var(--mut);font-weight:600}
+.g3 .o5home .bar{height:8px;border-radius:4px;background:#efedf6;margin-top:10px;overflow:hidden}.g3 .o5home .bar i{display:block;height:100%;background:linear-gradient(90deg,#b9a9ef,#6d4fd8);border-radius:4px;transition:width .6s var(--ease)}.g3 .o5home p{font-size:13px;color:#5b5878;margin-top:8px}
+/* ===== stile unico: l'interfaccia dell'onboarding in tutta l'app ===== */
+body.g3,body.g3 .ov,body.g3 .bu{background:#fdfcff!important}
+body.g3{--ink:#1e1b4b;--mut:#8a87a3;--acc:#6d4fd8;--sel:#f6f2ff;--selb:#b9a9ef;--vi:#6d4fd8;--vl:#b9a9ef;--vb:#f6f2ff;--nv:#1e1b4b;--gr:#8a87a3;
+ --sh:0 4px 16px rgba(30,27,75,.07),0 1px 2px rgba(30,27,75,.04);--sh2:0 2px 10px rgba(30,27,75,.08);font-family:"Nunito",-apple-system,system-ui,sans-serif;color:var(--ink)}
+body.g3 button,body.g3 input{font-family:inherit}
+/* testi */
+.g3 .big3,.g3 .mt3,.g3 .q,.g3 .w3 h2,.g3 .shh h2,.g3 .lgh b,.g3 .top h1{font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.g3 .big3{font-size:31px}.g3 .mt3{font-size:31px}.g3 .mt3 span{color:#b3b0c7;font-weight:700}
+.g3 .kk3,.g3 .gt .kk,.g3 .wk,.g3 .kc3,.g3 .sh3h,.g3 .lb3,.g3 .nt em{font-weight:800;color:var(--vi);letter-spacing:.14em}
+.g3 .sub3,.g3 .qs,.g3 .wm,.g3 .wh,.g3 .gt small,.g3 .nt small,.g3 .dh3 span,.g3 .sh3 span{font-weight:600;color:var(--mut)}
+.g3 .nt b,.g3 .gt b,.g3 .sh3 b,.g3 .ok3 b,.g3 .sec3 b,.g3 .opts3 b,.g3 .acch b,.g3 .tlh b,.g3 .more3 b,.g3 .o5home .h b{font-weight:800;color:var(--ink)}
+/* box: bianchi, morbidi, angoli come l'onboarding */
+.g3 .r3,.g3 .gc3,.g3 .gg3,.g3 .card3,.g3 .em3,.g3 .ok3,.g3 .opts3 button,.g3 .none3,.g3 .ob3,.g3 .an3,.g3 .more3,.g3 .o5home,.g3 .wk3c,.g3 .panel,.g3 .tile,.g3 .lp3,.g3 .w3 .leg3 .lb>div{background:#fff!important;border:1.5px solid transparent;box-shadow:var(--sh)!important}
+.g3 .r3{border-radius:20px}.g3 .gc3,.g3 .gg3{border-radius:22px}.g3 .card3,.g3 .ok3,.g3 .more3{border-radius:20px}.g3 .sec3{border-radius:18px;background:#fff;border:1.5px solid transparent;box-shadow:var(--sh)}
+/* selezione: lilla chiaro con bordo lavanda, come nelle tessere */
+.g3 .chips3 [aria-pressed="true"],.g3 .tb3[aria-pressed="true"],.g3 .seg3 [aria-pressed="true"],.g3 .dsel3 [aria-pressed="true"],.g3 .sec3[aria-pressed="true"],.g3 .sec3[aria-expanded="true"],.g3 .wtabs [aria-pressed="true"],.g3 .wk3 [aria-pressed="true"] b,.g3 .gpick [aria-pressed="true"],.g3 .chips3.wrap [aria-pressed="true"],.g3 .sc3 [aria-pressed="true"],.g3 .opt[aria-pressed="true"],.g3 .chip[aria-pressed="true"]{background:var(--sel)!important;box-shadow:inset 0 0 0 1.5px var(--selb)!important;color:var(--ink)!important}
+.g3 .r3.cur{border-color:var(--selb);background:var(--sel)!important}
+/* spunte: cerchio viola, segno bianco */
+.g3 .ck3{background:#fff;box-shadow:inset 0 0 0 1.5px #dedbe9;color:#c9c6d6}.g3 .ck3[aria-pressed="true"],.g3 .ok3[aria-pressed="true"] svg,.g3 .dc[aria-pressed="true"]{background:var(--vi)!important;color:#fff!important;box-shadow:0 0 0 2px #fff,0 2px 8px rgba(109,79,216,.3)!important}
+.g3 .ok3 svg{background:var(--sel);color:var(--vi)}.g3 .ti3{background:var(--sel);color:var(--vi)}
+/* bottoni: bianchi a pillola, bordo sottile, testo scuro */
+.g3 .cta3,.g3 .cta,.g3 .add3,.g3 .pp3,.g3 .lnk3.btn{background:#fff!important;color:var(--ink)!important;border:1.5px solid #dcd8ea!important;box-shadow:0 4px 14px rgba(30,27,75,.08)!important;font-weight:700!important}
+.g3 .cta3{border-radius:30px}.g3 .r3 .pp3{color:var(--vi)!important;border-color:var(--selb)!important;box-shadow:none!important}
+.g3 .rb3,.g3 .xb3,.g3 .tb3,.g3 .go3,.g3 .av3{background:#fff;box-shadow:0 2px 10px rgba(30,27,75,.10)}.g3 .rb3,.g3 .xb3{color:var(--ink)}.g3 .rb3.acc{color:var(--vi)}.g3 .go3{color:var(--vi)}
+.g3 .tb3{border:1.5px solid transparent;font-weight:700}
+.g3 .chips3 button{font-weight:700;color:var(--ink);box-shadow:var(--sh2)}.g3 .seg3{background:#f1eff7}.g3 .seg3 button{font-weight:700}.g3 .dsel3 button{background:#f1eff7;color:var(--mut);font-weight:800}
+.g3 .wtabs{box-shadow:var(--sh)}.g3 .wtabs button{font-weight:700;color:var(--mut)}
+.g3 .lnk3{color:var(--vi);font-weight:700}.g3 .lnk3.del{color:#b4656a}
+/* progressi e calendario */
+.g3 .pb3 i,.g3 .bw i,.g3 .hm3 i.f,.g3 .trk3 .on i,.g3 .sg3 i.on{background:var(--vi)!important}.g3 .hm3 i.m{background:linear-gradient(90deg,var(--vi) 50%,#ececf3 50%)}
+.g3 .trk3 .now i{box-shadow:0 0 0 5px rgba(109,79,216,.18)}.g3 .o5home .bar i{background:linear-gradient(90deg,#b9a9ef,var(--vi))}
+.g3 .wk3 button{font-weight:700;color:#a6a3bb}.g3 .wk3 b{font-weight:700;color:var(--ink)}
+.g3 .dl3 i.on{background:var(--sel);color:var(--vi)}
+/* barra in basso: vetro liquido, testi nello stesso font */
+.g3 .lg3 button{font-weight:700;color:var(--mut)}.g3 .lg3 [aria-current="page"]{color:var(--vi)!important}
+.g3 .snack{font-family:inherit;font-weight:600}
 </style>
 
 <div class="app" id="app"><main id="scr"></main></div>
@@ -660,7 +867,7 @@ const movedIn=(ds,id)=>(moves()[ds]||[]).includes(id);
 const later=(ds,id)=>{const c=chk(ds,id);return !!(c&&c.v==="p"&&(!c.to||c.to===ds))};
 const dayList=ds=>{const L=H();const base=L.filter(([id,h])=>sched(h,ds)&&!movedAway(ds,id));const extra=L.filter(([id,h])=>movedIn(ds,id)&&!base.some(([x])=>x===id));return base.concat(extra)};
 const isMiniDay=ds=>!!(meta().miniDays||{})[ds];
-function minsNow(h){const p=meta().plan;if(!p||!p.start)return h.mins;const wk=Math.floor(daysBetween(p.start,today())/7);return wk<2&&h.plan?Math.max(5,Math.round(h.mins*.6/5)*5):h.mins}
+function minsNow(h){if(h.free)return 0;const p=meta().plan;if(!p||!p.start)return h.mins;const wk=Math.floor(daysBetween(p.start,today())/7);return wk<2&&h.plan&&!h.cat?Math.max(5,Math.round(h.mins*.6/5)*5):h.mins}
 function stats(h,id){const tS=today();const c0=h.created||tS;let reps=0;const dd=new Set();
   for(const k in S.checks){if(!k.endsWith("__"+id))continue;if(doneV(S.checks[k])){reps++;dd.add(k.slice(0,10))}}
   const from=daysBetween(c0,tS)>27?iso(addD(new Date(),-27)):c0;let sc=0,dn=0;
@@ -722,14 +929,37 @@ async function emit(type,payload={},opt={}){const k=opt.key||type;const now=perf
   subs.forEach(f=>f({type,...payload}));return true}
 
 /* ================= 3 · FIGURE DELLE AREE (componente: guide-figure.js, estratto dalla demo) ================= */
-const AREAS={ember:{name:"Lavoro",fig:"Ember",c:"#ff7a3d",head:"Comincia da un passo."},sage:{name:"Mente",fig:"Sage",c:"#3fbf7f",head:"Fai spazio alla chiarezza."},brook:{name:"Corpo",fig:"Moss",c:"#2fa8e0",head:"Trova il tuo ritmo."}};
-const AREA_KEYS=["ember","sage","brook"];const IMG={ember:"ember",sage:"sage",brook:"moss"};const AREA_ART={ember:"il lavoro",sage:"la mente",brook:"il corpo"};
-/* provvisorio: le 3 figure coprono tutte le aree finché non si decide l'elenco definitivo */
-const AREA_OF={Lavoro:"ember",Ordine:"ember",Mente:"sage",Quiete:"sage",Visione:"sage",Gioco:"sage",Legami:"sage",Corpo:"brook"};
-const figOf=g=>AREAS[g]?g:(AREA_OF[(GD[g]||{}).a]||"sage");
-/* colori tenui per area, niente viola */
-const SOFTC={ember:"#e9b48f",sage:"#a9c7a5",brook:"#9fc1d9"};for(const k in GD)GD[k].c=SOFTC[figOf(k)];for(const k in AREAS)AREAS[k].c=SOFTC[k];
+/* ===== Sei aree della vita, ognuna con la sua Essenza (catalogo step 1: 90 attività) ===== */
+const AREAS={
+ lavoro:{name:"Lavoro",fig:"Ember",img:"ember",dot:"#cf6947",mot:"Energia e determinazione",head:"Un'ora di attenzione piena vale una giornata distratta.",art:"il lavoro"},
+ mente:{name:"Mente e creatività",short:"Mente",fig:"Sage",img:"sage",img2:"bloom",dot:"#40866b",mot:"Chiarezza, conoscenza ed espressione",head:"Si impara e si crea un poco alla volta.",art:"la mente"},
+ corpo:{name:"Corpo",fig:"Brook",img:"brook",dot:"#348ca5",mot:"Movimento e continuità",head:"Muoversi un po' ogni giorno vale più di uno sforzo raro.",art:"il corpo"},
+ riposo:{name:"Riposo",fig:"Nyx",img:"nyx",dot:"#7775b2",mot:"Recupero e spazio mentale",head:"Il riposo comincia prima di andare a letto.",art:"il riposo"},
+ legami:{name:"Legami",fig:"Hearth",img:"hearth",dot:"#b96e98",mot:"Cura e presenza",head:"I legami vivono di piccoli gesti ripetuti.",art:"i legami"},
+ "vita-pratica":{name:"Vita pratica",fig:"Moss",img:"moss",dot:"#7e8857",mot:"Ordine e stabilità",head:"Le cose pratiche pesano meno se le tocchi spesso.",art:"la vita pratica"}};
+const AREA_KEYS=Object.keys(AREAS);const IMG={};const AREA_ART={};for(const k of AREA_KEYS){IMG[k]=AREAS[k].img;AREA_ART[k]=AREAS[k].art}
+const ESS2AREA={Ember:"lavoro",Sage:"mente",Bloom:"mente",Brook:"corpo",Nyx:"riposo",Hearth:"legami",Moss:"vita-pratica"};
+const AREA_OF={Lavoro:"lavoro",Ordine:"vita-pratica",Mente:"mente",Quiete:"riposo",Visione:"mente",Gioco:"mente",Legami:"legami",Corpo:"corpo"};
+const figOf=g=>AREAS[g]?g:(ESS2AREA[g]||AREA_OF[(GD[g]||{}).a]||"mente");
+for(const k in GD)GD[k].c=AREAS[figOf(k)].dot;for(const k in AREAS)AREAS[k].c=AREAS[k].dot;
 const areaName=g=>AREAS[figOf(g)].name;
+/* catalogo: id e asset come da catalogo_attivita.json; durate indicative e modificabili (0 = senza timer) */
+const CATDATA=
+[{"id":"lavoro","nome":"Lavoro","ess":"Ember","acts":[{"id":"lavoro__lavoro-profondo","n":"Lavoro profondo","p":true,"e":"Ember","asset":"lavoro__lavoro-profondo.png","m":25,"mini":"anche solo 6 minuti","w":"mattina"},{"id":"lavoro__pianifica-la-giornata","n":"Pianifica la giornata","p":true,"e":"Ember","asset":"lavoro__pianifica-la-giornata.png","m":5,"mini":"una sola priorità","w":"mattina"},{"id":"lavoro__scegli-la-priorita","n":"Scegli la priorità","p":true,"e":"Ember","asset":"lavoro__scegli-la-priorita.png","m":5,"mini":"scrivila su un foglietto","w":"mattina"},{"id":"lavoro__riordina-la-scrivania","n":"Riordina la scrivania","p":true,"e":"Ember","asset":"lavoro__riordina-la-scrivania.png","m":5,"mini":"anche solo 2 minuti","w":"mattina"},{"id":"lavoro__chiudi-la-giornata-lavorativa","n":"Chiudi la giornata lavorativa","p":true,"e":"Ember","asset":"lavoro__chiudi-la-giornata-lavorativa.png","m":5,"mini":"anche solo 2 minuti","w":"pomeriggio"},{"id":"lavoro__pausa-tra-le-sessioni","n":"Pausa tra le sessioni","p":true,"e":"Ember","asset":"lavoro__pausa-tra-le-sessioni.png","m":5,"mini":"anche solo 2 minuti","w":"pomeriggio"},{"id":"lavoro__prepara-la-settimana","n":"Prepara la settimana","p":false,"e":"Ember","asset":"lavoro__prepara-la-settimana.png","m":15,"mini":"anche solo 4 minuti","w":"mattina"},{"id":"lavoro__gestisci-le-email","n":"Gestisci le email","p":false,"e":"Ember","asset":"lavoro__gestisci-le-email.png","m":15,"mini":"anche solo 4 minuti","w":"mattina"},{"id":"lavoro__avanza-un-progetto","n":"Avanza un progetto","p":false,"e":"Ember","asset":"lavoro__avanza-un-progetto.png","m":25,"mini":"anche solo 6 minuti","w":"mattina"},{"id":"lavoro__ripassa-le-scadenze","n":"Ripassa le scadenze","p":false,"e":"Ember","asset":"lavoro__ripassa-le-scadenze.png","m":5,"mini":"anche solo 2 minuti","w":"mattina"},{"id":"lavoro__prepara-una-riunione","n":"Prepara una riunione","p":false,"e":"Ember","asset":"lavoro__prepara-una-riunione.png","m":10,"mini":"anche solo 2 minuti","w":"mattina"},{"id":"lavoro__impara-uno-strumento","n":"Impara uno strumento di lavoro","p":false,"e":"Ember","asset":"lavoro__impara-uno-strumento.png","m":15,"mini":"anche solo 4 minuti","w":"mattina"},{"id":"lavoro__archivia-i-documenti-di-lavoro","n":"Archivia i documenti di lavoro","p":false,"e":"Ember","asset":"lavoro__archivia-i-documenti-di-lavoro.png","m":10,"mini":"anche solo 2 minuti","w":"mattina"},{"id":"lavoro__aggiorna-il-portfolio","n":"Aggiorna il portfolio","p":false,"e":"Ember","asset":"lavoro__aggiorna-il-portfolio.png","m":20,"mini":"anche solo 5 minuti","w":"mattina"},{"id":"lavoro__rifletti-sul-lavoro-svolto","n":"Rifletti sul lavoro svolto","p":false,"e":"Ember","asset":"lavoro__rifletti-sul-lavoro-svolto.png","m":5,"mini":"anche solo 2 minuti","w":"mattina"}]},{"id":"mente","nome":"Mente e creatività","ess":"Sage","acts":[{"id":"mente__lettura","n":"Lettura","p":true,"e":"Sage","asset":"mente__lettura.png","m":15,"mini":"una pagina","w":"sera"},{"id":"mente__studio","n":"Studio","p":true,"e":"Sage","asset":"mente__studio.png","m":25,"mini":"anche solo 6 minuti","w":"pomeriggio"},{"id":"mente__scrittura-personale","n":"Scrittura personale","p":true,"e":"Sage","asset":"mente__scrittura-personale.png","m":10,"mini":"tre righe","w":"mattina"},{"id":"mente__disegno","n":"Disegno","p":true,"e":"Bloom","asset":"mente__disegno.png","m":15,"mini":"uno schizzo","w":"sera"},{"id":"mente__scrittura-creativa","n":"Scrittura creativa","p":true,"e":"Bloom","asset":"mente__scrittura-creativa.png","m":15,"mini":"tre righe","w":"sera"},{"id":"mente__pratica-uno-strumento-musicale","n":"Pratica uno strumento musicale","p":true,"e":"Bloom","asset":"mente__pratica-uno-strumento-musicale.png","m":15,"mini":"anche solo 4 minuti","w":"sera"},{"id":"mente__ripassa-gli-appunti","n":"Ripassa gli appunti","p":false,"e":"Sage","asset":"mente__ripassa-gli-appunti.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"mente__pratica-una-lingua","n":"Pratica una lingua","p":false,"e":"Sage","asset":"mente__pratica-una-lingua.png","m":15,"mini":"anche solo 4 minuti","w":"sera"},{"id":"mente__ascolta-un-contenuto-formativo","n":"Ascolta un contenuto formativo","p":false,"e":"Sage","asset":"mente__ascolta-un-contenuto-formativo.png","m":15,"mini":"anche solo 4 minuti","w":"sera"},{"id":"mente__risolvi-un-rompicapo","n":"Risolvi un rompicapo","p":false,"e":"Sage","asset":"mente__risolvi-un-rompicapo.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"mente__fai-una-mappa-delle-idee","n":"Fai una mappa delle idee","p":false,"e":"Bloom","asset":"mente__fai-una-mappa-delle-idee.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"mente__sperimenta-una-tecnica-creativa","n":"Sperimenta una tecnica creativa","p":false,"e":"Bloom","asset":"mente__sperimenta-una-tecnica-creativa.png","m":15,"mini":"anche solo 4 minuti","w":"sera"},{"id":"mente__fotografia-creativa","n":"Fotografia creativa","p":false,"e":"Bloom","asset":"mente__fotografia-creativa.png","m":15,"mini":"anche solo 4 minuti","w":"sera"},{"id":"mente__crea-qualcosa-a-mano","n":"Crea qualcosa a mano","p":false,"e":"Bloom","asset":"mente__crea-qualcosa-a-mano.png","m":20,"mini":"anche solo 5 minuti","w":"sera"},{"id":"mente__rivedi-cio-che-hai-imparato","n":"Rivedi ciò che hai imparato","p":false,"e":"Sage","asset":"mente__rivedi-cio-che-hai-imparato.png","m":5,"mini":"anche solo 2 minuti","w":"sera"}]},{"id":"corpo","nome":"Corpo","ess":"Brook","acts":[{"id":"corpo__camminata","n":"Camminata","p":true,"e":"Brook","asset":"corpo__camminata.png","m":20,"mini":"anche solo 5 minuti","w":"pranzo"},{"id":"corpo__corsa","n":"Corsa","p":true,"e":"Brook","asset":"corpo__corsa.png","m":25,"mini":"anche solo 6 minuti","w":"pomeriggio"},{"id":"corpo__stretching","n":"Stretching","p":true,"e":"Brook","asset":"corpo__stretching.png","m":10,"mini":"anche solo 2 minuti","w":"pomeriggio"},{"id":"corpo__allenamento-di-forza","n":"Allenamento di forza","p":true,"e":"Brook","asset":"corpo__allenamento-di-forza.png","m":20,"mini":"anche solo 5 minuti","w":"pomeriggio"},{"id":"corpo__bere-acqua","n":"Bere acqua","p":true,"e":"Brook","asset":"corpo__bere-acqua.png","m":0,"mini":"un bicchiere in più","w":"mattina"},{"id":"corpo__yoga","n":"Yoga","p":true,"e":"Brook","asset":"corpo__yoga.png","m":15,"mini":"anche solo 4 minuti","w":"pomeriggio"},{"id":"corpo__mobilita-articolare","n":"Mobilità articolare","p":false,"e":"Brook","asset":"corpo__mobilita-articolare.png","m":10,"mini":"anche solo 2 minuti","w":"pomeriggio"},{"id":"corpo__bicicletta","n":"Bicicletta","p":false,"e":"Brook","asset":"corpo__bicicletta.png","m":30,"mini":"anche solo 8 minuti","w":"pomeriggio"},{"id":"corpo__nuoto","n":"Nuoto","p":false,"e":"Brook","asset":"corpo__nuoto.png","m":30,"mini":"anche solo 8 minuti","w":"pomeriggio"},{"id":"corpo__ballo","n":"Ballo","p":false,"e":"Brook","asset":"corpo__ballo.png","m":15,"mini":"anche solo 4 minuti","w":"pomeriggio"},{"id":"corpo__pausa-di-movimento","n":"Pausa di movimento","p":false,"e":"Brook","asset":"corpo__pausa-di-movimento.png","m":5,"mini":"anche solo 2 minuti","w":"pomeriggio"},{"id":"corpo__prepara-uno-spuntino","n":"Prepara uno spuntino","p":false,"e":"Brook","asset":"corpo__prepara-uno-spuntino.png","m":10,"mini":"anche solo 2 minuti","w":"pomeriggio"},{"id":"corpo__cucina-un-pasto","n":"Cucina un pasto","p":false,"e":"Brook","asset":"corpo__cucina-un-pasto.png","m":30,"mini":"anche solo 8 minuti","w":"pomeriggio"},{"id":"corpo__passeggiata-nella-natura","n":"Passeggiata nella natura","p":false,"e":"Brook","asset":"corpo__passeggiata-nella-natura.png","m":30,"mini":"anche solo 8 minuti","w":"pomeriggio"},{"id":"corpo__prepara-il-necessario-per-allenarti","n":"Prepara il necessario per allenarti","p":false,"e":"Brook","asset":"corpo__prepara-il-necessario-per-allenarti.png","m":5,"mini":"anche solo 2 minuti","w":"pomeriggio"}]},{"id":"riposo","nome":"Riposo","ess":"Nyx","acts":[{"id":"riposo__rituale-della-sera","n":"Rituale della sera","p":true,"e":"Nyx","asset":"riposo__rituale-della-sera.png","m":15,"mini":"anche solo 4 minuti","w":"sera"},{"id":"riposo__pausa-dagli-schermi","n":"Pausa dagli schermi","p":true,"e":"Nyx","asset":"riposo__pausa-dagli-schermi.png","m":15,"mini":"anche solo 4 minuti","w":"sera"},{"id":"riposo__meditazione","n":"Meditazione","p":true,"e":"Nyx","asset":"riposo__meditazione.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"riposo__respirazione-tranquilla","n":"Respirazione tranquilla","p":true,"e":"Nyx","asset":"riposo__respirazione-tranquilla.png","m":5,"mini":"anche solo 2 minuti","w":"sera"},{"id":"riposo__pausa-senza-stimoli","n":"Pausa senza stimoli","p":true,"e":"Nyx","asset":"riposo__pausa-senza-stimoli.png","m":5,"mini":"anche solo 2 minuti","w":"sera"},{"id":"riposo__prepara-la-camera-per-dormire","n":"Prepara la camera per dormire","p":true,"e":"Nyx","asset":"riposo__prepara-la-camera-per-dormire.png","m":5,"mini":"anche solo 2 minuti","w":"sera"},{"id":"riposo__orario-del-riposo","n":"Orario del riposo","p":false,"e":"Nyx","asset":"riposo__orario-del-riposo.png","m":0,"mini":"stasera, dieci minuti prima","w":"sera"},{"id":"riposo__risveglio-senza-telefono","n":"Risveglio senza telefono","p":false,"e":"Nyx","asset":"riposo__risveglio-senza-telefono.png","m":0,"mini":"i primi cinque minuti","w":"mattina"},{"id":"riposo__ascolta-musica-rilassante","n":"Ascolta musica rilassante","p":false,"e":"Nyx","asset":"riposo__ascolta-musica-rilassante.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"riposo__riposo-allaperto","n":"Riposo all’aperto","p":false,"e":"Nyx","asset":"riposo__riposo-allaperto.png","m":15,"mini":"anche solo 4 minuti","w":"sera"},{"id":"riposo__prenditi-un-momento-in-silenzio","n":"Prenditi un momento in silenzio","p":false,"e":"Nyx","asset":"riposo__prenditi-un-momento-in-silenzio.png","m":5,"mini":"anche solo 2 minuti","w":"sera"},{"id":"riposo__prepara-il-giorno-dopo-con-calma","n":"Prepara il giorno dopo con calma","p":false,"e":"Nyx","asset":"riposo__prepara-il-giorno-dopo-con-calma.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"riposo__rilassamento-del-corpo","n":"Rilassamento del corpo","p":false,"e":"Nyx","asset":"riposo__rilassamento-del-corpo.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"riposo__lettura-distensiva","n":"Lettura distensiva","p":false,"e":"Nyx","asset":"riposo__lettura-distensiva.png","m":15,"mini":"anche solo 4 minuti","w":"sera"},{"id":"riposo__scrivi-i-pensieri-prima-di-dormire","n":"Scrivi i pensieri prima di dormire","p":false,"e":"Nyx","asset":"riposo__scrivi-i-pensieri-prima-di-dormire.png","m":5,"mini":"anche solo 2 minuti","w":"sera"}]},{"id":"legami","nome":"Legami","ess":"Hearth","acts":[{"id":"legami__tempo-insieme","n":"Tempo insieme","p":true,"e":"Hearth","asset":"legami__tempo-insieme.png","m":30,"mini":"anche solo 8 minuti","w":"sera"},{"id":"legami__un-messaggio-premuroso","n":"Un messaggio premuroso","p":true,"e":"Hearth","asset":"legami__un-messaggio-premuroso.png","m":5,"mini":"una riga","w":"pranzo"},{"id":"legami__chiama-una-persona-cara","n":"Chiama una persona cara","p":true,"e":"Hearth","asset":"legami__chiama-una-persona-cara.png","m":15,"mini":"anche solo 4 minuti","w":"sera"},{"id":"legami__ascolta-senza-distrazioni","n":"Ascolta senza distrazioni","p":true,"e":"Hearth","asset":"legami__ascolta-senza-distrazioni.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"legami__organizza-un-incontro","n":"Organizza un incontro","p":true,"e":"Hearth","asset":"legami__organizza-un-incontro.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"legami__esprimi-gratitudine","n":"Esprimi gratitudine","p":true,"e":"Hearth","asset":"legami__esprimi-gratitudine.png","m":5,"mini":"una frase","w":"sera"},{"id":"legami__pasto-senza-telefoni","n":"Pasto senza telefoni","p":false,"e":"Hearth","asset":"legami__pasto-senza-telefoni.png","m":0,"mini":"il telefono in un'altra stanza","w":"sera"},{"id":"legami__piccolo-gesto-di-cura","n":"Piccolo gesto di cura","p":false,"e":"Hearth","asset":"legami__piccolo-gesto-di-cura.png","m":5,"mini":"anche solo 2 minuti","w":"sera"},{"id":"legami__condividi-come-stai","n":"Condividi come stai","p":false,"e":"Hearth","asset":"legami__condividi-come-stai.png","m":5,"mini":"anche solo 2 minuti","w":"sera"},{"id":"legami__gioca-insieme","n":"Gioca insieme","p":false,"e":"Hearth","asset":"legami__gioca-insieme.png","m":20,"mini":"anche solo 5 minuti","w":"sera"},{"id":"legami__riprendi-un-contatto","n":"Riprendi un contatto","p":false,"e":"Hearth","asset":"legami__riprendi-un-contatto.png","m":5,"mini":"anche solo 2 minuti","w":"sera"},{"id":"legami__passeggiata-in-compagnia","n":"Passeggiata in compagnia","p":false,"e":"Hearth","asset":"legami__passeggiata-in-compagnia.png","m":30,"mini":"anche solo 8 minuti","w":"sera"},{"id":"legami__festeggia-un-piccolo-risultato-insieme","n":"Festeggia un piccolo risultato insieme","p":false,"e":"Hearth","asset":"legami__festeggia-un-piccolo-risultato-insieme.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"legami__partecipa-a-unattivita-di-gruppo","n":"Partecipa a un’attività di gruppo","p":false,"e":"Hearth","asset":"legami__partecipa-a-unattivita-di-gruppo.png","m":45,"mini":"anche solo 11 minuti","w":"sera"},{"id":"legami__tempo-con-un-animale-domestico","n":"Tempo con un animale domestico","p":false,"e":"Hearth","asset":"legami__tempo-con-un-animale-domestico.png","m":15,"mini":"anche solo 4 minuti","w":"sera"}]},{"id":"vita-pratica","nome":"Vita pratica","ess":"Moss","acts":[{"id":"vita-pratica__ordine-in-casa","n":"Ordine in casa","p":true,"e":"Moss","asset":"vita-pratica__ordine-in-casa.png","m":10,"mini":"metti a posto una cosa","w":"sera"},{"id":"vita-pratica__controlla-le-spese","n":"Controlla le spese","p":true,"e":"Moss","asset":"vita-pratica__controlla-le-spese.png","m":5,"mini":"segna l'ultima spesa","w":"sera"},{"id":"vita-pratica__pianifica-la-spesa","n":"Pianifica la spesa","p":true,"e":"Moss","asset":"vita-pratica__pianifica-la-spesa.png","m":10,"mini":"anche solo 2 minuti","w":"pomeriggio"},{"id":"vita-pratica__riordina-i-documenti-personali","n":"Riordina i documenti personali","p":true,"e":"Moss","asset":"vita-pratica__riordina-i-documenti-personali.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"vita-pratica__piccola-pulizia","n":"Piccola pulizia","p":true,"e":"Moss","asset":"vita-pratica__piccola-pulizia.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"vita-pratica__controlla-gli-impegni-personali","n":"Controlla gli impegni personali","p":true,"e":"Moss","asset":"vita-pratica__controlla-gli-impegni-personali.png","m":5,"mini":"anche solo 2 minuti","w":"sera"},{"id":"vita-pratica__prepara-i-vestiti","n":"Prepara i vestiti","p":false,"e":"Moss","asset":"vita-pratica__prepara-i-vestiti.png","m":5,"mini":"anche solo 2 minuti","w":"sera"},{"id":"vita-pratica__sistema-una-piccola-cosa-rimasta-in-sospeso","n":"Sistema una piccola cosa rimasta in sospeso","p":false,"e":"Moss","asset":"vita-pratica__sistema-una-piccola-cosa-rimasta-in-sospeso.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"vita-pratica__cura-le-piante","n":"Cura le piante","p":false,"e":"Moss","asset":"vita-pratica__cura-le-piante.png","m":5,"mini":"anche solo 2 minuti","w":"sera"},{"id":"vita-pratica__organizza-un-cassetto","n":"Organizza un cassetto","p":false,"e":"Moss","asset":"vita-pratica__organizza-un-cassetto.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"vita-pratica__pianifica-i-pasti","n":"Pianifica i pasti","p":false,"e":"Moss","asset":"vita-pratica__pianifica-i-pasti.png","m":15,"mini":"anche solo 4 minuti","w":"sera"},{"id":"vita-pratica__riordino-digitale-personale","n":"Riordino digitale personale","p":false,"e":"Moss","asset":"vita-pratica__riordino-digitale-personale.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"vita-pratica__controlla-abbonamenti-e-rinnovi","n":"Controlla abbonamenti e rinnovi","p":false,"e":"Moss","asset":"vita-pratica__controlla-abbonamenti-e-rinnovi.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"vita-pratica__prepara-il-bucato","n":"Prepara il bucato","p":false,"e":"Moss","asset":"vita-pratica__prepara-il-bucato.png","m":10,"mini":"anche solo 2 minuti","w":"sera"},{"id":"vita-pratica__prepara-cio-che-serve-per-uscire","n":"Prepara ciò che serve per uscire","p":false,"e":"Moss","asset":"vita-pratica__prepara-cio-che-serve-per-uscire.png","m":5,"mini":"anche solo 2 minuti","w":"sera"}]}];
+const CAT={},ACT={};for(const a of CATDATA){CAT[a.id]=a.acts;for(const x of a.acts)ACT[x.id]={...x,area:a.id}}
+/* asset già consegnati: le immagini non ancora arrivate restano spazi bianchi, mai immagini rotte */
+const READY=new Set([...CATDATA.flatMap(a=>a.acts.map(x=>x.asset)),"tempo_15_min.webp","tempo_30_min.webp","tempo_60_min.webp","tempo_120_min.webp","onboarding_benvenuto.webp","percorso_scintilla.webp","percorso_flusso.webp","percorso_slancio.webp","energie-basse","energie-variabili","energie-alte"]);
+const PERSONALE_ATTIVO=false; /* percorso_personale.webp è pronto ma va attivato più avanti */
+const actImg=(id,cls)=>{const a=ACT[id];return a&&READY.has(a.asset)?`<img class="${cls||"ti"}" src="${a.asset}" alt="">`:`<span class="${cls||"ti"} vuoto" aria-hidden="true"></span>`};
+/* migrazione: attività del catalogo precedente (14) → ID nuovi */
+const OLDACT={"lavoro-profondo":"lavoro__lavoro-profondo",pianifica:"lavoro__pianifica-la-giornata",lettura:"mente__lettura",studio:"mente__studio",camminata:"corpo__camminata",movimento:"corpo__pausa-di-movimento","rituale-sera":"riposo__rituale-della-sera","pausa-schermi":"riposo__pausa-dagli-schermi","tempo-insieme":"legami__tempo-insieme",messaggio:"legami__un-messaggio-premuroso",ordine:"vita-pratica__ordine-in-casa",spese:"vita-pratica__controlla-le-spese",disegno:"mente__disegno",scrittura:"mente__scrittura-creativa"};
+const icSrc=id=>{const a=ACT[id]||ACT[OLDACT[id]];return a&&READY.has(a.asset)?a.asset:""};
+/* migrazione esplicita: le attività già salvate ricevono l'asset del catalogo senza cambiare i dati salvati */
+const OLDHC={lettura:"mente__lettura",studio:"mente__studio",lingue:"mente__pratica-una-lingua",forza:"corpo__allenamento-di-forza",camminata:"corpo__camminata",mobilita:"corpo__mobilita-articolare",cucina:"corpo__cucina-un-pasto",sonno:"riposo__rituale-della-sera",deep:"lavoro__lavoro-profondo",pianifica:"lavoro__pianifica-la-giornata",creativo:"mente__sperimenta-una-tecnica-creativa",meditazione:"riposo__meditazione",respiro:"riposo__respirazione-tranquilla",diario:"mente__scrittura-personale",legami:"legami__tempo-insieme",spese:"vita-pratica__controlla-le-spese",revisione:"lavoro__rifletti-sul-lavoro-svolto"};
+const BYNAME={};for(const id in ACT)BYNAME[ACT[id].n.toLowerCase()]=id;
+const actOf=h=>h.act&&ACT[h.act]?h.act:(OLDACT[h.ic]||OLDHC[h.k]||BYNAME[String(h.title||"").toLowerCase()]||null);
+const actIcon=(h,cls)=>{const id=actOf(h);return id?actImg(id,cls):""};
+
 const thumb=g=>`<span class="th3" style="background-image:url(${IMG[figOf(g)]}_c.webp)" aria-hidden="true"></span>`;
 function stageHTML(g,st,h,opt={}){const f=figOf(g);return `<div class="stage" ${opt.live?"data-live":""} data-f="${f}" style="--h:${h}px"><div class="gfhost" data-fig="${f}"></div></div>`}
 const FIGS=new Set();let GFmod=null;
@@ -774,7 +1004,8 @@ function topHTML(title,sub){const xp=xpAll(),L=levelOf(xp);const pct=Math.round(
   return `<header class="top"><div><div class="dt">${sub||""}</div><h1>${title}</h1></div><span class="sp"></span><span class="pill" title="Giorni di fila">🔥 ${dayStreak()}</span><span class="pill" title="Livello ${L.n}"><span class="lvr" style="--p:${pct}%"><b>${L.n}</b></span></span></header>`}
 /* ===== UI v3: Oggi · Calendario · Guide, figure intere ===== */
 Object.assign(IC,{l3list:'<path d="M5 7h14M5 12h14M5 17h9"/>',l3cal:'<rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4M8.5 14h.01M12 14h.01M15.5 14h.01"/>',l3fig:'<circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M3.5 19c.6-3 2.4-4.5 4.5-4.5s3.9 1.5 4.5 4.5M11.5 19c.6-3 2.4-4.5 4.5-4.5s3.9 1.5 4.5 4.5"/>',l3ck:'<path d="M5 12.5l4.2 4.2L19 7"/>',l3go:'<path d="M7 17 17 7M9 7h8v8"/>',l3chev:'<path d="M9 5l7 7-7 7"/>',l3plus:'<path d="M12 5v14M5 12h14"/>',l3x:'<path d="M6 6l12 12M18 6 6 18"/>',l3lock:'<rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'});
-const AC={ember:{dot:"#e28f78",mot:"Rinnovamento"},sage:{dot:"#8db887",mot:"Chiarezza"},brook:{dot:"#cfa957",mot:"Radici"}};
+const AC=AREAS;
+const durTxt=h=>h.free?"nella giornata":dur(minsNow(h));
 const fimg=(f,k)=>`${IMG[f]}_${k}.webp`;
 const badge=(f,cls)=>`<span class="${cls}" style="background-image:url(${fimg(f,"c")})" aria-hidden="true"></span>`;
 const MOMT={mattina:"Mattina",pranzo:"Pranzo",pomeriggio:"Pomeriggio",sera:"Sera"};
@@ -784,12 +1015,12 @@ const durC=(m,md)=>md?`<b>mini</b>`:m<60?`<b>${m}</b><small>min</small>`:`<b>${M
 function row3(id,h,ds,o={}){const f=figOf(h.guide);const d=doneV(chk(ds,id));const md=isMiniDay(ds);const can=ds<=today()&&!o.off;
   const tag=later(ds,id)?"più tardi":movedIn(ds,id)?"spostata qui":"";
   const when=o.when!=null?o.when:esc(cap(h.anchor||MOML[h.when]));
-  const info=[md?"mini":dur(minsNow(h)),tag].filter(Boolean).join(" · ");
+  const info=[md?"mini":durTxt(h),tag].filter(Boolean).join(" · ");
   const extra=`${when} · ${capFact(h,id,ds)}`;
-  return `<div class="r3 ${d?"dn":""} ${o.cur?"cur":""}"><button class="nb" data-open="${id}">${badge(f,"ra")}<span class="nt">${o.cur?`<em>${later(ds,id)?"Più tardi":"Adesso"}</em>`:""}<b>${movedIn(ds,id)?"↪ ":""}${esc(h.title)}</b><small><i class="gd" style="background:${AC[f].dot}"></i>${AREAS[f].fig} · ${info}</small><small class="x">${extra}</small></span></button>${can?`<button class="ck3" data-ck="${id}" data-ds="${ds}" data-val="${md?"m":"f"}" aria-pressed="${d}" aria-label="${d?"Segna come non fatta":"Segna come fatta"}: ${esc(h.title)}">${icon("l3ck",1.8)}</button>`:""}${o.cur&&!d?`<i class="brk"></i><button class="pp3" data-ppopen="${id}">${icon("clock",1.5)}<span>Rimanda</span></button>`:""}</div>`}
+  return `<div class="r3 ${d?"dn":""} ${o.cur?"cur":""}"><button class="nb" data-open="${id}">${actOf(h)?actIcon(h,"ra icn"):badge(f,"ra")}<span class="nt">${o.cur?`<em>${later(ds,id)?"Più tardi":"Adesso"}</em>`:""}<b>${movedIn(ds,id)?"↪ ":""}${esc(h.title)}</b><small><i class="gd" style="background:${AC[f].dot}"></i>${AREAS[f].name} · ${info}</small><small class="x">${extra}</small></span></button>${can?`<button class="ck3" data-ck="${id}" data-ds="${ds}" data-val="${md?"m":"f"}" aria-pressed="${d}" aria-label="${d?"Segna come non fatta":"Segna come fatta"}: ${esc(h.title)}">${icon("l3ck",1.8)}</button>`:""}${o.cur&&!d?`<i class="brk"></i><button class="pp3" data-ppopen="${id}">${icon("clock",1.5)}<span>Rimanda</span></button>`:""}</div>`}
 const TABS=["oggi","cal","guide"];
-function ensureBar(){let lg=$("#tabs .lg3");if(!lg){const tb=$("#tabs");tb.className="tabs3";tb.innerHTML=`<div class="lg3"><span class="lens" aria-hidden="true"></span>${[["oggi","Oggi","l3list"],["cal","Calendario","l3cal"],["guide","Guide","l3fig"]].map(([k,l,i])=>`<button data-tab="${k}">${icon(i,1.4)}<span>${l}</span></button>`).join("")}</div>`;lg=$("#tabs .lg3")}lg.style.setProperty("--i",Math.max(0,TABS.indexOf(S.tab)));lg.querySelectorAll("[data-tab]").forEach(b=>b.dataset.tab===S.tab?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"))}
-function tabBar(){return `<div class="lg3">${[["oggi","Oggi","l3list"],["cal","Calendario","l3cal"],["guide","Guide","l3fig"]].map(([k,l,i])=>`<button data-tab="${k}" ${S.tab===k?'aria-current="page"':""}>${icon(i,2)}<span>${l}</span></button>`).join("")}</div>`}
+function ensureBar(){let lg=$("#tabs .lg3");if(!lg){const tb=$("#tabs");tb.className="tabs3";tb.innerHTML=`<div class="lg3"><span class="lens" aria-hidden="true"></span>${[["oggi","Oggi","l3list"],["cal","Calendario","l3cal"],["guide","Aree","l3fig"]].map(([k,l,i])=>`<button data-tab="${k}">${icon(i,1.4)}<span>${l}</span></button>`).join("")}</div>`;lg=$("#tabs .lg3")}lg.style.setProperty("--i",Math.max(0,TABS.indexOf(S.tab)));lg.querySelectorAll("[data-tab]").forEach(b=>b.dataset.tab===S.tab?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"))}
+function tabBar(){return `<div class="lg3">${[["oggi","Oggi","l3list"],["cal","Calendario","l3cal"],["guide","Aree","l3fig"]].map(([k,l,i])=>`<button data-tab="${k}" ${S.tab===k?'aria-current="page"':""}>${icon(i,2)}<span>${l}</span></button>`).join("")}</div>`}
 function render(){document.body.classList.toggle("rmode",RM);document.body.classList.add("g3");
   if(!["oggi","cal","guide"].includes(S.tab))S.tab="oggi";
   ensureBar();
@@ -800,22 +1031,22 @@ function render(){document.body.classList.toggle("rmode",RM);document.body.class
   if(OV&&OV.kind==="area")drawWorldBody()}
 function renderOggi(){const scr=$("#scr");const n=new Date();const tS=today();const md=isMiniDay(tS);
   const L=dayList(tS);const pk=pickNow();
-  const lead=S.flt||(pk?figOf(pk[1].guide):L[0]?figOf(L[0][1].guide):"ember");
+  const lead=S.flt||(pk?figOf(pk[1].guide):L[0]?figOf(L[0][1].guide):H()[0]?figOf(H()[0][1].guide):"lavoro");
   const head=`<header class="h3"><button class="av3" data-area="${lead}" aria-label="Apri ${AREAS[lead].fig}" style="background-image:url(${fimg(lead,"c")})"></button><span class="sp"></span>${L.length?`<button class="tb3" data-miniday aria-pressed="${md}">${icon("moon",2)}<span>Giornata mini</span></button>`:""}<button class="rb3 acc" data-add aria-label="Aggiungi un'abitudine">${icon("l3plus",2)}</button></header>`;
   const dt=`${GIORNI[n.getDay()]} ${n.getDate()} ${MESI[n.getMonth()]}`;
-  if(!H().length){scr.innerHTML=head+`<p class="kk3">${dt}</p><h1 class="big3">Iniziamo</h1><p class="sub3">Qualche domanda e il tuo percorso è pronto.</p><button class="cta3" data-onb>Costruisci il percorso</button>`;return}
+  if(!H().length){scr.innerHTML=head+`<p class="kk3">${dt}</p><h1 class="big3">Iniziamo</h1><p class="sub3">Tre scelte e il tuo percorso è pronto.</p><button class="cta3" data-onb>Costruisci il percorso</button>`;return}
   const done=L.filter(([id])=>doneV(chk(tS,id))).length;
   const title=!L.length?"Oggi si riposa":done===L.length?"Giornata completa":md?"Oggi in piccolo, ma ci sei":"Un passo alla volta";
   const areas=AREA_KEYS.filter(f=>L.some(([,h])=>figOf(h.guide)===f));
-  const chips=areas.length>1?`<div class="chips3" role="group" aria-label="Filtra per guida"><button data-flt="" aria-pressed="${!S.flt}">Tutte</button>${areas.map(f=>`<button data-flt="${f}" aria-pressed="${S.flt===f}">${badge(f,"cb3")}${AREAS[f].fig}</button>`).join("")}</div>`:"";
+  const chips=areas.length>1?`<div class="chips3" role="group" aria-label="Filtra per guida"><button data-flt="" aria-pressed="${!S.flt}">Tutte</button>${areas.map(f=>`<button data-flt="${f}" aria-pressed="${S.flt===f}">${badge(f,"cb3")}${AREAS[f].name}</button>`).join("")}</div>`:"";
   const AL=L.filter(([,h])=>figOf(h.guide)===lead);const mins=AL.reduce((a,[,h])=>a+minsNow(h),0);const adn=AL.filter(([id])=>doneV(chk(tS,id))).length;
-  const card=`<button class="gc3" data-area="${lead}" aria-label="Apri il mondo di ${AREAS[lead].fig}"><span class="gt"><small class="kk">${AREAS[lead].name}</small><b>${AREAS[lead].fig}</b><small>${AC[lead].mot} · oggi guida ${AREA_ART[lead]}</small></span><span class="gs"><span><small>Fatte</small><b>${adn}<i>/${AL.length}</i></b></span><span><small>Tempo</small><b>${AL.length?(md?"mini":durH(mins).replace(/ ?(min|h)/,m=>`<i>${m.trim()}</i>`)):"–"}</b></span></span><span class="go3">${icon("l3go",2)}</span><span class="gf3"><img src="${fimg(lead,"trim")}" alt=""></span></button>`;
+  const card=`<button class="gc3" data-area="${lead}" aria-label="Apri il mondo di ${AREAS[lead].fig}"><span class="gt"><small class="kk">con ${AREAS[lead].fig}</small><b>${AREAS[lead].name}</b><small>${AC[lead].mot}</small></span><span class="gs"><span><small>Fatte</small><b>${adn}<i>/${AL.length}</i></b></span><span><small>Tempo</small><b>${AL.length?(md?"mini":durH(mins).replace(/ ?(min|h)/,m=>`<i>${m.trim()}</i>`)):"–"}</b></span></span><span class="go3">${icon("l3go",2)}</span><span class="gf3"><img src="${fimg(lead,"trim")}" alt=""></span></button>`;
   const R=L.filter(([,h])=>!S.flt||figOf(h.guide)===S.flt);
   const open=R.filter(([id])=>!doneV(chk(tS,id))),dn=R.filter(([id])=>doneV(chk(tS,id)));
   const curId=pk&&open.some(([id])=>id===pk[0])?pk[0]:open[0]&&open[0][0];
   const ord=[...open.filter(([id])=>id===curId),...open.filter(([id])=>id!==curId),...dn];
   const rows=ord.map(([id,h])=>row3(id,h,tS,{cur:id===curId})).join("");
-  scr.innerHTML=head+`<p class="kk3">${dt}</p><h1 class="big3">${title}</h1><p class="sub3">${L.length?`${done} di ${L.length} fatte`:"Nessuna attività"}${dayStreak()?` · ${dayStreak()} ${dayStreak()===1?"giorno":"giorni"} di fila`:""}</p>${chips}${card}<div class="nl3">${rows||`<div class="em3">${L.length?"Tutto fatto. Domani si riparte da qui.":"Nessuna attività oggi: anche riposare fa parte del percorso."}</div>`}</div>`}
+  scr.innerHTML=head+`<p class="kk3">${dt}</p><h1 class="big3">${title}</h1>${tappaCardHome()}<p class="sub3">${L.length?`${done} di ${L.length} fatte`:"Nessuna attività"}${dayStreak()?` · ${dayStreak()} ${dayStreak()===1?"giorno":"giorni"} di fila`:""}</p>${chips}${card}<div class="nl3">${rows||`<div class="em3">${L.length?"Tutto fatto. Domani si riparte da qui.":(()=>{for(let i=1;i<8;i++){const ds=iso(addD(new Date(),i));if(dayList(ds).length)return `Oggi è libero: il percorso riprende ${i===1?"domani":GIORNI[parse(ds).getDay()].toLowerCase()}.`}return "Nessuna attività oggi: anche riposare fa parte del percorso."})()}</div>`}</div>`}
 function renderCal(){const scr=$("#scr");const pst=scr.querySelector(".wk3");const psl=pst&&scr.dataset.t==="cal"&&S._calR?pst.scrollLeft:null;S._calR=1;const tS=today();const sel=S.cday||tS;const sd=parse(sel);const mon=addD(new Date(),-wd(new Date()));
   const days=[...Array(14)].map((_,i)=>addD(mon,i));
   const strip=`<div class="wk3">${days.map(d=>{const ds=iso(d);const L=dayList(ds);const dots=L.slice(0,4).map(([id,h])=>`<i style="background:${AC[figOf(h.guide)].dot}${ds<=tS&&!doneV(chk(ds,id))?";opacity:.45":""}"></i>`).join("");return `<button data-cday="${ds}" aria-pressed="${ds===sel}" class="${ds===tS?"tdy":""}" aria-label="${GIORNI[d.getDay()]} ${d.getDate()}">${WDS[wd(d)]}<b>${d.getDate()}</b><em>${dots}</em></button>`}).join("")}</div>`;
@@ -828,12 +1059,12 @@ function renderCal(){const scr=$("#scr");const pst=scr.querySelector(".wk3");con
    <div class="sh3"><b>${lab}</b><span>${L.length?(sel<=tS?`${nd} di ${L.length}`:L.length):""}${isMiniDay(sel)?" · mini":""}</span></div><div class="nl3">${groups||`<div class="em3">Nessuna attività: giorno di riposo.</div>`}${busy}</div>`;
   const st=scr.querySelector(".wk3"),on=st&&st.querySelector('[aria-pressed="true"]');if(psl!=null)st.scrollLeft=psl;else if(on){const i=[...st.children].indexOf(on);st.scrollLeft=i>=7?st.scrollWidth:0}}
 function bondPct(list){if(!list.length)return 0;let s=0;for(const [id,h] of list){const st=stats(h,id);s+=((st.stage-1)+Math.min(1,st.next?st.next.p:1))/5}return Math.round(s/list.length*100)}
-function guide3HTML(){const by={ember:[],sage:[],brook:[]};for(const e of H())by[figOf(e[1].guide)].push(e);
-  return `<header class="h3"><h1 class="mt3">Le tue guide</h1></header><p class="sub3">Una per ogni parte della tua vita.</p><div class="gl3">${AREA_KEYS.map(f=>{const n=by[f].length;return `<button class="gg3" data-area="${f}"><span class="gt"><small class="kk">${AREAS[f].name}</small><b>${AREAS[f].fig}</b><small>${n?`${n} ${n===1?"abitudine":"abitudini"} · legame ${bondPct(by[f])}%`:"riposa, nessuna abitudine"}</small></span><span class="gf3"><img src="${fimg(f,"trim")}" alt=""></span></button>`}).join("")}</div>
-   <div class="more3">${[["percorso","Il tuo percorso","tempo e abitudini"],["tu","Livello e cose da fare",""],["onb","Rifai le domande","un percorso nuovo su misura"]].map(([k,t,s])=>`<button data-page="${k}"><span><b>${t}</b>${s?`<small>${s}</small>`:""}</span>${icon("l3chev",2)}</button>`).join("")}</div>`}
+function guide3HTML(){const by=Object.fromEntries(AREA_KEYS.map(k=>[k,[]]));for(const e of H())by[figOf(e[1].guide)].push(e);
+  return `<header class="h3"><h1 class="mt3">Le tue aree</h1></header><p class="sub3">Sette parti della tua vita, ognuna con la sua Essenza.</p><div class="gl3">${AREA_KEYS.map(f=>{const n=by[f].length;return `<button class="gg3" data-area="${f}"><span class="gt"><small class="kk">con ${AREAS[f].fig}</small><b>${AREAS[f].name}</b><small>${n?`${n} ${n===1?"abitudine":"abitudini"} · legame ${bondPct(by[f])}%`:"tocca per iniziare"}</small></span><span class="gf3"><img src="${fimg(f,"trim")}" alt=""></span></button>`}).join("")}</div>
+   <div class="more3">${[["percorso","Il tuo percorso","tempo e abitudini"],["tu","Livello e cose da fare",""],["onb","Ripensa il percorso","tempo, aree e attività"]].map(([k,t,s])=>`<button data-page="${k}"><span><b>${t}</b>${s?`<small>${s}</small>`:""}</span>${icon("l3chev",2)}</button>`).join("")}</div>`}
 function openArea(f){OV={kind:"area",f};const A=AREAS[f];
   openOv(`<div class="w3 ${S.legOpen?"legon":""}"><div class="wtop"><div class="wbar"><button class="rb3" data-close aria-label="Indietro">${icon("back",2.2)}</button><span class="sp"></span><button class="rb3" data-legopen aria-label="Analizza il legame con ${A.fig}">${icon("sun",1.5)}</button></div>
-   <p class="wk">${A.name}</p><h2>${A.fig}</h2><p class="wm">${AC[f].mot}</p><p class="wh">${esc(A.head)}</p>
+   <p class="wk">con ${A.fig}</p><h2>${A.name}</h2><p class="wm">${AC[f].mot}</p><p class="wh">${esc(A.head)}</p>
    <div class="wfig">${stageHTML(f,1,280,{live:true})}</div>
    <div class="wtabs" role="group" aria-label="Sezioni">${[["att","Attività"],["obi","Obiettivi"],["and","Andamento"]].map(([k,l])=>`<button data-wt="${k}" aria-pressed="${S.wt===k}">${l}</button>`).join("")}</div></div>
    <div id="wbody"></div><div class="lscrim" data-legclose></div><div class="leg3" id="leg3" role="dialog" aria-label="Il legame"></div></div>`);drawWorldBody()}
@@ -861,7 +1092,7 @@ function openMenu(){$("#cvw").innerHTML=`<div class="scrim" data-ppclose><div cl
   <div class="opts">${[["percorso","Il tuo percorso","tempo, abitudini, modifica"],["guide","Le guide","Ember, Sage e Aster"],["tu","Tu","livello e cose da fare"],["onb","Rifai le domande","un nuovo percorso su misura"]].map(([k,t,d])=>`<button class="opt" data-page="${k}"><span><b>${t}</b><small>${d}</small></span></button>`).join("")}</div></div></div>`}
 function openPage(k){OV={kind:"page",page:k};openOv(navBack("close")+(k==="percorso"?percorsoHTML():k==="guide"?guideTabHTML():tuHTML()))}
 function rowHTML(id,h,ds,opt={}){const c=chk(ds,id),d=doneV(c),s=stats(h,id);const G=GD[h.guide];const can=ds<=today();
-  return `<div class="hr ${d?"dn":""} ${opt.big?"big":""}" data-a="${figOf(h.guide)}" style="--c:${G.c}"><button class="ht" data-open="${id}">${thumb(h.guide,s.stage)}<span style="min-width:0"><b>${esc(h.title)}</b><small>${isMiniDay(ds)?`mini · ${esc(h.mini)}`:`${esc(h.anchor||MOML[h.when])} · ${dur(minsNow(h))}`}${later(ds,id)?" · più tardi":""}${movedIn(ds,id)?" · spostata qui":""}</small><span class="bd">${BOND.map((_,i)=>`<i class="${i<s.stage?"on":""}"></i>`).join("")}</span></span></button>
+  return `<div class="hr ${d?"dn":""} ${opt.big?"big":""}" data-a="${figOf(h.guide)}" style="--c:${G.c}"><button class="ht" data-open="${id}">${thumb(h.guide,s.stage)}<span style="min-width:0"><b>${esc(h.title)}</b><small>${isMiniDay(ds)?`mini · ${esc(h.mini)}`:`${esc(h.anchor||MOML[h.when])} · ${durTxt(h)}`}${later(ds,id)?" · più tardi":""}${movedIn(ds,id)?" · spostata qui":""}</small><span class="bd">${BOND.map((_,i)=>`<i class="${i<s.stage?"on":""}"></i>`).join("")}</span></span></button>
    <button class="ck ${c&&c.v==="p"?"p":""}" data-ck="${id}" data-ds="${ds}" data-val="${isMiniDay(ds)?"m":"f"}" aria-pressed="${d}" ${can?"":"disabled"} aria-label="${d?"Segna come non fatta":"Segna come fatta"}: ${esc(h.title)}">${c&&c.v==="p"?"⟳":c&&c.v==="m"?"½":"✓"}</button></div>`}
 function listHTML(){const tS=today();
   if(S.view==="settimana")return weekHTML();
@@ -877,7 +1108,7 @@ function weekHTML(){const mon=addD(new Date(),-wd(new Date()));const tS=today();
     return `<div class="wd ${ds===tS?"on":""} ${ds<tS?"past":""}"><div class="dl">${WDL[i]}<b>${d.getDate()}</b></div><div class="wq">${tags+bz||`<span style="color:var(--soft);font-size:13.5px;padding:6px 0">riposo</span>`}</div></div>`}).join("");
   return `<div class="wk">${rows}</div><div class="wsum"><span>Fatte <b>${dn} di ${tot}</b></span><span><b>${durH(mins)}</b> dedicati</span></div>`}
 /* --- Guide --- */
-function guideTabHTML(){const by={ember:[],sage:[],brook:[]};for(const [id,h] of H())by[figOf(h.guide)].push(h);
+function guideTabHTML(){const by=Object.fromEntries(AREA_KEYS.map(k=>[k,[]]));for(const [id,h] of H())by[figOf(h.guide)].push(h);
   return topHTML("Le tue guide","Una per ogni parte della tua vita")+`<div style="margin-top:12px"><button class="ghost" style="width:100%" data-mot aria-pressed="${!RM}">${RM?"▶ Riprendi i movimenti":"Ⅱ Ferma i movimenti"}</button></div>`+
   `<div class="alist">${AREA_KEYS.map(f=>{const A=AREAS[f],n=by[f].length;return `<div class="acard">${stageHTML(f,1,330)}<h3>${A.fig}</h3><small>${A.name} · ${n?n+(n===1?" abitudine":" abitudini"):"nessuna abitudine"}</small><div class="row2" style="grid-template-columns:1fr 1fr"><button class="ghost" data-try="${f}">☀ Prova il traguardo</button><button class="ghost" data-area="${f}">Apri</button></div></div>`}).join("")}</div>`}
 /* --- Percorso --- */
@@ -903,7 +1134,7 @@ function openOv(html,oo={}){const ex=$("#ov .ov:not(.out)");if(ex){const inn=ex.
   $("#ov").innerHTML=`<div class="ov" role="dialog" aria-modal="true"><div class="ovin">${html}</div></div>`;mountStages($("#ov"));const o=$("#ov .ov");if(o)o.scrollTop=0}
 function closeOv(){OV=null;S.legOpen=false;const o=$("#ov .ov");if(o&&!RM){o.classList.add("out");setTimeout(()=>{if(o.isConnected)o.remove()},230)}else $("#ov").innerHTML="";render()}
 const NSTEP=7;
-function startOnb(){const pr=meta().profile;OV={kind:"onb",step:pr?1:0,p:pr?JSON.parse(JSON.stringify(pr)):{occ:"",hours:0,sched:"regolari",eve:"",best:"",free:[5,6],commits:[],current:[],goals:[],weekly:240,pace:"consigliato"}};drawOnb()}
+function startOnbOld(){const pr=meta().profile;OV={kind:"onb",step:pr?1:0,p:pr?JSON.parse(JSON.stringify(pr)):{occ:"",hours:0,sched:"regolari",eve:"",best:"",free:[5,6],commits:[],current:[],goals:[],weekly:240,pace:"consigliato"}};drawOnb()}
 function navHTML(step,total,back){return `<div class="nav"><button class="back" data-oback aria-label="Indietro">${icon("back",2.2)}</button><div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${step}"><i style="width:${Math.max(8,step/total*100)}%"></i></div></div>`}
 function opt(attr,val,on,ic,t,sm){return `<button class="opt" ${attr}="${esc(val)}" aria-pressed="${!!on}">${ic?`<span class="ic">${icon(ic)}</span>`:""}<span><b>${t}</b>${sm?`<small>${sm}</small>`:""}</span><span class="tk">✓</span></button>`}
 function chip(attr,val,on,t){return `<button class="chip" ${attr}="${esc(val)}" aria-pressed="${!!on}">${t}</button>`}
@@ -957,7 +1188,7 @@ function applyPlan(){const m=OV;const tS=today();const keep=new Set();const befo
   if(newG.length){openIntros(newG)}else{OV=null;$("#ov").innerHTML="";S.tab="oggi";render();snack(m.cur?"Percorso aggiornato":"Il percorso è pronto")}}
 /* ================= LE TUE AREE ================= */
 function openIntros(list,add){OV={kind:"intro",list,i:0,add:!!add};drawIntro()}
-function firstStep(f){const e=H().find(([,h])=>figOf(h.guide)===f);if(!e)return "Aggiungi un'abitudine per risvegliare quest'area.";const h=e[1];const days=h.days.length;return `${cap(h.anchor||MOML[h.when])}: ${dur(minsNow(h))} di ${esc(h.title.toLowerCase())}, ${days} ${days===1?"volta":"volte"} a settimana. Se va storta, basta ${esc(h.mini)}.`}
+function firstStep(f){const e=H().find(([,h])=>figOf(h.guide)===f);if(!e)return "Aggiungi un'abitudine per risvegliare quest'area.";const h=e[1];const days=h.days.length;return `${cap(h.anchor||MOML[h.when])}: ${durTxt(h)} di ${esc(h.title.toLowerCase())}, ${days} ${days===1?"volta":"volte"} a settimana. Se va storta, basta ${esc(h.mini)}.`}
 function introBody(f,live){const A=AREAS[f];return `<p class="kick">La tua guida per ${AREA_ART[f]}</p>${stageHTML(f,1,Math.min(420,Math.round(innerHeight*.46)),{live})}<h2 class="gname">${A.fig}</h2><p class="gfield">${A.name}</p><h3 class="ghead">${esc(A.head)}</h3>
    <div class="gtip"><span class="ic">${icon("sun")}</span><p>${firstStep(f)}</p></div>`}
 function drawIntro(){const m=OV,f=m.list[m.i];const last=m.i===m.list.length-1;
@@ -966,6 +1197,164 @@ function drawIntro(){const m=OV,f=m.list[m.i];const last=m.i===m.list.length-1;
 /* ================= AGGIUNGI ================= */
 function openAdd(preG){OV={kind:"add",k:null,preG,fl:null};drawAdd()}
 /* ================= SCHEDA ABITUDINE ================= */
+/* ===== Onboarding in 3 passi (step 1): Tempo → Aree → Percorso ===== */
+const DAYPAT={3:[0,2,4],5:[0,1,2,3,4],7:[0,1,2,3,4,5,6]};
+const MPD=[[15,"15 min","tempo_15_min"],[30,"30 min","tempo_30_min"],[60,"1 ora","tempo_60_min"],[120,"2 ore","tempo_120_min"]];
+const ENER=[["bassa","Poca energia","energie-basse"],["var","Energia variabile","energie-variabili"],["alta","Pieno di energia","energie-alte"]];
+const PLANS={scintilla:{n:"Scintilla",d:"Pochi appuntamenti, per accendere l'abitudine senza fatica.",cap:.40,mx:1,img:"percorso_scintilla.webp"},flusso:{n:"Flusso",d:"Le tue attività distribuite nella settimana, con margine.",cap:.675,mx:1.5,img:"percorso_flusso.webp"},slancio:{n:"Slancio",d:"Più spazio alle attività, sempre entro il tuo tempo.",cap:.875,mx:2,img:"percorso_slancio.webp"}};
+const ATIT={lavoro:"Lavora con calma e fuoco",mente:"Impara e crea a modo tuo",corpo:"Muoviti a modo tuo",riposo:"Ricarica a modo tuo",legami:"Coltiva i tuoi legami","vita-pratica":"Ordine, un passo alla volta"};
+const hm=m=>m>=60?`${Math.floor(m/60)} h${m%60?` ${m%60} min`:""}`:`${m} min`;
+const pickDays=(pat,f)=>{f=Math.max(1,Math.min(pat.length,f));if(f===pat.length)return pat.slice();const t=wd(new Date());let k=pat.findIndex(x=>x>=t);if(k<0)k=0;const r=pat.slice(k).concat(pat.slice(0,k));const step=r.length/f;const out=[];for(let i=0;i<f;i++)out.push(r[Math.floor(i*step)]);return [...new Set(out)].sort((a,b)=>a-b)};
+const r5=m=>Math.max(5,Math.round(m/5)*5);
+function planFor(kind,p){const D=p.days||0,B=(p.mpd||0)*D,T=Math.floor(B*PLANS[kind].cap);const P=PLANS[kind];
+  const it=p.acts.filter(id=>ACT[id]).map(id=>{const A=ACT[id];return {id,free:!A.m,m:A.m?r5(A.m):0,f:kind==="scintilla"?Math.min(D,3):D}});
+  const tot=()=>it.reduce((a,x)=>a+x.m*x.f,0);const T2=it.filter(x=>!x.free);
+  let g=0;while(tot()>T&&g++<400){const big=T2.slice().sort((a,b)=>b.m*b.f-a.m*a.f)[0];if(!big)break;
+    if(big.f>1&&(big.f>2||big.m<=5))big.f--;else if(big.m>5)big.m-=5;else{const c=T2.filter(x=>x.f>1).sort((a,b)=>b.f-a.f)[0];if(c)c.f--;else break}}
+  g=0;while(g++<400){const c=T2.slice().sort((a,b)=>a.m/ACT[a.id].m-b.m/ACT[b.id].m)[0];if(!c)break;if(c.f<D&&kind!=="scintilla"&&tot()+c.m<=T){c.f++;continue}if(c.m+5<=ACT[c.id].m*P.mx&&tot()+5*c.f<=T){c.m+=5;continue}break}
+  return {items:it,total:tot(),budget:B,target:T,over:tot()>T}}
+function recPlan(p){return p.energy==="bassa"?"scintilla":p.energy==="alta"?"slancio":"flusso"}
+function curPlan(){const m=OV,p=m.p;let k=p.plan||recPlan(p);if(k==="personale"){if(!m.own){const b=planFor("flusso",p);m.own={items:b.items.map(x=>({...x})),budget:b.budget}}const tot=m.own.items.reduce((a,x)=>a+x.m*x.f,0);return {k,...m.own,total:tot,over:tot>m.own.budget}}return {k,...planFor(k,p)}}
+function startOnb(step){const pr=meta().profile2;let p=pr?JSON.parse(JSON.stringify(pr)):{mpd:30,days:null,energy:null,areas:[],acts:[],plan:null};
+  p.acts=(p.acts||[]).map(id=>ACT[id]?id:OLDACT[id]).filter(Boolean);p.areas=[...new Set([...(p.areas||[]).filter(a=>AREAS[a]),...p.acts.map(id=>ACT[id].area)])];if(p.plan&&!PLANS[p.plan])p.plan=null;
+  OV={kind:"onb2",step:step!=null?step:(pr?1:0),sub:null,open:{},p,own:null};drawOnb2()}
+function oHead(step,back){return `<div class="o4h"><button class="rb3" data-${back} aria-label="Indietro">${icon("back",1.6)}</button><div class="o4s" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="${step+1}" aria-label="Passo ${step+1} di 3">${["Tempo","Aree","Percorso"].map((t,i)=>`<div class="${i<step?"dn":i===step?"on":""}"><span>${t}</span><i></i></div>`).join("")}</div></div>`}
+const pick=(attr,val,on,inner,cls="",extra="")=>`<button type="button" class="o4c ${cls}" ${attr}="${esc(val)}" aria-pressed="${on}" ${extra}>${inner}<span class="o4k" aria-hidden="true">${icon("l3ck",2.2)}</span></button>`;
+const vimg=(src,cls)=>READY.has(src)?`<img class="${cls}" src="${src}" alt="">`:`<span class="${cls} vuoto" aria-hidden="true"></span>`;
+const enImg=k=>`<img class="ti" src="${k}.webp" alt="">`;
+const portrait=a=>`<span class="o4pt" aria-hidden="true">${[AREAS[a].img,AREAS[a].img2].filter(Boolean).map(i=>`<i style="background-image:url(${i}_c.webp)"></i>`).join("")}</span>`;
+function budgetTxt(p){return p.days?`<b>${hm(p.mpd*p.days)}</b> a settimana in tutto · ${hm(p.mpd)} × ${p.days} giorni`:`Scegli i giorni per vedere il totale della settimana.`}
+function nSel(){return OV.p.acts.length}
+function drawOnb2(keep){const m=OV,p=m.p;let h="";
+  if(m.step===0){h=`<div class="o4w"><div class="o4hero">${vimg("onboarding_benvenuto.webp","o4bg")}</div>
+   <h1 class="o4t">Un piccolo passo.<br>Un mondo di possibilità.</h1><p class="o4p">Trova il tuo ritmo, con un’essenza al tuo fianco.</p>
+   <div class="o4foot"><button type="button" class="o4cta" data-o2go="1">Cominciamo · 3 passi</button>${S.mode==="local"?`<button type="button" class="lnk3" data-imp>Ho già un percorso: incolla i miei dati</button>`:""}</div></div>`}
+  else if(m.step===1){h=oHead(0,"o2back")+`<h1 class="o4q">Quanto tempo vuoi dedicarti al giorno?</h1><p class="o4p">Il totale di tutte le attività. Puoi cambiarlo quando vuoi.</p>
+   <div class="o4grid4" role="group" aria-label="Minuti al giorno">${MPD.map(([v,t,img],i)=>pick("data-o2mpd",v,p.mpd===v,`${vimg(""+img+".webp","ti")}<b>${t}</b>`,"clx c"+i)).join("")}</div>
+   <div class="o4days"><span id="o4dl">Giorni a settimana</span><div class="seg3" role="group" aria-labelledby="o4dl">${[3,5,7].map(v=>`<button type="button" data-o2days="${v}" aria-pressed="${p.days===v}">${v}</button>`).join("")}</div></div>
+   <p class="o4note" id="o4bud">${budgetTxt(p)}</p>
+   <h2 class="o4h2">Come ti senti di solito?</h2><div class="o4grid3" role="group" aria-label="Energia">${ENER.map(([v,t,ic])=>pick("data-o2en",v,p.energy===v,`${enImg(ic)}<b>${t}</b>`,"tall")).join("")}</div>
+   <p class="o4hint">Serve solo a scegliere da dove partire, non a giudicarti.</p>
+   <div class="o4foot"><button type="button" class="o4cta" data-o2go="2" id="o4n1" ${p.days?"":"disabled"}>${p.days?"Avanti":"Scegli i giorni a settimana"}</button></div>`}
+  else if(m.step===2&&m.sub==null){h=oHead(1,"o2back")+`<h1 class="o4q">Da dove vuoi iniziare?</h1><p class="o4p">Scegli le aree che contano per te.</p>
+   <div class="o4grid2" role="group" aria-label="Aree">${AREA_KEYS.map(a=>{const c=p.acts.filter(id=>ACT[id].area===a).length;return pick("data-o2area",a,p.areas.includes(a),`<img class="ti" src="${AREAS[a].fig}.png" alt=""><span class="o4an">${portrait(a)}<b>${AREAS[a].name}</b></span><small>${AREAS[a].fig}${a==="mente"?" e Bloom":""}${c?` · ${c} scelt${c===1?"a":"e"}`:""}</small>`,"area",`style="--ac:${AREAS[a].dot}"`)}).join("")}</div>
+   <div class="o4foot"><button type="button" class="o4cta" data-o2acts id="o4n2" ${p.areas.length?"":"disabled"}>${p.areas.length?"Scegli le attività":"Scegli almeno un'area"}</button></div>`}
+  else if(m.step===2){const a=p.areas[m.sub],A=AREAS[a],L=CAT[a];const op=!!m.open[a];const hidSel=L.filter(x=>!x.p&&p.acts.includes(x.id));const n=nSel();
+   h=oHead(1,"o2subback")+`<h1 class="o4q">${ATIT[a]}</h1><div class="o4ah" style="--ac:${A.dot}"><span class="o4ap" style="background-image:url(${A.img}_c.webp)" aria-hidden="true"></span><div><b>${A.name} · <span>con ${A.fig}${a==="mente"?" e Bloom":""}</span></b><small>${A.mot}. Per iniziare ne bastano 1–3 in tutto.</small></div></div>
+   <div class="o4grid2 acts" role="group" aria-label="Attività di ${A.name}">${L.filter(x=>x.p).map(x=>actTile(x)).join("")}</div>
+   <div id="o4more" class="exp ${op?"open":""}"><div><div class="o4grid2 acts" role="group" aria-label="Altre attività di ${A.name}">${L.filter(x=>!x.p).map(x=>actTile(x)).join("")}</div></div></div>
+   <p class="o4sel" id="o4sel" ${!op&&hidSel.length?"":"hidden"}>${hidSel.length?`Scelte tra le altre: ${hidSel.map(x=>`<span>${x.n}</span>`).join("")}`:""}</p>
+   <button type="button" class="o4dis" data-o2more aria-expanded="${op}" aria-controls="o4more">${op?"Mostra meno":"Mostra altre attività · 9"}</button>
+   <div class="o4foot"><p class="o4hint c">${p.areas.length>1?`Area ${m.sub+1} di ${p.areas.length}`:""}</p><button type="button" class="o4cta" data-o2conf id="o4n3">${n?`Conferma · ${n} ${n===1?"attività":"attività"}`:"Conferma"}</button></div>`}
+  else{const c=curPlan();h=oHead(2,"o2back")+`<h1 class="o4q">Un percorso al tuo ritmo</h1><p class="o4p">Con ${hm(p.mpd)} al giorno per ${p.days} giorni${p.energy?` · energia ${p.energy==="bassa"?"bassa":p.energy==="alta"?"alta":"variabile"}`:""}.</p>
+   <div id="o4plans" role="group" aria-label="Percorsi">${plansHTML()}</div><div id="o4own">${c.k==="personale"?ownHTML():""}</div>
+   <div class="o4foot"><button type="button" class="o4cta" data-o2apply id="o4go" ${c.items.length&&!(c.over&&c.k!=="personale")?"":"disabled"}>${goTxt()}</button></div>`}
+  openOv(`<div class="o4">${h}</div>`,{keep})}
+function actTile(x){const p=OV.p;return pick("data-o2act",x.id,p.acts.includes(x.id),`${actImg(x.id,"ti big")}<b>${x.n}</b><small>${x.m?`circa ${x.m} min`:"nella giornata"}</small>`,"act",`style="--ac:${AREAS[ACT[x.id].area].dot}"`)}
+function planLine(r,p){const d=new Set(r.items.map(x=>x.f));return r.items.length?r.items.map(x=>`${ACT[x.id].n} ${x.free?"nella giornata":`${x.m}′ × ${x.f}`}`).join(" · "):"Nessuna attività scelta"}
+function plansHTML(){const p=OV.p,cur=curPlan().k,rec=recPlan(p);return Object.keys(PLANS).map(k=>{const r=planFor(k,p);const P=PLANS[k];return `<button type="button" class="o4plan" data-o2plan="${k}" aria-pressed="${cur===k}" ${r.over?"disabled":""}><span class="pt"><b>${P.n}</b>${k===rec?`<em>consigliato</em>`:""}<span class="pm">${r.total} min / sett.</span></span><span class="pd">${r.over?"Con questo tempo servono meno attività.":P.d}</span><span class="pl">${planLine(r,p)}</span>${vimg(P.img,"pimg")}<span class="o4k" aria-hidden="true">${icon("l3ck",2.2)}</span></button>`}).join("")+
+  `<button type="button" class="o4plan own" data-o2plan="personale" aria-pressed="${cur==="personale"}"><span class="pt"><b>Componi il tuo</b></span><span class="pd">Scegli tu giorni e durate.</span>${PERSONALE_ATTIVO?`<img class="pimg" src="percorso_personale.webp" alt="">`:`<span class="pimg vuoto" aria-hidden="true"></span>`}<span class="o4k" aria-hidden="true">${icon("l3ck",2.2)}</span></button>`}
+function ownHTML(){const c=curPlan();return `<div class="o4own"><p class="kc3">Il tuo percorso</p>${c.items.map((x,i)=>`<div class="o4it">${actImg(x.id,"oi")}<div class="nt"><b>${ACT[x.id].n}</b><small>${AREAS[ACT[x.id].area].name}</small></div><div class="o4st">${x.free?`<span class="o4free">nella giornata</span>`:`<span class="stp"><button type="button" data-o2m="${i}:-5" aria-label="Meno minuti per ${esc(ACT[x.id].n)}">−</button><b>${x.m}′</b><button type="button" data-o2m="${i}:5" aria-label="Più minuti per ${esc(ACT[x.id].n)}">+</button></span>`}<span class="stp"><button type="button" data-o2f="${i}:-1" aria-label="Meno volte">−</button><b>×${x.f}</b><button type="button" data-o2f="${i}:1" aria-label="Più volte">+</button></span></div></div>`).join("")}<p class="o4tot">Totale: <b>${c.total} min</b> su ${c.budget} disponibili a settimana${c.over?" · <b>oltre il tuo tempo</b>, per tua scelta":""}</p></div>`}
+function goTxt(){const c=curPlan();return c.k==="personale"?"Inizia con il tuo percorso":`Inizia con ${PLANS[c.k].n}`}
+function tapImg(btn){const im=btn&&btn.querySelector("img.ti,img.pimg");if(!im||!im.animate)return;im.getAnimations().forEach(a=>a.cancel());if(RM||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  im.animate([{transform:"translateY(0) scale(1)"},{transform:"translateY(1px) scale(.94)",offset:.22},{transform:"translateY(-3px) scale(1.06)",offset:.58},{transform:"translateY(0) scale(1)"}],{duration:330,easing:"cubic-bezier(.2,.7,.3,1)"})}
+function setGroup(el,attr){el.closest("[role=group]").querySelectorAll(`[${attr}]`).forEach(b=>b.setAttribute("aria-pressed",String(b===el)))}
+function refreshPlans(){$("#o4plans").innerHTML=plansHTML();const c=curPlan();$("#o4own").innerHTML=c.k==="personale"?ownHTML():"";const g=$("#o4go");g.textContent=goTxt();g.disabled=!(c.items.length&&!(c.over&&c.k!=="personale"))}
+function applyOnb2(){const m=OV,p=m.p,c=curPlan();const pat=DAYPAT[p.days];const tS=today();
+  for(const [id,h] of H())if(h.plan)save("habits",id,{...h,archived:true});
+  for(const x of c.items){const A=ACT[x.id];save("habits",uid(),{title:A.n,guide:A.e,act:x.id,cat:x.id,mins:x.m,free:x.free,days:pickDays(pat,x.f),when:A.w,mini:A.mini,anchor:"",created:tS,stage:1,plan:true,archived:false})}
+  setMeta({profile2:{...p,plan:c.k},profile:meta().profile||{v:3},plan:{start:tS,variant:c.k}});
+  OV=null;closeOv();S.tab="oggi";render();snack(`Percorso pronto: ${c.items.length} ${c.items.length===1?"attività":"attività"}`)}
+function onbClick(el,d){const m=OV,p=m.p;
+  if(d.o2go!=null){m.step=+d.o2go;m.sub=null;drawOnb2();return true}
+  if(d.o2back!=null){if(m.step<=1&&meta().profile2){closeOv();return true}if(m.step===3&&p.areas.length){m.step=2;m.sub=p.areas.length-1}else{m.step=Math.max(0,m.step-1);m.sub=null}drawOnb2();return true}
+  if(d.o2subback!=null){if(m.sub>0)m.sub--;else m.sub=null;drawOnb2();return true}
+  if(d.o2mpd){tapImg(el);p.mpd=+d.o2mpd;setGroup(el,"data-o2mpd");$("#o4bud").innerHTML=budgetTxt(p);m.own=null;return true}
+  if(d.o2days){p.days=+d.o2days;setGroup(el,"data-o2days");$("#o4bud").innerHTML=budgetTxt(p);m.own=null;const b=$("#o4n1");b.disabled=false;b.textContent="Avanti";return true}
+  if(d.o2en){tapImg(el);p.energy=d.o2en;setGroup(el,"data-o2en");return true}
+  if(d.o2area){tapImg(el);const a=d.o2area;const on=!p.areas.includes(a);p.areas=on?[...p.areas,a]:p.areas.filter(x=>x!==a);el.setAttribute("aria-pressed",String(on));const b=$("#o4n2");b.disabled=!p.areas.length;b.textContent=p.areas.length?"Scegli le attività":"Scegli almeno un'area";return true}
+  if(d.o2acts!=null){p.areas=AREA_KEYS.filter(a=>p.areas.includes(a));p.acts=p.acts.filter(id=>p.areas.includes(ACT[id].area));m.sub=0;drawOnb2();return true}
+  if(d.o2act){tapImg(el);const id=d.o2act;const on=!p.acts.includes(id);p.acts=on?[...p.acts,id]:p.acts.filter(x=>x!==id);el.setAttribute("aria-pressed",String(on));m.own=null;if(p.plan==="personale")p.plan=null;const n=nSel();$("#o4n3").textContent=n?`Conferma · ${n} ${n===1?"attività":"attività"}`:"Conferma";return true}
+  if(d.o2more!=null){const a=p.areas[m.sub];const op=!m.open[a];m.open[a]=op;$("#o4more").classList.toggle("open",op);el.setAttribute("aria-expanded",String(op));el.textContent=op?"Mostra meno":"Mostra altre attività · 9";
+    const hid=CAT[a].filter(x=>!x.p&&p.acts.includes(x.id));const s=$("#o4sel");s.innerHTML=hid.length?`Scelte tra le altre: ${hid.map(x=>`<span>${x.n}</span>`).join("")}`:"";s.hidden=op||!hid.length;return true}
+  if(d.o2conf!=null){if(m.sub<p.areas.length-1){m.sub++;drawOnb2();return true}m.step=3;m.sub=null;if(!p.plan||(p.plan!=="personale"&&planFor(p.plan,p).over))p.plan=recPlan(p);if(planFor(p.plan,p).over)p.plan="scintilla";drawOnb2();return true}
+  if(d.o2plan){tapImg(el);p.plan=d.o2plan;if(p.plan!=="personale")m.own=null;refreshPlans();return true}
+  if(d.o2m||d.o2f){const c=curPlan();const own={items:c.items.map(x=>({...x})),budget:c.budget};const [i,v]=(d.o2m||d.o2f).split(":").map(Number);const x=own.items[i];
+    if(d.o2m)x.m=Math.max(5,Math.min(180,x.m+v));else x.f=Math.max(1,Math.min(p.days,x.f+v));m.own=own;p.plan="personale";refreshPlans();return true}
+  if(d.o2apply!=null){applyOnb2();return true}
+  return false}
+
+/* ===== Percorso a 5 tappe e onboarding guidato: Aree → Tappa → Attività → Riepilogo ===== */
+const TAPPE=[
+ {n:"Scintilla",acts:1,min:10,days:3,win:8,need:6,d:"Accendi l'abitudine con la versione più piccola.",img:"percorso_scintilla.webp"},
+ {n:"Radice",acts:2,min:15,days:4,win:14,need:10,d:"Due gesti legati a un momento fisso della giornata.",img:"percorso_radice.webp"},
+ {n:"Flusso",acts:3,min:25,days:5,win:14,need:11,d:"Un ritmo pieno, con il piano B già pronto.",img:"percorso_flusso.webp"},
+ {n:"Slancio",acts:4,min:40,days:5,win:14,need:12,d:"Più spazio alle attività, sempre con margine.",img:"percorso_slancio.webp"},
+ {n:"Orizzonte",acts:4,min:40,days:5,win:14,need:12,d:"Le abitudini reggono da sole: spazio a una nuova area.",img:"percorso_orizzonte.webp"}];
+const MAXAREE=3;const maxAree=p=>p.tappa!=null?Math.max(1,TAPPE[p.tappa].acts):MAXAREE;
+const ENTXT={bassa:"poca energia",var:"energia variabile",alta:"tanta energia"};
+const recTappa=e=>e==="bassa"?0:e==="alta"?2:1;
+/* proposta: attività principali delle aree scelte, adatte all'energia, a giro tra le aree */
+function proposeActs(areas,energy,n){const want=energy==="bassa"?7:energy==="alta"?20:12;const lists=areas.map(a=>CAT[a].filter(x=>x.p).slice().sort((x,y)=>Math.abs((x.m||8)-want)-Math.abs((y.m||8)-want)||(energy==="bassa"?(x.m-y.m):0)));
+  const out=[];let i=0;while(out.length<n&&lists.some(l=>l.length)){const l=lists[i%lists.length];if(l.length)out.push(l.shift().id);i++}return out}
+function tappaPlan(t,acts){const T=TAPPE[t];const timed=acts.filter(id=>ACT[id].m);const base=timed.reduce((s,id)=>s+ACT[id].m,0)||1;
+  return acts.map(id=>{const A=ACT[id];const m=A.m?Math.max(5,Math.round(T.min*A.m/base/5)*5):0;return {id,m,free:!A.m,f:T.days}})}
+function pathSVG(cur,w){const xs=[38,104,176,244,302],ys=[110,66,90,48,74];return `<div class="o5path" aria-hidden="true"><svg viewBox="0 0 340 140"><path d="M${xs[0]} ${ys[0]} C 66 110, 84 66, ${xs[1]} ${ys[1]} S 150 90, ${xs[2]} ${ys[2]} S 222 48, ${xs[3]} ${ys[3]} S 290 74, ${xs[4]} ${ys[4]}" fill="none" stroke="#e3dff0" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 9"/></svg>${TAPPE.map((T,i)=>`<div class="st ${i===cur?"on":i<cur?"dn":""}" style="left:${xs[i]/3.4}%;top:${ys[i]/1.4}%"><i></i><span>${i+1} · ${T.n}</span></div>`).join("")}</div>`}
+function o3Head(step){return `<div class="o4h"><button type="button" class="rb3" data-o3back aria-label="Indietro">${icon("back",1.6)}</button><div class="o4s" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="${Math.min(step,3)}" aria-label="Passo ${Math.min(step,3)} di 3">${["Tappa","Aree","Attività"].map((t,i)=>`<div class="${i+1<step?"dn":i+1===step?"on":""}"><span>${t}</span><i></i></div>`).join("")}</div></div>`}
+function startOnb3(){const pc=meta().percorso;OV={kind:"onb3",step:0,p:{areas:pc&&pc.areas?pc.areas.filter(a=>AREAS[a]):[],energy:pc&&pc.energy||null,tappa:null,acts:[],touched:false},open:{}};drawOnb3()}
+function areaTip(p){const n=p.areas.length,M=maxAree(p);return n>M?`<b>Hai scelto ${n} aree.</b> Per la tappa ${TAPPE[p.tappa].n} ne bastano ${M}: togline ${n-M}. Le altre potrai aggiungerle salendo di tappa.`:n?`Ottimo: ${n===1?"un'area":`${n} aree`} per cominciare.`:"Puoi sceglierne più di una."}
+function drawOnb3(keep){const m=OV,p=m.p;let h="";
+  if(m.step===0){h=`<div class="o4w"><div class="o4hero">${vimg("onboarding_benvenuto.webp","o4bg")}</div><h1 class="o4t">Un piccolo passo.<br>Un mondo di possibilità.</h1><p class="o4p">Un percorso in 5 tappe, al tuo ritmo, con un’essenza al tuo fianco.</p>
+   <div class="o4foot"><button type="button" class="o4cta" data-o3go="1">Cominciamo · 3 passi</button>${S.mode==="local"?`<button type="button" class="lnk3" data-imp>Ho già un percorso: incolla i miei dati</button>`:""}</div></div>`}
+  else if(m.step===2){const n=p.areas.length;h=o3Head(2)+`<h1 class="o4q">Cosa vuoi far crescere adesso?</h1><p class="o4p">Scegli le aree che contano per te.</p>
+   <div class="o4grid2 ess" role="group" aria-label="Aree">${AREA_KEYS.map(a=>pick("data-o3area",a,p.areas.includes(a),`<img class="ti" src="${AREAS[a].fig}.png" alt=""><b>${a==="mente"?"Mente e creatività":AREAS[a].name}</b><small>${AREAS[a].fig}</small>`,"essbox",`style="--ac:${AREAS[a].dot}"`)).join("")}</div>
+   <p class="o5tip ${n>maxAree(p)?"warn":""}" id="o5tip" role="status">${areaTip(p)}</p>
+   <div class="o4foot"><button type="button" class="o4cta" data-o3go="3" id="o5n1" ${n?"":"disabled"}>${n?"Avanti":"Scegli almeno un'area"}</button></div>`}
+  else if(m.step===1){const rec=p.energy?recTappa(p.energy):null;h=o3Head(1)+`<h1 class="o4q">Da quale tappa parti?</h1><p class="o4p">Il percorso ha 5 tappe. Dimmi come stai di solito e ti propongo da dove partire.</p>
+   <div class="o5en" role="group" aria-label="Energia">${ENER.map(([v,t,ic])=>pick("data-o3en",v,p.energy===v,`<img class="ti" src="${ic}.webp" alt=""><b>${t}</b>`,"enbox")).join("")}</div>
+   <div id="o5tap" role="group" aria-label="Tappe">${tappeHTML()}</div>
+   <div class="o4foot"><button type="button" class="lnk3" data-o3comp>Componi il tuo percorso</button><button type="button" class="o4cta" data-o3go="2" id="o5n2" ${p.tappa!=null?"":"disabled"}>${p.tappa!=null?`Avanti · scegli le aree`:"Scegli come stai"}</button></div>`}
+  else if(m.step===3){const T=TAPPE[p.tappa];const n=p.acts.length;h=o3Head(3)+`<h1 class="o4q">Le tue attività</h1><p class="o4p">Per la tappa ${p.tappa+1} · ${T.n} ti propongo ${T.acts} ${T.acts===1?"attività":"attività"}. Cambiale come vuoi.</p>
+   ${p.areas.map(a=>{const A=AREAS[a],L=CAT[a],op=!!m.open[a];const hid=L.filter(x=>!x.p&&p.acts.includes(x.id));return `<section class="o5sec"><div class="o4ah" style="--ac:${A.dot}"><span class="o4ap" style="background-image:url(${A.img}_c.webp)" aria-hidden="true"></span><div><b>${A.name} · <span>con ${A.fig}${a==="mente"?" e Bloom":""}</span></b><small>${A.mot}</small></div></div>
+    <div class="o4grid2 acts" role="group" aria-label="Attività di ${A.name}">${L.filter(x=>x.p).map(x=>actTile(x,p)).join("")}</div>
+    <div id="o5more-${a}" class="exp ${op?"open":""}"><div><div class="o4grid2 acts" role="group" aria-label="Altre attività di ${A.name}">${L.filter(x=>!x.p).map(x=>actTile(x,p)).join("")}</div></div></div>
+    <p class="o4sel" id="o5sel-${a}" ${!op&&hid.length?"":"hidden"}>${hid.length?`Scelte tra le altre: ${hid.map(x=>`<span>${x.n}</span>`).join("")}`:""}</p>
+    <button type="button" class="o4dis" data-o3more="${a}" aria-expanded="${op}" aria-controls="o5more-${a}">${op?"Mostra meno":"Mostra altre attività · 9"}</button></section>`}).join("")}
+   <p class="o5tip" id="o5tip2" role="status">${actTip(p)}</p>
+   <div class="o4foot sticky"><button type="button" class="o4cta" data-o3go="4" id="o5n3" ${n?"":"disabled"}>${n?`Conferma · ${n} ${n===1?"attività":"attività"}`:"Scegli almeno un'attività"}</button></div>`}
+  else{const T=TAPPE[p.tappa];const it=tappaPlan(p.tappa,p.acts);const nxt=TAPPE[p.tappa+1];const days=pickDays([0,1,2,3,4,5,6],T.days);
+   h=o3Head(4)+`<p class="o5k">Il tuo percorso · ${(l=>l.length>1?l.slice(0,-1).join(", ")+" e "+l[l.length-1]:l[0])(p.areas.map(a=>AREAS[a].short||AREAS[a].name))}</p><h1 class="o4q" style="margin-top:4px">Tappa ${p.tappa+1} · ${T.n}</h1>${pathSVG(p.tappa)}
+   <div class="o5card"><p class="o5k">Questa tappa</p>${it.map(x=>`<div class="o5row">${actImg(x.id,"o5ic")}<div><b>${ACT[x.id].n}</b><small>${x.free?"nella giornata · ogni giorno":`${x.m} min · ${MOML[ACT[x.id].w]} · ${days.map(d=>WDS[d]).join(" ")}`}</small></div></div>`).join("")}</div>
+   <p class="o5rule">${nxt?`<b>Per salire alla tappa ${p.tappa+2} · ${nxt.n}:</b> ${T.need} giorni fatti su ${T.win}. Se una settimana va storta, si resta qui: nessuna penalità.`:"Sei all'ultima tappa: ora sei tu a decidere il ritmo."}</p>
+   <div class="o4foot"><button type="button" class="o4cta" data-o3apply>Inizia</button></div>`}
+  openOv(`<div class="o4 o5">${h}</div>`,{keep})}
+function tappeHTML(){const p=OV.p;if(!p.energy)return `<p class="o5tip">Scegli come stai di solito: la tappa consigliata e le attività proposte cambiano di conseguenza.</p>`+[0,1,2].map(i=>tappaCard(i,false)).join("");const rec=recTappa(p.energy);return [0,1,2].map(i=>tappaCard(i,i===rec)).join("")}
+function tappaCard(i,rec){const p=OV.p,T=TAPPE[i];const acts=p.energy&&p.areas.length?proposeActs(p.areas,p.energy,T.acts):[];const pressed=p.tappa===i;
+  return `<button type="button" class="o4plan o5t" data-o3tap="${i}" aria-pressed="${pressed}" ${p.energy?"":"disabled"}><span class="pt"><span class="o5n">Tappa ${i+1}</span><b>${T.n}</b>${rec?`<em>consigliata</em>`:""}</span><span class="pd">${T.d}</span><span class="pl">${T.acts} ${T.acts===1?"attività":"attività"} · ${T.min} min · ${T.days} giorni${acts.length?` — ${acts.map(id=>ACT[id].n).join(", ")}`:""}</span>${vimg(T.img,"pimg")}<span class="o4k" aria-hidden="true">${icon("l3ck",2.2)}</span></button>`}
+function actTile(x,p){return pick("data-o3act",x.id,p.acts.includes(x.id),`${actImg(x.id,"ti big")}<b>${x.n}</b><small>${x.m?`circa ${x.m} min`:"nella giornata"}</small>`,"act",`style="--ac:${AREAS[ACT[x.id].area].dot}"`)}
+function actTip(p){const T=TAPPE[p.tappa],n=p.acts.length;return n>T.acts?`<b>Ne hai scelte ${n}.</b> La tappa ${T.n} ne prevede ${T.acts}: per partire leggero togline ${n-T.acts}. Le altre arriveranno con le prossime tappe.`:n<T.acts&&n?`Puoi aggiungerne ancora ${T.acts-n} per questa tappa.`:""}
+function applyOnb3(){const p=OV.p,T=TAPPE[p.tappa];const it=tappaPlan(p.tappa,p.acts);const tS=today();
+  for(const [id,h] of H())if(h.plan)save("habits",id,{...h,archived:true});
+  for(const x of it){const A=ACT[x.id];save("habits",uid(),{title:A.n,guide:A.e,act:x.id,cat:x.id,mins:x.m,free:x.free,days:pickDays([0,1,2,3,4,5,6],T.days),when:A.w,mini:A.mini,anchor:"",created:tS,stage:1,plan:true,archived:false})}
+  setMeta({percorso:{tappa:p.tappa,start:tS,areas:p.areas,energy:p.energy},profile:meta().profile||{v:4},plan:{start:tS,variant:"tappa"+(p.tappa+1)}});
+  OV=null;closeOv();S.tab="oggi";render();snack(`Tappa ${p.tappa+1} · ${T.n}: si parte`)}
+function onb3Click(el,d){const m=OV,p=m.p;
+  if(d.o3go!=null){const s=+d.o3go;if(s===3&&!p.touched)p.acts=proposeActs(p.areas,p.energy,TAPPE[p.tappa].acts);m.step=s;drawOnb3();return true}
+  if(d.o3back!=null){if(m.step<=1){if(meta().percorso){closeOv();return true}m.step=0}else m.step--;drawOnb3();return true}
+  if(d.o3area){tapImg(el);const a=d.o3area;const on=!p.areas.includes(a);p.areas=on?[...p.areas,a]:p.areas.filter(x=>x!==a);el.setAttribute("aria-pressed",String(on));p.touched=false;
+    const t=$("#o5tip");t.innerHTML=areaTip(p);t.classList.toggle("warn",p.areas.length>maxAree(p));const b=$("#o5n1");b.disabled=!p.areas.length;b.textContent=p.areas.length?"Avanti":"Scegli almeno un'area";return true}
+  if(d.o3en){tapImg(el);p.energy=d.o3en;setGroup(el,"data-o3en");p.tappa=recTappa(p.energy);p.touched=false;$("#o5tap").innerHTML=tappeHTML();const b=$("#o5n2");b.disabled=false;b.textContent="Avanti · scegli le aree";return true}
+  if(d.o3tap){tapImg(el);p.tappa=+d.o3tap;p.touched=false;document.querySelectorAll("[data-o3tap]").forEach(b=>b.setAttribute("aria-pressed",String(b===el)));return true}
+  if(d.o3comp!=null){OV=null;startOnb(1);return true}
+  if(d.o3act){tapImg(el);const id=d.o3act;const on=!p.acts.includes(id);p.acts=on?[...p.acts,id]:p.acts.filter(x=>x!==id);p.touched=true;el.setAttribute("aria-pressed",String(on));const n=p.acts.length;const b=$("#o5n3");b.disabled=!n;b.textContent=n?`Conferma · ${n} ${n===1?"attività":"attività"}`:"Scegli almeno un'attività";$("#o5tip2").innerHTML=actTip(p);return true}
+  if(d.o3more){const a=d.o3more;const op=!m.open[a];m.open[a]=op;$("#o5more-"+a).classList.toggle("open",op);el.setAttribute("aria-expanded",String(op));el.textContent=op?"Mostra meno":"Mostra altre attività · 9";const hid=CAT[a].filter(x=>!x.p&&p.acts.includes(x.id));const s=$("#o5sel-"+a);s.innerHTML=hid.length?`Scelte tra le altre: ${hid.map(x=>`<span>${x.n}</span>`).join("")}`:"";s.hidden=op||!hid.length;return true}
+  if(d.o3apply!=null){applyOnb3();return true}
+  return false}
+/* scheda della tappa nella Home */
+function tappaCardHome(){const pc=meta().percorso;if(!pc||pc.tappa==null)return "";const T=TAPPE[pc.tappa];const tS=today();let done=0;
+  for(let i=0;i<T.win;i++){const ds=iso(addD(parse(pc.start),i));if(ds>tS)break;for(const k in S.checks)if(k.startsWith(ds+"__")&&doneV(S.checks[k])){done++;break}}
+  const left=Math.max(0,T.need-done);return `<div class="o5home"><div class="h"><b>Tappa ${pc.tappa+1} · ${T.n}</b><span>${done} di ${T.win} giorni</span></div><div class="bar"><i style="width:${Math.min(100,done/T.need*100)}%"></i></div><p>${TAPPE[pc.tappa+1]?(left?`Ancora ${left} ${left===1?"giorno":"giorni"} fatti per la tappa ${pc.tappa+2} · ${TAPPE[pc.tappa+1].n}.`:`Pronto per la tappa ${pc.tappa+2}: ne parliamo alla revisione.`):"Ultima tappa: il ritmo lo decidi tu."}</p></div>`}
+
 /* ===== v41: testi che cambiano, premio, scheda, aggiungi ===== */
 const hsh=s=>{let x=7;for(const ch of String(s))x=(x*31+ch.charCodeAt(0))|0;return Math.abs(x)};
 const lc=s=>s?s[0].toLowerCase()+s.slice(1):s;
@@ -983,7 +1372,7 @@ function lineFor(h,id){const s=stats(h,id);const tS=today();const y=iso(addD(new
   const P=[];if(h.ifThen)P.push(`Il tuo piano B: <b>${esc(lc(h.ifThen))}</b>.`);if(h.env)P.push(`Prima di iniziare: <b>${esc(lc(h.env))}</b>.`);if(h.bundle)P.push(`Il tuo premio: <b>${esc(lc(h.bundle))}</b>, solo in quel momento.`);
   if(s.chain>=3)P.push(`<b>${s.chain} di fila.</b> Il filo regge.`);if(s.stage>=3)P.push(`Costanza al <b>${Math.round(s.cons*100)}%</b> nelle ultime settimane.`);
   if(s.next&&s.reps)P.push(esc(s.next.t)+".");P.push(esc(GD[h.guide].v));
-  if(!s.reps)P.push(`Prima volta: <b>${dur(minsNow(h))}</b>, ${esc(h.anchor||MOML[h.when])}. Comincia piccolo.`);
+  if(!s.reps)P.push(`Prima volta: <b>${durTxt(h)}</b>, ${esc(h.anchor||MOML[h.when])}. Comincia piccolo.`);
   return P[k%P.length]}
 function reward(id,v){const h=S.habits[id];if(!h)return;let el=null;for(const sel of [`#sh [data-ck="${id}"][data-val="${v}"]`,`#ov [data-ck="${id}"]`,`#scr [data-ck="${id}"]`]){el=document.querySelector(sel);if(el&&el.getClientRects().length)break;el=null}
   try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}
@@ -993,9 +1382,9 @@ function reward(id,v){const h=S.habits[id];if(!h)return;let el=null;for(const se
   const col=AC[figOf(h.guide)].dot;for(let i=0;i<16;i++){const p=document.createElement("i");const a=i/16*Math.PI*2+Math.random()*.4;const dd=34+Math.random()*38;p.style.setProperty("--x",Math.cos(a)*dd+"px");p.style.setProperty("--y",Math.sin(a)*dd+"px");p.style.background=[col,"#b9a8d6","#f1cf7d","#9fd0b2"][i%4];box.appendChild(p)}
   const t=document.createElement("b");t.textContent=`+${v==="f"?10:6}`;box.appendChild(t);document.body.appendChild(box);setTimeout(()=>box.remove(),1100)}
 const navBack=a=>`<div class="nav3"><button class="rb3" data-${a} aria-label="Indietro">${icon("back",1.6)}</button></div>`;
-const NAMES={ember:["Lavoro profondo","Rispondere alle email","Fatture e prima nota","Aggiornare il portfolio","Pianificare la settimana","Formazione","Riordinare i file","Contattare un cliente"],sage:["Lettura","Studio","Inglese","Diario","Meditazione","Ascoltare un podcast","Disegnare","Scrivere idee"],brook:["Camminata","Palestra","Corsa","Stretching","Yoga","Bere acqua","Cucinare sano","Andare a letto presto"]};
-const GKEY={ember:"Ember",sage:"Sage",brook:"Brook"};
-function addSrc(m){if(m.k==="__custom"){const g=GKEY[m.cg];return {t:m.custom,g,mini:`${Math.max(2,Math.round(m.x.m/4))} minuti`,anc:"",i:""}}return HC[m.k]}
+const NAMES={lavoro:["Rispondere ai clienti","Fatture e prima nota","Formazione","Riordinare i file"],mente:["Diario","Ascoltare un podcast","Scrivere idee","Musica"],corpo:["Palestra","Pilates","Cucinare sano"],riposo:["Andare a letto presto","Pisolino","Bagno caldo"],legami:["Chiamare la famiglia","Cena con amici"],"vita-pratica":["Bucato","Pagare le bollette","Spesa"]};
+const GKEY=Object.fromEntries(AREA_KEYS.map(k=>[k,AREAS[k].fig]));
+function addSrc(m){if(String(m.k).startsWith("cat:")){const A=ACT[m.k.slice(4)];return {t:A.n,g:A.e,mini:A.mini,anc:"",i:"",act:A.id,free:!A.m}}if(m.k==="__custom"){const g=GKEY[m.cg];return {t:m.custom,g,mini:`${Math.max(2,Math.round(m.x.m/4))} minuti`,anc:"",i:""}}return HC[m.k]}
 function drawAdd(){const m=OV;const have=new Set(H().map(([,h])=>h.title));
   if(m.custom&&!m.k){const g=m.cg;
     openOv(`${navBack("aback")}<h1 class="q">Crea la tua attività</h1><p class="qs">Scegli la guida, poi il nome.</p>
@@ -1003,21 +1392,21 @@ function drawAdd(){const m=OV;const have=new Set(H().map(([,h])=>h.title));
      <p class="lb3">Un nome</p><div class="chips3 wrap">${NAMES[g].filter(n=>!have.has(n)).map(n=>`<button data-cn="${esc(n)}" aria-pressed="${m.cn===n}">${esc(n)}</button>`).join("")}</div>
      <p class="lb3">Oppure scrivilo tu</p><input class="in3" id="cnIn" maxlength="40" placeholder="Es. Chiamare la nonna" value="${esc(m.cnTyped||"")}" autocomplete="off" enterkeyhint="done">
      <div class="foot3"><button class="cta3" data-cgo ${m.cn||m.cnTyped?"":"disabled"}>Avanti</button></div>`,{keep:m._d==="c"});m._d="c";return}
-  if(!m.k){const fl=m.fl==null?(m.preG||""):m.fl;const L=Object.entries(HC).filter(([k,c])=>!have.has(c.t)&&(!fl||figOf(c.g)===fl));
-    openOv(`${navBack("close")}<h1 class="q">Cosa aggiungiamo?</h1><p class="qs">Ogni attività arriva con la sua guida.</p>
-     <div class="chips3"><button data-afl="" aria-pressed="${!fl}">Tutte</button>${AREA_KEYS.map(f=>`<button data-afl="${f}" aria-pressed="${fl===f}">${badge(f,"cb3")}${AREAS[f].fig}</button>`).join("")}</div>
-     <div class="nl3"><button class="r3 new3" data-acustom><span class="nb"><span class="ra ic">${icon("l3plus",1.5)}</span><span class="nt"><b>Crea la tua</b><small>un'attività tutta tua, con la guida che scegli</small></span></span>${icon("l3chev",1.5)}</button>
-     ${L.map(([k,c])=>{const f=figOf(c.g);return `<button class="r3" data-ak="${k}"><span class="nb">${badge(f,"ra")}<span class="nt"><b>${c.t}</b><small><i class="gd" style="background:${AC[f].dot}"></i>${AREAS[f].fig} · ${dur(c.m)} · ${c.f}× a settimana</small></span></span>${icon("l3chev",1.5)}</button>`}).join("")}</div>
+  if(!m.k){const fl=m.fl==null?(m.preG||""):m.fl;const ks=fl?[fl]:AREA_KEYS;
+    openOv(`${navBack("close")}<h1 class="q">Cosa aggiungiamo?</h1><p class="qs">Ogni attività appartiene a un'area, con la sua Essenza.</p>
+     <div class="chips3"><button data-afl="" aria-pressed="${!fl}">Tutte</button>${AREA_KEYS.map(f=>`<button data-afl="${f}" aria-pressed="${fl===f}">${badge(f,"cb3")}${AREAS[f].name}</button>`).join("")}</div>
+     <div class="nl3"><button class="r3 new3" data-acustom><span class="nb"><span class="ra ic">${icon("l3plus",1.5)}</span><span class="nt"><b>Crea la tua</b><small>un'attività tutta tua, nell'area che scegli</small></span></span>${icon("l3chev",1.5)}</button>
+     ${ks.map(f=>CAT[f].filter(x=>!have.has(x.n)).map(x=>`<button class="r3" data-acat="${x.id}"><span class="nb">${actImg(x.id,"ra icn")}<span class="nt"><b>${x.n}</b><small><i class="gd" style="background:${AREAS[f].dot}"></i>${AREAS[f].name} · ${x.m?`circa ${x.m} min`:"nella giornata"}</small></span></span>${icon("l3chev",1.5)}</button>`).join("")).join("")}</div>
      <div class="foot3"><button class="lnk3" data-replan>Oppure ripensa tutto il percorso</button></div>`,{keep:m._d==="l"});m._d="l";return}
   const c=addSrc(m),x=m.x,f=figOf(c.g);
-  openOv(`${navBack("aback")}<div class="cfg3"><span class="bigb" style="background-image:url(${fimg(f,"c")})" aria-hidden="true"></span><h1 class="q">${esc(c.t)}</h1><p class="qs">Con ${AREAS[f].fig} · già impostata sul valore più comune</p></div>
+  openOv(`${navBack("aback")}<div class="cfg3">${c.act?actImg(c.act,"bigi"):`<span class="bigb" style="background-image:url(${fimg(f,"c")})" aria-hidden="true"></span>`}<h1 class="q">${esc(c.t)}</h1><p class="qs">${AREAS[f].name} · con ${AREAS[f].fig} · tempi modificabili</p></div>
    <div class="card3"><div class="edrow"><span>Volte a settimana</span><span class="stp"><button data-af="-1" aria-label="Meno">−</button><b>${x.f}×</b><button data-af="1" aria-label="Più">+</button></span></div>
    <div class="edrow"><span>Minuti per volta</span><span class="stp"><button data-am="-5" aria-label="Meno">−</button><b>${x.m}′</b><button data-am="5" aria-label="Più">+</button></span></div>
    <div class="edrow col"><span>Momento</span><div class="seg3">${MOMS.map(w=>`<button data-aw="${w}" aria-pressed="${x.w===w}">${cap(MOML[w])}</button>`).join("")}</div></div>
    <div class="edrow col"><span>Giorni</span><div class="dsel3">${WDS.map((w,d)=>`<button data-ad="${d}" aria-pressed="${x.days.includes(d)}" aria-label="${WDL[d]}">${w}</button>`).join("")}</div></div></div>
    <div class="foot3"><button class="cta3" data-ago>Aggiungi al percorso</button></div>`,{keep:m._d==="k"+m.k});m._d="k"+m.k}
 function addHabit(){const m=OV,c=addSrc(m),x=m.x;const isNew=!H().some(([,h])=>figOf(h.guide)===figOf(c.g));const id=uid();
-  save("habits",id,{title:c.t,guide:c.g,mins:x.m,days:x.days.slice().sort(),when:x.w,i:c.i||"",mini:c.mini,anchor:c.anc||"",created:today(),stage:1,plan:false,archived:false,custom:m.k==="__custom"});
+  save("habits",id,{title:c.t,guide:c.g,mins:x.m,days:x.days.slice().sort(),when:x.w,i:c.i||"",act:c.act||"",free:!!c.free,mini:c.mini,anchor:c.anc||"",created:today(),stage:1,plan:false,archived:false,custom:m.k==="__custom"});
   if(!meta().plan)setMeta({plan:{start:today(),variant:"consigliato"}});
   if(isNew)openIntros([figOf(c.g)],true);else{closeOv();S.tab="oggi";render();snack(`«${c.t}» aggiunta`)}}
 /* scheda attività */
@@ -1034,8 +1423,8 @@ function drawSheet(first){const id=SH.id,h=norm(S.habits[id]);if(!h){closeSheet(
     const key="t"+t.k;return `<div class="tl3 ${acc[key]&&!lock?"open":""} ${lock?"lock":""}"><button class="tlh" ${lock?"disabled":`data-acc="${key}"`} aria-expanded="${!!acc[key]}"><span class="ti3">${icon(TIC[t.k],1.5)}</span><span class="nt"><b>${t.n}</b><small>${state}</small></span>${icon(lock?"l3lock":"l3chev",1.5)}</button><div class="exp"><div><div class="tlb">${b}</div></div></div></div>`}).join("");
   const nxt=(()=>{for(let i=1;i<8;i++){const ds=iso(addD(new Date(),i));if(sched(h,ds))return i===1?"domani":GIORNI[parse(ds).getDay()].toLowerCase()}return ""})();
   const inner=`<div class="grab"></div>
-   <div class="shh">${badge(f,"shb")}<div class="nt"><h2>${esc(h.title)}</h2><small><i class="gd" style="background:${AC[f].dot}"></i>${AREAS[f].fig} · ${dur(minsNow(h))} · ${MOML[h.when]}</small><span class="dl3">${WDS.map((w,i)=>`<i class="${h.days.includes(i)?"on":""}">${w}</i>`).join("")}</span></div><button class="xb3" data-shx aria-label="Chiudi">${icon("l3x",1.6)}</button></div>
-   ${sc?`<button class="ok3" data-ck="${id}" data-val="${md?"m":"f"}" aria-pressed="${!!(d&&(md||c.v==="f"))}">${icon("l3ck",1.8)}<span><b>${d&&(md||c.v==="f")?"Fatta":"Fatto"}</b><small>${d&&(md||c.v==="f")?"tocca di nuovo per annullare":md?`versione mini · ${esc(h.mini)}`:dur(minsNow(h))}</small></span></button>
+   <div class="shh">${actOf(h)?actIcon(h,"shb icn"):badge(f,"shb")}<div class="nt"><h2>${esc(h.title)}</h2><small><i class="gd" style="background:${AC[f].dot}"></i>${AREAS[f].name} · con ${AREAS[f].fig} · ${durTxt(h)}</small><span class="dl3">${WDS.map((w,i)=>`<i class="${h.days.includes(i)?"on":""}">${w}</i>`).join("")}</span></div><button class="xb3" data-shx aria-label="Chiudi">${icon("l3x",1.6)}</button></div>
+   ${sc?`<button class="ok3" data-ck="${id}" data-val="${md?"m":"f"}" aria-pressed="${!!(d&&(md||c.v==="f"))}">${icon("l3ck",1.8)}<span><b>${d&&(md||c.v==="f")?"Fatta":"Fatto"}</b><small>${d&&(md||c.v==="f")?"tocca di nuovo per annullare":md?`versione mini · ${esc(h.mini)}`:durTxt(h)}</small></span></button>
     <div class="two3">${md?"":`<button class="sec3" data-ck="${id}" data-val="m" aria-pressed="${!!(c&&c.v==="m")}">${icon("bolt",1.5)}<span><b>${c&&c.v==="m"?"Fatta mini":"Solo la mini"}</b><small>${esc(h.mini)}</small></span></button>`}<button class="sec3" data-pptog aria-expanded="${!!SH.pp}" ${d?"disabled":""}>${icon("clock",1.5)}<span><b>Rimanda</b><small>${c&&c.v==="p"?"già rimandata":"scegli quando"}</small></span></button></div>
     <div class="exp ${SH.pp?"open":""}" id="ppx"><div><div class="opts3">${ppOptions(id).filter(o=>o.k!=="mini").map(o=>`<button data-pp="${o.k}" ${o.to?`data-to="${o.to}"`:""}><b>${o.t}</b><small>${o.d}</small></button>`).join("")}</div></div></div>`
    :`<p class="none3">Oggi non è in programma${nxt?`: la ritrovi ${nxt}`:""}.</p>`}
@@ -1115,6 +1504,8 @@ document.addEventListener("click",async e=>{const t=e.target;
   if(t.matches("[data-scrim]")){closeSheet();return}
   if(t.closest("[data-legclose]")){S.legOpen=false;const w=$("#ov .w3");if(w)w.classList.remove("legon");return}
   const el=t.closest("button,[data-open]");if(!el)return;const d=el.dataset;
+  if(OV&&OV.kind==="onb2"&&onbClick(el,d))return;
+  if(OV&&OV.kind==="onb3"&&onb3Click(el,d))return;
   if(d.exp!=null){const txt="IPDATA1:"+btoa(unescape(encodeURIComponent(JSON.stringify({habits:S.habits,checks:S.checks,todos:S.todos,meta:S.meta}))));try{await navigator.clipboard.writeText(txt);snack("Dati copiati. Ora apri l'app a schermo intero")}catch(e){snack("Copia non riuscita: riprova")}return}
   if(d.imp!=null){let t="";try{t=await navigator.clipboard.readText()}catch(e){snack("Non riesco a leggere gli appunti");return}if(!t||!t.startsWith("IPDATA1:")){snack("Negli appunti non ci sono dati del percorso");return}
     if(H().length&&!el.dataset.armed){el.dataset.armed=1;el.querySelector("b")?el.querySelector("b").textContent="Tocca di nuovo: sostituisco il percorso attuale":el.textContent="Tocca di nuovo per sostituire";return}
@@ -1129,8 +1520,8 @@ document.addEventListener("click",async e=>{const t=e.target;
   if(d.tab){const fr=TABS.indexOf(S.tab),to=TABS.indexOf(d.tab);if(fr===to){window.scrollTo({top:0,behavior:RM?"auto":"smooth"});return}S.tab=d.tab;S.anim=to>fr?1:-1;window.scrollTo(0,0);render();return}
   if(d.v){S.view=d.v;try{localStorage.setItem("ip3-view",d.v)}catch(e){}render();return;document.querySelectorAll("#scr .seg [data-v]").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.v===S.view)));return}
   if(d.add!=null){if(!meta().profile&&!H().length)startOnb();else openAdd();return}
-  if(d.onb!=null){if(SH){SH=null;$("#sh").innerHTML=""}startOnb();return}
-  if(d.replan!=null){openProposal(true);return}
+  if(d.onb!=null){if(SH){SH=null;$("#sh").innerHTML=""}startOnb3();return}
+  if(d.replan!=null){if(SH){SH=null;$("#sh").innerHTML=""}startOnb3();return}
   if(d.close!=null){closeOv();return}
   if(d.open){openSheet(d.open);return}
   if(d.ck){if(el.disabled)return;{const r=el.getBoundingClientRect();S.tap={x:r.left+r.width/2,y:r.top+r.height/2}}el.disabled=true;await complete(d.ck,d.val||"f",d.ds||today());el.disabled=false;return}
@@ -1184,7 +1575,8 @@ document.addEventListener("click",async e=>{const t=e.target;
     if(d.iback!=null){if(OV.i>0){OV.i--;drawIntro()}else closeOv();return}}
   if(OV&&OV.kind==="add"){const m=OV;
     if("afl" in d){m.fl=d.afl;drawAdd();return}
-    if(d.acustom!=null){m.custom=true;m.cg=m.fl||m.preG||"ember";m.cn=null;m.cnTyped="";drawAdd();return}
+    if(d.acat){const A=ACT[d.acat];m.k="cat:"+d.acat;m.x={f:3,m:A.m||0,w:A.w,days:spread([0,1,2,3,4,5,6],3,false)};drawAdd();return}
+    if(d.acustom!=null){m.custom=true;m.cg=m.fl||m.preG||"lavoro";m.cn=null;m.cnTyped="";drawAdd();return}
     if(d.cg){m.cg=d.cg;m.cn=null;drawAdd();return}
     if(d.cn){m.cn=d.cn;m.cnTyped="";drawAdd();return}
     if(d.cgo!=null){const n=m.cn||m.cnTyped;if(!n)return;m.custom=n;m.k="__custom";m.x={f:3,m:20,w:"mattina",days:spread([0,1,2,3,4,5,6],3,false)};drawAdd();return}
@@ -1204,7 +1596,7 @@ let snT=null;function snack(text,undo){clearTimeout(snT);$("#snack").innerHTML=`
 window.addEventListener("error",e=>snack("Errore: "+(e.message||"sconosciuto")));
 window.__ip={FIGS,emit,complete,stats,bondUp,set fail(v){S.failNext=v}};
 /* ================= AVVIO ================= */
-function afterLoad(){S.loaded=true;render();if(!meta().profile&&!H().length)startOnb();else setTimeout(()=>emit(EV.SCREEN_OPEN,{},{once:true,key:`greet:${today()}`}),500)}
+function afterLoad(){S.loaded=true;render();if(!meta().profile&&!H().length)startOnb3();else setTimeout(()=>emit(EV.SCREEN_OPEN,{},{once:true,key:`greet:${today()}`}),500)}
 (async()=>{let db=null,user=null,id=null;
   try{db=window.claude&&window.claude.use?await window.claude.use("db"):null}catch(e){db=null}
   try{user=window.claude&&window.claude.use?await window.claude.use("user"):null}catch(e){user=null}
@@ -1216,4 +1608,13 @@ function afterLoad(){S.loaded=true;render();if(!meta().profile&&!H().length)star
 })();
 setInterval(()=>{if(!OV&&!SH&&S.loaded)render()},5*60*1000);
 })();
+</script>
+<script>
+/* iOS: se la pagina non ha niente da scorrere, il pollice non deve spostare la schermata */
+(function(){let sy=0,sx=0;document.addEventListener("touchstart",e=>{sy=e.touches[0].clientY;sx=e.touches[0].clientX},{passive:true});
+document.addEventListener("touchmove",e=>{if(e.touches.length>1)return;let n=e.target;const dy=e.touches[0].clientY-sy;const dx=e.touches[0].clientX-sx;if(Math.abs(dx)>Math.abs(dy)){let q=e.target,ok=false;while(q&&q!==document.body){const c=getComputedStyle(q);if(/(auto|scroll)/.test(c.overflowX)&&q.scrollWidth>q.clientWidth+1){ok=true;break}q=q.parentElement}if(!ok){e.preventDefault();return}}
+ while(n&&n!==document.body&&n!==document.documentElement){const cs=getComputedStyle(n);const can=/(auto|scroll)/.test(cs.overflowY)&&n.scrollHeight>n.clientHeight+1;
+  if(can){if((dy>0&&n.scrollTop<=0)||(dy<0&&n.scrollTop+n.clientHeight>=n.scrollHeight-1))e.preventDefault();return}
+  const cx=/(auto|scroll)/.test(cs.overflowX)&&n.scrollWidth>n.clientWidth+1;if(cx&&Math.abs(dy)<4)return;n=n.parentElement}
+ const se=document.scrollingElement;if(se.scrollHeight<=innerHeight+1||(dy>0&&se.scrollTop<=0)||(dy<0&&se.scrollTop+innerHeight>=se.scrollHeight-1))e.preventDefault()},{passive:false})})();
 </script>

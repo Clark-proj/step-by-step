@@ -10,9 +10,9 @@ const PROFILES={
  sage:{head:[.59,.36],eye:[.578,.243],eye2:[.693,.270],amulet:[.605,.403],headBounds:[.30,.41,.29,.38],left:[.28,.45],right:[.81,.51],tail:[.55,.79],body:[.56,.46]},
  brook:{head:[.48,.34],eye:[.466,.200],eye2:[.587,.170],amulet:[.586,.405],headBounds:[.20,.32,.24,.35],left:[.34,.42],right:[.87,.49],tail:[.56,.81],body:[.57,.51]}
 };
-const ASSET={ember:'ember.webp',sage:'sage.webp',brook:'moss.webp',aster:'sage.webp',moss:'moss.webp'};
+const ASSET={ember:'ember.webp',sage:'sage.webp',brook:'brook.webp',aster:'sage.webp',moss:'moss.webp',nyx:'nyx.webp',hearth:'hearth.webp',bloom:'bloom.webp'};
 const AURA={ember:[1,.61,.15],sage:[1,.61,.15],brook:[.12,.64,1]};
-const ALT={moss:'Moss, figura illustrata dell’area Corpo',aster:'Aster, figura illustrata',ember:'Ember, figura illustrata dell’area Lavoro',sage:'Sage, figura illustrata dell’area Mente',brook:'Brook, figura illustrata dell’area Corpo'};
+const ALT={moss:'Moss, Essenza della Vita pratica',nyx:'Nyx, Essenza del Riposo',hearth:'Hearth, Essenza dei Legami',bloom:'Bloom, Essenza della Creatività',aster:'Aster, figura illustrata',ember:'Ember, figura illustrata dell’area Lavoro',sage:'Sage, figura illustrata dell’area Mente',brook:'Brook, Essenza del Corpo'};
 const vertex=`
  uniform float time;uniform float blink;uniform float emphasis;uniform vec2 eyeCenter;uniform vec2 eyeSecond;uniform vec2 headPivot;uniform vec4 headBounds;uniform vec2 leftCenter;uniform vec2 rightCenter;uniform vec2 tailCenter;uniform vec2 bodyCenter;varying vec2 vUv;
  float area(vec2 p,vec2 c,vec2 r){vec2 d=(p-c)/r;return exp(-dot(d,d)*2.0);}
