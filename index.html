@@ -1618,3 +1618,15 @@ document.addEventListener("touchmove",e=>{if(e.touches.length>1)return;let n=e.t
   const cx=/(auto|scroll)/.test(cs.overflowX)&&n.scrollWidth>n.clientWidth+1;if(cx&&Math.abs(dy)<4)return;n=n.parentElement}
  const se=document.scrollingElement||document.documentElement||document.body;if(!se)return;if(se.scrollHeight<=innerHeight+1||(dy>0&&se.scrollTop<=0)||(dy<0&&se.scrollTop+innerHeight>=se.scrollHeight-1))e.preventDefault()},{passive:false})})();
 </script>
+<script>/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica */
+(function(){const BUILD='2026-10-24b';let busy=false;
+async function chk(){if(busy||!navigator.onLine)return;busy=true;try{
+ const r=await fetch('index.html?u='+Date.now(),{cache:'no-store'});const s=await r.text();
+ const m=s.match(/const BUILD='([^']+)'/);
+ if(m&&m[1]!==BUILD){let n=0;try{n=+sessionStorage.getItem('upd_'+m[1])||0;sessionStorage.setItem('upd_'+m[1],n+1)}catch(_){}
+  if(n<2)location.replace(location.pathname+'?v='+m[1]+location.hash)}
+}catch(_){}busy=false}
+addEventListener('load',()=>setTimeout(chk,800));
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')chk()});
+})();
+</script>
