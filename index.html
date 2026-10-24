@@ -883,6 +883,9 @@ html{background:#fdfcff}
 .g3 .t5t p{font-size:13px;color:var(--mut);margin-top:8px;line-height:1.35}
 body.g3 .app{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))!important}
 .g3 .ovin{padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))!important}
+
+/* il parallasse non deve allungare la pagina: l'intestazione che scende resta ritagliata dentro il suo spazio */
+.g3 .w3 .wtop{overflow:hidden;overflow:clip}
 </style>
 
 <div class="app" id="app"><main id="scr"></main></div>
@@ -1980,7 +1983,7 @@ document.addEventListener("touchcancel",()=>{const o=ovEl();if(o){o.style.transf
  m.setAttribute("content",PAGE)})();
 </script>
 <script>/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica */
-(function(){const BUILD='2026-10-24k';let busy=false;
+(function(){const BUILD='2026-10-24l';let busy=false;
 async function chk(){if(busy||!navigator.onLine)return;busy=true;try{
  const r=await fetch('index.html?u='+Date.now(),{cache:'no-store'});const s=await r.text();
  const m=s.match(/const BUILD='([^']+)'/);
