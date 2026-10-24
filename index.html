@@ -808,13 +808,13 @@ body.g3{--sel:#fff;--vb:#fff}
 .g3 .lg3 button{flex:1;width:auto!important;height:52px!important;min-width:44px;color:var(--mut)!important;background:none!important;box-shadow:none!important;transition:color .2s}
 .g3 .lg3 button span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .g3 .lg3 svg{width:25px!important;height:25px!important;stroke-width:1.6!important;transform:none!important;transition:none!important}
-.g3 .lg3 [aria-current="page"]{color:var(--acc)!important}
+.g3 .lg3 [aria-current="page"]{color:var(--ink)!important}
 .g3 .lg3 [aria-current="page"] svg{stroke-width:2.1!important}
 .g3 .lg3 [aria-current="page"] svg *{fill:currentColor;fill-opacity:.22}
 .g3 .lg3 .pop svg{animation:pop4 .34s cubic-bezier(.3,.7,.3,1)}
 @keyframes pop4{0%{transform:scale(.96)}55%{transform:scale(1.04)}100%{transform:scale(1)}}
 .g3 .lg3 .lens{display:block!important;left:0!important;top:6px!important;width:76px!important;height:52px!important;border-radius:26px!important;background:#fff!important;
- box-shadow:inset 0 0 0 1.5px var(--selb),0 2px 8px rgba(30,27,75,.06)!important;transition:none!important;will-change:transform}
+ box-shadow:0 2px 10px rgba(30,27,75,.10)!important;transition:none!important;will-change:transform}
 @media (prefers-reduced-motion:reduce){.g3 .lg3 .pop svg{animation:none}}
 .rmode .lg3 .pop svg{animation:none}
 </style>
@@ -1728,7 +1728,7 @@ document.addEventListener("touchcancel",()=>{const o=ovEl();if(o){o.style.transf
 })();
 </script>
 <script>/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica */
-(function(){const BUILD='2026-10-24e';let busy=false;
+(function(){const BUILD='2026-10-24f';let busy=false;
 async function chk(){if(busy||!navigator.onLine)return;busy=true;try{
  const r=await fetch('index.html?u='+Date.now(),{cache:'no-store'});const s=await r.text();
  const m=s.match(/const BUILD='([^']+)'/);
