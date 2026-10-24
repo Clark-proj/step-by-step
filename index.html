@@ -821,6 +821,29 @@ body.g3{--sel:#fff;--vb:#fff}
 /* barra di stato iOS: sempre del colore della pagina, si scurisce solo con i pannelli aperti */
 html{background:#fdfcff}
 #sbcap{position:fixed;left:0;right:0;top:0;height:env(safe-area-inset-top,0px);background:#fdfcff;z-index:45;pointer-events:none}
+
+/* ===== aggiungi: tutto in una schermata, con proposta ===== */
+.g3 .cf4{display:flex;flex-direction:column;gap:12px;min-height:calc(100dvh - 118px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
+.g3 .cf4h{display:flex;align-items:center;gap:14px}.g3 .cf4i{width:58px;height:58px;object-fit:contain;flex:none}
+.g3 .cf4h h1{font-size:23px;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:0}.g3 .cf4h small{display:block;font-size:14px;color:var(--mut);margin-top:2px}
+.g3 .sug4{display:block;width:100%;text-align:left;background:#fff;border-radius:22px;padding:12px 16px;box-shadow:inset 0 0 0 1.5px var(--selb),0 8px 22px rgba(109,79,216,.08)}
+.g3 .sug4:not(.on){box-shadow:inset 0 0 0 1.5px #e6e6ec}.g3 .sug4 b{display:block;font-size:17px;font-weight:800;margin-top:4px;color:var(--ink)}.g3 .sug4 small{display:block;font-size:13.5px;color:var(--mut);margin-top:3px;line-height:1.35}
+.g3 .sug4:not(.on) small{color:var(--acc);font-weight:700}.g3 .sug4[disabled]{cursor:default}
+.g3 .cf4r{display:flex;flex-direction:column;gap:7px}.g3 .lb4{font-size:13px;font-weight:700;color:var(--mut);letter-spacing:.02em}.g3 .lb4 em{font-style:normal;font-weight:500}
+.g3 .seg4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.g3 .seg4 button{position:relative;height:44px;border-radius:22px;background:#fff;font-size:14px;font-weight:700;color:var(--mut);box-shadow:var(--sh2)}
+.g3 .seg4 [aria-pressed="true"]{color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--selb),var(--sh2)}.g3 .sd4{position:absolute;top:6px;right:9px;width:6px;height:6px;border-radius:50%;background:var(--acc);opacity:.7}
+.g3 .dsel4{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.g3 .dsel4 button{display:flex;flex-direction:column;align-items:center;gap:5px;padding:8px 0 7px;border-radius:16px;background:#fff;box-shadow:var(--sh2);color:var(--mut)}
+.g3 .dsel4 b{font-size:15px;font-weight:800}.g3 .dsel4 [aria-pressed="true"]{color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--selb),var(--sh2)}
+.g3 .ld4{width:62%;height:4px;border-radius:2px;background:#efeff4;overflow:hidden}.g3 .ld4 i{display:block;height:100%;border-radius:2px;background:#c9c3e6}.g3 .ld4 i.hi{background:#e3a07a}
+.g3 .cf4s{display:flex;gap:10px}.g3 .cf4s>div{flex:1;display:flex;flex-direction:column;gap:6px;background:#fff;border-radius:20px;padding:10px 12px;box-shadow:var(--sh2)}.g3 .cf4s .stp{justify-content:space-between;display:flex;align-items:center}
+.g3 .cf4s .stp button{width:36px!important;height:36px!important}.g3 .cf4s .stp b{font-size:17px}
+.g3 .mv4{background:#fff;border-radius:20px;padding:12px 14px;box-shadow:inset 0 0 0 1.5px #e6e6ec}.g3 .mv4 small{display:block;font-size:12.5px;color:var(--mut);margin-top:6px}
+.g3 .mvi{display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;padding:8px 0 0;font-size:14px;line-height:1.35;color:#4e515d}
+.g3 .ck4{width:22px;height:22px;border-radius:7px;flex:none;display:grid;place-items:center;box-shadow:inset 0 0 0 1.5px #d6d6de;color:transparent;margin-top:1px}.g3 .ck4 svg{width:14px;height:14px}
+.g3 .mvi[aria-pressed="true"] .ck4{box-shadow:inset 0 0 0 1.5px var(--selb);color:var(--acc)}
+.g3 .hv4{font-size:13.5px;color:#a8743c;background:#fff;border-radius:18px;padding:10px 14px;box-shadow:inset 0 0 0 1.5px #f1e2d3}.g3 .hv4.ok{color:var(--mut);box-shadow:inset 0 0 0 1.5px #e9e9ef}
+.g3 .foot4{margin-top:auto;padding-top:4px}.g3 .foot4 .cta3{margin-top:0}
+@media (max-height:720px){.g3 .cf4{gap:8px;min-height:calc(100dvh - 116px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}.g3 .cf4i{width:46px;height:46px}.g3 .cf4h h1{font-size:20px}.g3 .sug4{padding:9px 14px}.g3 .sug4 b{font-size:16px}.g3 .seg4 button{height:38px}.g3 .dsel4 button{padding:6px 0 5px}.g3 .cf4s>div{padding:7px 10px}.g3 .cf4s .stp button{width:32px!important;height:32px!important}.g3 .hv4,.g3 .mv4{padding:8px 12px}.g3 .lb4 em{display:none}}
 </style>
 
 <div class="app" id="app"><main id="scr"></main></div>
@@ -1476,6 +1499,129 @@ function reward(id,v){const h=S.habits[id];if(!h)return;let el=null;for(const se
 const navBack=a=>`<div class="nav3"><button class="rb3" data-${a} aria-label="Indietro">${icon("back",1.6)}</button></div>`;
 const NAMES={lavoro:["Rispondere ai clienti","Fatture e prima nota","Formazione","Riordinare i file"],mente:["Diario","Ascoltare un podcast","Scrivere idee","Musica"],corpo:["Palestra","Pilates","Cucinare sano"],riposo:["Andare a letto presto","Pisolino","Bagno caldo"],legami:["Chiamare la famiglia","Cena con amici"],"vita-pratica":["Bucato","Pagare le bollette","Spesa"]};
 const GKEY=Object.fromEntries(AREA_KEYS.map(k=>[k,AREAS[k].fig]));
+/* ===== pianificatore: capisce l'attività scritta, legge il carico della settimana, propone momento e giorni ===== */
+/* Lessico: [espressione (testo senza accenti, minuscolo), {w: momenti in ordine di preferenza, h: momento obbligato, m: minuti tipici, a: area, dw: "wk" feriali | "we" weekend | "sun" domenica, f: volte/sett tipiche}] */
+const LEX=[
+/* pasti e cibo */
+[/\bcolazion/,{w:["mattina"],h:1,m:20,meal:1}],[/\bbrunch/,{w:["mattina","pranzo"],m:90,a:"legami",dw:"we"}],
+[/\bpranz/,{w:["pranzo"],h:1,m:45,meal:1}],[/\bmerend/,{w:["pomeriggio"],h:1,m:15}],[/\baperitiv|\bspritz|\bhappy hour/,{w:["sera"],h:1,m:90,a:"legami"}],
+[/\bcen[ae]\b|\bcenett|\bcenon/,{w:["sera"],h:1,m:90,meal:1}],[/\bdopo ?cena/,{w:["sera"],h:1}],[/\bpizz/,{w:["sera"],m:120,a:"legami"}],
+[/\bcucinar|\bcucino\b|\bricett|\btorta|\bdolce\b|\bpane fatto|\bprepara(re)? (il |un |i )?(pasto|pasti|cena|pranzo)|\bmeal ?prep/,{w:["sera","pomeriggio"],m:40,a:"corpo"}],
+[/\bspuntin/,{w:["pomeriggio","mattina"],m:10,a:"corpo"}],[/\bbere|\bacqua|\bidrat/,{w:["mattina","pomeriggio"],m:2,a:"corpo",f:7}],
+[/\bdigiun/,{w:["mattina"],m:0,a:"corpo"}],[/\bfrutta|\bverdur|\binsalat/,{w:["pranzo","sera"],m:10,a:"corpo"}],
+[/\btisan|\bcamomill/,{w:["sera"],h:1,m:10,a:"riposo"}],[/\bcaffe\b/,{w:["mattina","pranzo"],m:10}],
+/* vita sociale e legami */
+[/\bamic[ihoa]/,{w:["sera","pomeriggio"],m:120,a:"legami",dw:"we"}],[/\bfest[ae]\b|\bcomplean|\bparty/,{w:["sera"],h:1,m:180,a:"legami",dw:"we",f:1}],
+[/\bcinema|\bfilm\b|\bserie tv|\bnetflix/,{w:["sera"],h:1,m:120,a:"riposo"}],[/\bteatro|\bconcert|\bspettacol|\bopera\b|\bballetto/,{w:["sera"],h:1,m:150,a:"legami",f:1}],
+[/\bdiscotec|\bballare|\bserata|\bpub\b|\bbirr/,{w:["sera"],h:1,m:180,a:"legami",dw:"we",f:1}],[/\bappuntament|\bdate\b|\bfidanzat|\bpartner|\bmoglie|\bmarito|\bcompagn[ao]\b/,{w:["sera"],m:90,a:"legami"}],
+[/\bmessagg|\bscrivere a\b|\bwhatsapp/,{w:["pranzo","sera"],m:5,a:"legami"}],[/\bnonn[aoei]|\bgenitor|\bmamma|\bpapa\b|\bmadre|\bpadre|\bfratell|\bsorell|\bzi[aoie]\b|\bparent|\bfamigli/,{w:["pomeriggio","sera"],m:30,a:"legami"}],
+[/\bchiamat|\bchiamar|\btelefon|\bvideochiam|\bsentir/,{w:["sera","pomeriggio"],m:20,a:"legami"}],
+[/\bfigli|\bbimb|\bbambin|\bragazz[io]\b/,{w:["pomeriggio","sera"],m:45,a:"legami"}],[/\bcompiti|\bscuola\b|\bportare a scuola|\briprendere/,{w:["pomeriggio"],m:45,a:"legami",dw:"wk"}],
+[/\bgioc(are|o) (con|insieme)|\bgiochi da tavolo|\bboard ?game/,{w:["sera","pomeriggio"],m:60,a:"legami"}],[/\bvolontar|\bassociazion|\bparrocch|\bcoro\b/,{w:["pomeriggio","sera"],m:120,a:"legami",f:1}],
+[/\bmessa\b|\bchiesa|\bmoschea|\bsinagog/,{w:["mattina"],m:60,a:"riposo",dw:"sun",f:1}],[/\bpregh|\bpreghiera|\brosario|\bpregar|\bprega\b/,{w:["mattina","sera"],m:10,a:"riposo"}],[/\bincontr|\bvedersi|\bvedere\b|\buscit/,{w:["sera","pomeriggio"],m:90,a:"legami"}],
+[/\bcane\b|\bgatt|\banimal|\bpasseggiare il cane|\bcuccio/,{w:["mattina","sera"],m:20,a:"legami",f:7}],[/\bospit|\binvitat/,{w:["sera"],m:150,a:"legami",dw:"we",f:1}],
+/* corpo e sport */
+[/\bpalestr|\bpesi\b|\bforza\b|\bcrossfit|\bfunzional|\bgym/,{w:["sera","mattina"],m:60,a:"corpo",f:3}],[/\bcorsa|\bcorset|\bcorrer|\brunning|\bjogging|\bcorrere/,{w:["mattina","sera"],m:40,a:"corpo",f:3}],
+[/\byoga|\bpilates|\bstretching|\bmobilita/,{w:["mattina","sera"],m:30,a:"corpo"}],[/\bnuot|\bpiscin/,{w:["mattina","pranzo","sera"],m:60,a:"corpo",f:2}],
+[/\bbici|\bciclism|\bspinning|\bmtb\b/,{w:["mattina","pomeriggio"],m:60,a:"corpo"}],[/\bcamminat|\bpasseggiat|\bpasseggiare|\bcamminare|\bpassi\b/,{w:["pranzo","sera","mattina"],m:30,a:"corpo"}],
+[/\bcalcett|\bcalcio|\bpartit|\btennis|\bpadel|\bbasket|\bpallavol|\brugby|\bsquash|\bgolf/,{w:["sera"],m:90,a:"corpo",f:1}],[/\bescursion|\btrekking|\bhiking|\bmontagna|\barrampic|\bscalat/,{w:["mattina"],m:180,a:"corpo",dw:"we",f:1}],
+[/\bballo|\bdanza|\bzumba|\bsalsa\b|\btango/,{w:["sera"],m:60,a:"corpo"}],[/\bboxe|\bkickbox|\barti marziali|\bkarate|\bjudo|\bmuay/,{w:["sera"],m:60,a:"corpo",f:2}],
+[/\bfisioterap|\bmassagg|\bosteopat/,{w:["pomeriggio"],m:60,a:"corpo",f:1}],[/\bsci\b|\bsciare|\bsnowboard|\bsurf|\bvela\b|\bkayak/,{w:["mattina"],m:180,a:"corpo",dw:"we",f:1}],
+[/\baddominal|\bplank|\bflessioni|\bsquat/,{w:["mattina","sera"],m:15,a:"corpo"}],[/\bsport|\ballenam|\bworkout|\btraining|\bcardio|\bhiit/,{w:["sera","mattina"],m:45,a:"corpo",f:3}],
+[/\bpeso\b|\bpesarsi|\bdieta|\bcalori/,{w:["mattina"],m:5,a:"corpo"}],[/\bvitamin|\bintegrator|\bmedicin|\bpastigli|\bfarmac/,{w:["mattina"],m:2,a:"corpo",f:7}],
+[/\bmedico|\bdentist|\bvisita|\bvisite|\banalisi|\boculist|\bdermatolog/,{w:["mattina"],m:60,a:"vita-pratica",dw:"wk",f:1}],
+/* riposo e cura di sé */
+[/\bdormir|\bsonno|\bletto\b|\bcoricar|\bnanna/,{w:["sera"],h:1,m:10,a:"riposo",f:7}],[/\bsvegli|\balzarsi|\bsveglia/,{w:["mattina"],h:1,m:5,a:"riposo",f:7}],
+[/\bpisolin|\briposin|\bpennichell|\bpower nap/,{w:["pranzo","pomeriggio"],m:20,a:"riposo"}],[/\bbagno caldo|\bvasca|\bsauna|\bspa\b|\bterme/,{w:["sera"],m:45,a:"riposo",dw:"we"}],[/\bmedit|\bmindful|\brespir|\brilass/,{w:["mattina","sera"],m:10,a:"riposo"}],
+[/\bskincare|\bcrema|\bmaschera viso|\bcura della pelle/,{w:["sera","mattina"],m:10,a:"riposo"}],
+[/\bschermi|\bdigital detox|\bsenza telefono|\bsocial\b/,{w:["sera"],m:30,a:"riposo"}],[/\bdiario della gratitud|\bgratitudin|\bringrazia/,{w:["sera"],m:5,a:"riposo"}],
+[/\bgiardinagg|\borto\b|\binnaffi|\bannaffi/,{w:["mattina","sera"],m:20,a:"vita-pratica"}],[/\bnatura|\bparco|\bgiardin|\bmare\b|\bspiaggia|\blago\b/,{w:["pomeriggio","mattina"],m:60,a:"riposo",dw:"we"}],[/\bterapi|\bpsicolog|\bterapeut/,{w:["pomeriggio","sera"],m:60,a:"riposo",f:1}],
+/* mente e creatività */
+[/\bleggere|\blettur|\blibr[oi]\b/,{w:["sera","mattina"],m:20,a:"mente"}],[/\bstudi|\bripass|\besam|\buniversit|\blezion|\bcorso\b|\bcorsi\b/,{w:["mattina","pomeriggio"],m:60,a:"mente",dw:"wk"}],
+[/\binglese|\bspagnolo|\bfrancese|\btedesco|\bgiappones|\bcines|\blingua|\bduolingo|\bvocabol/,{w:["mattina","sera"],m:20,a:"mente"}],
+[/\bchitarr|\bpianofort|\bpiano\b|\bbatteria|\bviolin|\bbasso\b|\bsuonar|\bmusica|\bcantar|\bstrument/,{w:["sera","pomeriggio"],m:30,a:"mente"}],
+[/\bdisegn|\bpittur|\bdipinger|\bacquerell|\bschizz|\billustr/,{w:["sera","pomeriggio"],m:40,a:"mente"}],[/\bscriver|\bscrittur|\bblog|\bromanzo|\bpoesi|\bracconto/,{w:["mattina","sera"],m:30,a:"mente"}],
+[/\bdiario|\bjournal/,{w:["sera","mattina"],m:10,a:"mente"}],[/\bpodcast|\baudiolibr|\bdocumentar|\bted\b/,{w:["mattina","pranzo"],m:20,a:"mente"}],
+[/\bfoto|\bfotograf|\bvideo\b|\bmontagg|\bediting|\bcolor ?grad/,{w:["pomeriggio","sera"],m:60,a:"mente"}],[/\bscacchi|\bsudoku|\bcruciverb|\brompicap|\bpuzzle/,{w:["sera","pranzo"],m:20,a:"mente"}],
+[/\bprogramm|\bcodice|\bcoding|\bsviluppa|\bpython|\bjavascript/,{w:["mattina","sera"],m:60,a:"mente"}],[/\bmuse[oi]|\bmostr[ae]|\bgalleri/,{w:["pomeriggio"],m:120,a:"mente",dw:"we",f:1}],
+[/\bcucito|\bmaglia|\buncinett|\bricam|\bfai da te|\bbricolag|\bfalegnam|\bceramic|\bmodellism/,{w:["pomeriggio","sera"],m:60,a:"mente",dw:"we"}],
+/* lavoro */
+[/\bemail|\bmail\b|\bposta\b|\binbox/,{w:["mattina","pomeriggio"],m:20,a:"lavoro",dw:"wk"}],[/\briunion|\bmeeting|\bcall\b|\bstand ?up|\bcolloqui/,{w:["mattina","pomeriggio"],m:45,a:"lavoro",dw:"wk"}],
+[/\bfattur|\bcontabil|\bprima nota|\bbilanc|\bcommercialist|\bpreventiv/,{w:["mattina","pomeriggio"],m:30,a:"lavoro",dw:"wk",f:1}],[/\bclient|\bfornitor|\bvendit|\bcommercial/,{w:["mattina","pomeriggio"],m:30,a:"lavoro",dw:"wk"}],
+[/\bprogett|\bpresentazion|\breport|\brelazion|\bdeep work|\blavoro profondo|\bconcentra/,{w:["mattina"],m:60,a:"lavoro",dw:"wk"}],[/\bpianific|\bagenda|\bplanning|\bto ?do|\bpriorit/,{w:["mattina"],m:10,a:"lavoro"}],
+[/\bportfolio|\bcurricul|\bcv\b|\blinkedin|\bcandidatur/,{w:["sera","pomeriggio"],m:30,a:"lavoro"}],[/\bset\b|\bripres|\bbackup|\bdit\b|\bconsegn/,{w:["pomeriggio","sera"],m:60,a:"lavoro"}],
+[/\blavor|\bufficio|\bturno/,{w:["mattina","pomeriggio"],m:60,a:"lavoro",dw:"wk"}],[/\bsettiman[ae] (di )?lavor|\brevisione settimanal|\bweekly review/,{w:["pomeriggio"],m:30,a:"lavoro",f:1}],
+/* vita pratica */
+[/\bspesa|\bsupermercat|\bmercato/,{w:["pomeriggio","mattina"],m:45,a:"vita-pratica",f:1}],[/\bbucato|\blavatric|\bstirar|\bpanni/,{w:["mattina","sera"],m:20,a:"vita-pratica"}],
+[/\bpulizi|\bpulire|\baspirapolv|\bpavimen|\bbagno\b|\bcucina pulit/,{w:["mattina","pomeriggio"],m:30,a:"vita-pratica",dw:"we"}],[/\briordin|\bordine|\bcassett|\barmadi|\bdeclutter|\bdecluttering/,{w:["sera","pomeriggio"],m:15,a:"vita-pratica"}],
+[/\bpiatti|\blavastovigl/,{w:["sera"],h:1,m:15,a:"vita-pratica",f:7}],[/\bpiante|\binnaffi|\borto\b/,{w:["mattina","sera"],m:10,a:"vita-pratica"}],
+[/\bbollett|\baffitto|\bmutuo|\brata\b|\bconti\b|\bbanca|\bspese\b|\bbudget|\btasse|\bf24|\bdichiarazion/,{w:["sera","pomeriggio"],m:20,a:"vita-pratica",f:1}],[/\bposte\b|\bufficio postale|\bcomune\b|\banagrafe|\bpratica\b|\bburocra/,{w:["mattina"],m:60,a:"vita-pratica",dw:"wk",f:1}],
+[/\bauto\b|\bmacchina|\bmeccanic|\bbenzin|\btagliando|\bgomme/,{w:["mattina","pomeriggio"],m:45,a:"vita-pratica",f:1}],[/\bvestiti|\bzaino|\bborsa\b|\bprepara(re)? (le cose|il necessario)/,{w:["sera"],m:10,a:"vita-pratica"}],
+[/\bcommission|\bnegoz|\bacquist|\bshopping/,{w:["pomeriggio"],m:60,a:"vita-pratica",dw:"we",f:1}],[/\bparrucch|\bbarbier|\bestetist/,{w:["pomeriggio"],m:60,a:"vita-pratica",f:1}],
+[/\bfile\b|\bcartell|\bdesktop|\bfoto da sistemare|\barchivi/,{w:["sera","pomeriggio"],m:20,a:"vita-pratica"}],[/\bviaggi|\bvacanz|\bvaligi/,{w:["sera"],m:30,a:"vita-pratica",f:1}]
+];
+const STOP=new Set("il lo la i gli le un uno una di a da in con su per tra fra e o ed al allo alla ai agli alle del dello della dei degli delle col nel nella sul sulla mio mia miei mie tuo tua suo sua nostro fare fai faccio ogni volta volte minuti minuto ore ora".split(" "));
+const MOMW=[[/\bmattin|\bdi buon ora|\balba\b|\bappena sveglio/,"mattina"],[/\bmezzogiorno|\bpausa pranzo|\ba pranzo/,"pranzo"],[/\bpomerigg/,"pomeriggio"],[/\bsera\b|\bserale|\bstasera|\bdi notte|\bnotte\b|zzsera/,"sera"]];
+const DAYW=[[/\blun(edi)?\b/,0],[/\bmar(tedi)?\b/,1],[/\bmer(coledi)?\b/,2],[/\bgio(vedi)?\b/,3],[/\bven(erdi)?\b/,4],[/\bsab(ato)?\b/,5],[/\bdom(enica)?\b/,6]];
+const norm2=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[’']/g," ").replace(/\s+/g," ").trim();
+/* capisce cosa scrive la persona */
+function inferAct(text,area){const s=norm2(text).replace(/prima di (andare a )?(dormire|letto)|prima di coricarsi/g," zzsera ");const out={w:null,ws:[],hard:false,m:null,a:null,dw:null,f:null,days:null,why:[],src:[]};
+  for(const [re,r] of LEX){if(!re.test(s))continue;out.src.push(re);if(!out.ws.length&&r.w){out.ws=r.w.slice();if(r.h)out.hard=true}else if(r.h&&!out.hard){out.ws=r.w.slice();out.hard=true}
+    if(out.m==null&&r.m!=null)out.m=r.m;if(!out.a&&r.a)out.a=r.a;if(!out.dw&&r.dw)out.dw=r.dw;if(out.f==null&&r.f)out.f=r.f}
+  /* parole esplicite: vincono sul lessico */
+  for(const [re,w] of MOMW)if(re.test(s)){out.ws=[w];out.hard=true;out.why.push(`hai scritto «${w==="pranzo"?"pranzo":w}»`);break}
+  const hh=s.match(/\b(?:alle|ore|h)\s?(\d{1,2})(?:[:.](\d{2}))?\b/);if(hh){const h=+hh[1];const w=h>=5&&h<12?"mattina":h<15&&h>=12?"pranzo":h>=15&&h<18?"pomeriggio":"sera";out.ws=[w];out.hard=true;out.why.push(`alle ${h}`)}
+  const mm=s.match(/(\d{1,3})\s?(?:min|minuti|m)\b/);if(mm)out.m=+mm[1];const ho=s.match(/(\d(?:[.,]\d)?)\s?(?:ore|ora|h)\b/);if(ho&&!hh)out.m=Math.round(parseFloat(ho[1].replace(",","."))*60);
+  if(/mezz ?ora/.test(s))out.m=30;if(/\bun ora\b/.test(s))out.m=60;if(/\bun quarto d ora\b/.test(s))out.m=15;
+  const fv=s.match(/(\d)\s?(?:volte|x)\b/);if(fv)out.f=Math.min(7,+fv[1]);if(/\bogni giorno|\btutti i giorni|\bquotidian|\bogni mattina|\bogni sera/.test(s))out.f=7;if(/\bnel weekend|\bfine settimana|\bweekend/.test(s)){out.dw="we";out.why.push("nel fine settimana")}
+  if(/\bin settimana|\bferiali|\bgiorni lavorativi/.test(s))out.dw="wk";
+  const ds=[];for(const [re,d] of DAYW)if(re.test(s))ds.push(d);if(ds.length){out.days=ds;out.f=ds.length}
+  /* ciò che la persona ha già scelto in passato per parole simili */
+  const L=(meta().learn)||{};const toks=s.split(/[^a-z0-9]+/).filter(t=>t.length>2&&!STOP.has(t));let lw=null;for(const t of toks)if(L[t]){lw=L[t];break}
+  if(lw&&!out.hard){out.ws=[lw.w,...out.ws.filter(x=>x!==lw.w)];if(lw.m&&!mm&&!ho)out.m=lw.m;out.learned=true}
+  const soc=/\bamic|\bmamma|\bpapa\b|\bgenitor|\bnonn|\bfamigli|\bfratell|\bsorell|\bpartner|\bfidanzat|\bcolleghi|\binsieme|\bospiti|\bparent|\bfigli/.test(s);
+  const first=LEX.find(([re])=>re.test(s));if(soc&&first&&first[1].meal)out.a="legami";else if(!out.a&&first&&first[1].meal)out.a="corpo";
+  if(!out.a)out.a=area||null;out.w=out.ws[0]||null;out.known=!!(out.src.length||out.why.length||out.learned);return out}
+/* carico della settimana: minuti per giorno e per momento, dalle attività già nel percorso */
+const CAPM={mattina:70,pranzo:35,pomeriggio:70,sera:80};
+function weekLoad(skipId){const L={};for(let d=0;d<7;d++){L[d]={tot:0,n:0,m:{mattina:0,pranzo:0,pomeriggio:0,sera:0},items:[]}}
+  for(const [id,h] of H()){if(id===skipId)continue;const mins=h.free?5:(h.mins||10);for(const d of (h.days||[])){const x=L[d];x.tot+=mins;x.n++;x.m[h.when||"mattina"]=(x.m[h.when||"mattina"]||0)+mins;x.items.push([id,h])}}return L}
+function dayBudget(){const pc=meta().percorso;const T=TAPPE[pc&&pc.tappa!=null?pc.tappa:1];return Math.max(30,T.min*2)}
+/* la proposta: momento, giorni, durata e gli eventuali piccoli spostamenti */
+function smartPlan(name,area,base){const I=inferAct(name,area);const LD=weekLoad();const pc=meta().percorso;const tp=pc&&pc.tappa!=null?pc.tappa:1;
+  const mins=base&&base.free?0:Math.max(5,Math.min(180,I.m&&(I.why.length||!(base&&base.m))?I.m:base&&base.m?base.m:(I.m||20)));const f=Math.max(1,Math.min(7,I.f||(base&&base.f)||(I.dw==="we"||I.dw==="sun"?1:3)));
+  let ws=(I.hard||I.learned||!(base&&base.w))?(I.ws.length?I.ws:["mattina","sera","pomeriggio"]):[base.w,...I.ws.filter(x=>x!==base.w)];if(!I.hard)for(const w of MOMS)if(!ws.includes(w))ws=[...ws,w];
+  const pool=I.days?I.days:I.dw==="sun"?[6]:I.dw==="we"?[5,6,4,0,1,2,3]:I.dw==="wk"?[0,1,2,3,4]:[0,1,2,3,4,5,6];
+  /* sceglie il momento meno affollato tra quelli adatti (se è obbligato, resta quello) */
+  const avg=w=>pool.reduce((s,d)=>s+LD[d].m[w],0)/pool.length;let w=ws[0];if(!I.hard){let best=1e9;ws.slice(0,2).forEach((x,i)=>{const sc=avg(x)/CAPM[x]+i*.35;if(sc<best){best=sc;w=x}})}
+  /* sceglie i giorni più leggeri, distribuiti nella settimana */
+  const budget=dayBudget();const score=d=>LD[d].tot/budget+LD[d].m[w]/CAPM[w]+(pool.indexOf(d)*.02);
+  let days;if(I.days)days=I.days.slice();else if(f>=pool.length)days=pool.slice();else{days=[];const cand=pool.slice().sort((a,b)=>score(a)-score(b));
+    for(const d of cand){if(days.length>=f)break;if(days.some(x=>Math.abs(x-d)===1)&&cand.filter(z=>!days.includes(z)&&!days.some(x=>Math.abs(x-z)===1)).length>=f-days.length)continue;days.push(d)}
+    for(const d of cand){if(days.length>=f)break;if(!days.includes(d))days.push(d)}}
+  days.sort((a,b)=>a-b);
+  const {moves,heavy}=movesFor(LD,w,days,mins,budget);
+  const ART={mattina:"la mattina",pranzo:"in pausa pranzo",pomeriggio:"il pomeriggio",sera:"la sera"};const why=[];if(I.why.length)why.push(I.why.join(", "));else if(I.hard)why.push(`${cap(ART[w])} è il suo momento naturale`);else if(I.learned)why.push(`come hai scelto per attività simili`);else if(I.known)why.push(`di solito si fa ${ART[w]}`);
+  if(I.days)why.push(`hai indicato ${I.days.map(d=>GIORNI[(d+1)%7].toLowerCase()).join(" e ")}`);
+  const light=days.filter(d=>LD[d].tot<budget*.5);if(!I.days&&days.length)why.push(light.length===days.length?"nei giorni più liberi":"dove la settimana ha più spazio");
+  return {w,days,m:mins,f:days.length,area:I.a,hard:I.hard,moves,heavy,why,I,LD,budget}}
+function movesFor(LD,w,days,mins,budget){const moves=[];for(const d of days){const over=LD[d].m[w]+mins-CAPM[w];if(over<=0)continue;
+    const cand=LD[d].items.filter(([id,h])=>h.when===w&&!h.free&&!(inferAct(h.title).hard)).sort((a,b)=>(b[1].mins||0)-(a[1].mins||0));const c=cand[0];if(!c||moves.some(mv=>mv.id===c[0]))continue;
+    const alt=MOMS.filter(x=>x!==w).sort((a,b)=>Math.abs(MOMS.indexOf(a)-MOMS.indexOf(w))-Math.abs(MOMS.indexOf(b)-MOMS.indexOf(w))).find(x=>LD[d].m[x]+(c[1].mins||10)<=CAPM[x]);
+    const nd=[0,1,2,3,4,5,6].filter(x=>!(c[1].days||[]).includes(x)&&!days.includes(x)).sort((a,b)=>LD[a].tot-LD[b].tot||Math.abs(a-d)-Math.abs(b-d))[0];
+    if(nd!=null&&LD[nd].tot+(c[1].mins||10)<budget&&LD[nd].m[c[1].when||w]+(c[1].mins||10)<=CAPM[c[1].when||w])moves.push({id:c[0],t:c[1].title,kind:"d",from:d,to:nd});
+    else if(alt)moves.push({id:c[0],t:c[1].title,kind:"w",from:w,to:alt,d})}
+  const heavy=days.filter(d=>LD[d].tot>=budget*.9&&!moves.some(mv=>(mv.kind==="d"&&mv.from===d)));return {moves,heavy}}
+/* applica gli spostamenti accettati e prepara il messaggio per la persona */
+function applyMoves(moves){const msg=[];for(const mv of moves){const h=S.habits[mv.id];if(!h)continue;
+  if(mv.kind==="w"){save("habits",mv.id,{...h,when:mv.to});msg.push(`«${h.title}» da ${MOML[mv.from]} a ${MOML[mv.to]}`)}
+  else{const nd=(h.days||[]).filter(x=>x!==mv.from).concat(mv.to).sort((a,b)=>a-b);save("habits",mv.id,{...h,days:nd});msg.push(`«${h.title}» da ${GIORNI[(mv.from+1)%7].toLowerCase()} a ${GIORNI[(mv.to+1)%7].toLowerCase()}`)}}return msg}
+/* impara dalle scelte: se la persona cambia momento o durata, la prossima volta propone quello */
+function learnFrom(name,w,m,sug){const s=norm2(name);const toks=s.split(/[^a-z0-9]+/).filter(t=>t.length>2&&!STOP.has(t));if(!toks.length)return;
+  if(sug&&sug.w===w&&sug.m===m&&!sug.I.learned)return;const L={...(meta().learn||{})};for(const t of toks.slice(0,4))L[t]={w,m};const ks=Object.keys(L);if(ks.length>300)for(const k of ks.slice(0,ks.length-300))delete L[k];setMeta({learn:L})}
+
+/* proposta per il passo di configurazione */
+function initPlan(m,name,area,base){const sg=smartPlan(name,area,base);m.sug=sg;m.x={f:sg.f,m:sg.m,w:sg.w,days:sg.days.slice()};m.acc={};m.mod=false;return sg}
 function addSrc(m){if(String(m.k).startsWith("cat:")){const A=ACT[m.k.slice(4)];return {t:A.n,g:A.e,mini:A.mini,anc:"",i:"",act:A.id,free:!A.m}}if(m.k==="__custom"){const g=GKEY[m.cg];return {t:m.custom,g,mini:`${Math.max(2,Math.round(m.x.m/4))} minuti`,anc:"",i:""}}return HC[m.k]}
 function drawAdd(){const m=OV;const have=new Set(H().map(([,h])=>h.title));
   if(m.custom&&!m.k){const g=m.cg;
@@ -1490,17 +1636,24 @@ function drawAdd(){const m=OV;const have=new Set(H().map(([,h])=>h.title));
      <div class="nl3"><button class="r3 new3" data-acustom><span class="nb"><span class="ra ic">${icon("l3plus",1.5)}</span><span class="nt"><b>Crea la tua</b><small>un'attività tutta tua, nell'area che scegli</small></span></span>${icon("l3chev",1.5)}</button>
      ${ks.map(f=>CAT[f].filter(x=>!have.has(x.n)).map(x=>`<button class="r3" data-acat="${x.id}"><span class="nb">${essIcon(f,"ra icn")}<span class="nt"><b>${x.n}</b><small><i class="gd" style="background:${AREAS[f].dot}"></i>${AREAS[f].name} · ${x.m?`circa ${x.m} min`:"nella giornata"}</small></span></span>${icon("l3chev",1.5)}</button>`).join("")).join("")}</div>
      <div class="foot3"><button class="lnk3" data-replan>Oppure ripensa tutto il percorso</button></div>`,{keep:m._d==="l"});m._d="l";return}
-  const c=addSrc(m),x=m.x,f=figOf(c.g);
-  openOv(`${navBack("aback")}<div class="cfg3">${essIcon(f,"bigi")}<h1 class="q">${esc(c.t)}</h1><p class="qs">${AREAS[f].name} · con ${AREAS[f].fig} · tempi modificabili</p></div>
-   <div class="card3"><div class="edrow"><span>Volte a settimana</span><span class="stp"><button data-af="-1" aria-label="Meno">−</button><b>${x.f}×</b><button data-af="1" aria-label="Più">+</button></span></div>
-   <div class="edrow"><span>Minuti per volta</span><span class="stp"><button data-am="-5" aria-label="Meno">−</button><b>${x.m}′</b><button data-am="5" aria-label="Più">+</button></span></div>
-   <div class="edrow col"><span>Momento</span><div class="seg3">${MOMS.map(w=>`<button data-aw="${w}" aria-pressed="${x.w===w}">${cap(MOML[w])}</button>`).join("")}</div></div>
-   <div class="edrow col"><span>Giorni</span><div class="dsel3">${WDS.map((w,d)=>`<button data-ad="${d}" aria-pressed="${x.days.includes(d)}" aria-label="${WDL[d]}">${w}</button>`).join("")}</div></div></div>
-   <div class="foot3"><button class="cta3" data-ago>Aggiungi al percorso</button></div>`,{keep:m._d==="k"+m.k});m._d="k"+m.k}
+  const c=addSrc(m),x=m.x,f=figOf(c.g);const sg=m.sug||initPlan(m,c.t,f,{m:x.m,w:x.w,f:x.f});const LD=weekLoad();const bud=dayBudget();
+  const {moves,heavy}=movesFor(LD,x.w,x.days,x.m,bud);m.moves=moves;for(const mv of moves)if(!(mv.id in m.acc))m.acc[mv.id]=true;
+  const same=x.w===sg.w&&x.m===sg.m&&x.days.join()===sg.days.join();m.mod=!same;const nAcc=moves.filter(mv=>m.acc[mv.id]).length;
+  const dtxt=x.days.length===7?"ogni giorno":x.days.map(d=>WDL[d]).join(", ");
+  const mvt=mv=>mv.kind==="w"?`<b>${esc(mv.t)}</b> passa da ${MOML[mv.from]} a ${MOML[mv.to]} in tutti i suoi giorni, così ${GIORNI[mv.d===6?0:mv.d+1].toLowerCase()} ${MOML[mv.from]} resta libero`:`<b>${esc(mv.t)}</b> passa da ${GIORNI[mv.from===6?0:mv.from+1].toLowerCase()} a ${GIORNI[mv.to===6?0:mv.to+1].toLowerCase()}, un giorno più libero`;
+  openOv(`${navBack("aback")}<div class="cf4">
+   <div class="cf4h">${essIcon(f,"cf4i")}<div class="nt"><h1>${esc(c.t)}</h1><small>${AREAS[f].name} · con ${AREAS[f].fig}</small></div></div>
+   <button class="sug4 ${same?"on":""}" ${same?"disabled":"data-asug"}><span class="kc4">${same?"Il percorso consigliato":"La tua scelta"}</span><b>${cap(MOML[x.w])} · ${dtxt}${x.m?` · ${x.m} min`:""}</b><small>${same?esc(sg.why.join(" · ")||"in base alla tua settimana"):"Tocca per tornare al consigliato"}</small></button>
+   <div class="cf4r"><span class="lb4">Momento</span><div class="seg4">${MOMS.map(w=>`<button data-aw="${w}" aria-pressed="${x.w===w}">${cap(MOML[w]).replace("Pausa pranzo","Pranzo")}${w===sg.w?`<i class="sd4" aria-label="consigliato"></i>`:""}</button>`).join("")}</div></div>
+   <div class="cf4r"><span class="lb4">Giorni <em>· la barra mostra quanto è piena la giornata</em></span><div class="dsel4">${WDS.map((w,d)=>{const pc=Math.min(100,Math.round(LD[d].tot/bud*100));return `<button data-ad="${d}" aria-pressed="${x.days.includes(d)}" aria-label="${WDL[d]}, giornata piena al ${pc}%"><b>${w}</b><span class="ld4"><i style="width:${pc}%" class="${pc>=100?"hi":""}"></i></span></button>`}).join("")}</div></div>
+   <div class="cf4s">${x.m||!sg.m?`<div><span class="lb4">Minuti</span><span class="stp"><button data-am="-5" aria-label="Meno minuti">−</button><b>${x.m}′</b><button data-am="5" aria-label="Più minuti">+</button></span></div>`:""}<div><span class="lb4">Volte a settimana</span><span class="stp"><button data-af="-1" aria-label="Meno volte">−</button><b>${x.f}×</b><button data-af="1" aria-label="Più volte">+</button></span></div></div>
+   ${moves.length?`<div class="mv4"><p class="kc4">Per fare spazio ti propongo</p>${moves.map(mv=>`<button class="mvi" data-amv="${mv.id}" aria-pressed="${!!m.acc[mv.id]}"><span class="ck4">${icon("l3ck",2)}</span><span>${mvt(mv)}</span></button>`).join("")}<small>Puoi togliere la spunta: niente si sposta senza il tuo ok.</small></div>`:heavy.length?`<p class="hv4">${heavy.map(d=>WDL[d]).join(" e ")} ${heavy.length>1?"sono già giornate piene":"è già una giornata piena"}: se puoi, scegli un giorno più leggero.</p>`:`<p class="hv4 ok">La settimana resta in equilibrio: nessun impegno da spostare.</p>`}
+   <div class="foot4"><button class="cta3" data-ago>${nAcc?`Aggiungi e sposta ${nAcc===1?"1 attività":nAcc+" attività"}`:"Aggiungi al percorso"}</button></div></div>`,{keep:m._d==="k"+m.k});m._d="k"+m.k}
 function addHabit(){const m=OV,c=addSrc(m),x=m.x;const isNew=!H().some(([,h])=>figOf(h.guide)===figOf(c.g));const id=uid();
+  const mvMsg=applyMoves((m.moves||[]).filter(mv=>m.acc&&m.acc[mv.id]));try{learnFrom(c.t,x.w,x.m,m.sug)}catch(_){}
   save("habits",id,{title:c.t,guide:c.g,mins:x.m,days:x.days.slice().sort(),when:x.w,i:c.i||"",act:c.act||"",free:!!c.free,mini:c.mini,anchor:c.anc||"",created:today(),stage:1,plan:false,archived:false,custom:m.k==="__custom"});
   if(!meta().plan)setMeta({plan:{start:today(),variant:"consigliato"}});
-  if(isNew)openIntros([figOf(c.g)],true);else{closeOv();S.tab="oggi";render();snack(`«${c.t}» aggiunta`)}}
+  const msg=`«${c.t}» aggiunta${mvMsg.length?`. Ho spostato ${mvMsg.join(" e ")}`:""}`;if(isNew){openIntros([figOf(c.g)],true);if(mvMsg.length)setTimeout(()=>snack(msg),400)}else{closeOv();S.tab="oggi";render();snack(msg)}}
 /* scheda attività */
 let SH=null;
 function openSheet(id){SH={id,acc:{},pp:false,tip:0};drawSheet(true)}
@@ -1668,13 +1821,15 @@ document.addEventListener("click",async e=>{const t=e.target;
     if(d.iback!=null){if(OV.i>0){OV.i--;drawIntro()}else closeOv();return}}
   if(OV&&OV.kind==="add"){const m=OV;
     if("afl" in d){m.fl=d.afl;drawAdd();return}
-    if(d.acat){const A=ACT[d.acat];m.k="cat:"+d.acat;m.x={f:3,m:A.m||0,w:A.w,days:spread([0,1,2,3,4,5,6],3,false)};drawAdd();return}
-    if(d.acustom!=null){m.custom=true;m.cg=m.fl||m.preG||"lavoro";m.cn=null;m.cnTyped="";drawAdd();return}
-    if(d.cg){m.cg=d.cg;m.cn=null;drawAdd();return}
+    if(d.acat){const A=ACT[d.acat];m.k="cat:"+d.acat;m.sug=null;initPlan(m,A.n,A.area||figOf(A.e),{m:A.m||0,w:A.w,f:3,free:!A.m});drawAdd();return}
+    if(d.acustom!=null){m.custom=true;m.cgT=!!(m.fl||m.preG);m.cg=m.fl||m.preG||"lavoro";m.cn=null;m.cnTyped="";drawAdd();return}
+    if(d.cg){m.cg=d.cg;m.cgT=true;m.cn=null;drawAdd();return}
     if(d.cn){m.cn=d.cn;m.cnTyped="";drawAdd();return}
-    if(d.cgo!=null){const n=m.cn||m.cnTyped;if(!n)return;m.custom=n;m.k="__custom";m.x={f:3,m:20,w:"mattina",days:spread([0,1,2,3,4,5,6],3,false)};drawAdd();return}
-    if(d.ak){const c=HC[d.ak],p=meta().profile||{};m.k=d.ak;const w=c.w==="best"?(p.best||"mattina"):c.w==="free"?"mattina":c.w;m.x={f:c.f,m:c.m,w,days:spread(c.w==="free"?[...(p.free||[5,6]),0,1,2,3,4]:[0,1,2,3,4,5,6],c.f,c.w==="free")};drawAdd();return}
-    if(d.aback!=null){if(m.k==="__custom"){m.k=null;m.custom=true}else if(m.custom&&!m.k){m.custom=false}else m.k=null;drawAdd();return}
+    if(d.cgo!=null){const n=m.cn||m.cnTyped;if(!n)return;m.custom=n;m.k="__custom";const I=inferAct(n,m.cg);if(!m.cgT&&I.a&&AREAS[I.a])m.cg=I.a;m.sug=null;initPlan(m,n,m.cg,null);drawAdd();return}
+    if(d.ak){const c=HC[d.ak],p=meta().profile||{};m.k=d.ak;const w=c.w==="best"?(p.best||"mattina"):c.w==="free"?"mattina":c.w;m.sug=null;initPlan(m,c.t,figOf(c.g),{m:c.m,w,f:c.f});drawAdd();return}
+    if(d.asug!=null&&m.sug){const sg=m.sug;m.x={f:sg.f,m:sg.m,w:sg.w,days:sg.days.slice()};drawAdd();return}
+    if(d.amv){m.acc[d.amv]=!m.acc[d.amv];drawAdd();return}
+    if(d.aback!=null){m.sug=null;if(m.k==="__custom"){m.k=null;m.custom=true}else if(m.custom&&!m.k){m.custom=false}else m.k=null;drawAdd();return}
     if(d.af){const x=m.x;x.f=Math.max(1,Math.min(7,x.f+ +d.af));if(x.days.length>x.f)x.days=x.days.slice(0,x.f);else for(let k=0;k<7&&x.days.length<x.f;k++){const dd=[0,2,4,1,3,5,6][k];if(!x.days.includes(dd))x.days.push(dd)}x.days.sort();drawAdd();return}
     if(d.am){m.x.m=Math.max(5,Math.min(180,m.x.m+ +d.am));drawAdd();return}
     if(d.aw){m.x.w=d.aw;drawAdd();return}
@@ -1739,7 +1894,7 @@ document.addEventListener("touchcancel",()=>{const o=ovEl();if(o){o.style.transf
  new MutationObserver(upd).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:["class"]});upd()})();
 </script>
 <script>/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica */
-(function(){const BUILD='2026-10-24g';let busy=false;
+(function(){const BUILD='2026-10-24h';let busy=false;
 async function chk(){if(busy||!navigator.onLine)return;busy=true;try{
  const r=await fetch('index.html?u='+Date.now(),{cache:'no-store'});const s=await r.text();
  const m=s.match(/const BUILD='([^']+)'/);
