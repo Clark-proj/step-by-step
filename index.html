@@ -817,6 +817,10 @@ body.g3{--sel:#fff;--vb:#fff}
  box-shadow:0 2px 10px rgba(30,27,75,.10)!important;transition:none!important;will-change:transform}
 @media (prefers-reduced-motion:reduce){.g3 .lg3 .pop svg{animation:none}}
 .rmode .lg3 .pop svg{animation:none}
+
+/* barra di stato iOS: sempre del colore della pagina, si scurisce solo con i pannelli aperti */
+html{background:#fdfcff}
+#sbcap{position:fixed;left:0;right:0;top:0;height:env(safe-area-inset-top,0px);background:#fdfcff;z-index:45;pointer-events:none}
 </style>
 
 <div class="app" id="app"><main id="scr"></main></div>
@@ -1726,9 +1730,16 @@ document.addEventListener("touchend",()=>{const dx=lx-sx,dy=ly-sy,v=(mode==="dow
  mode=null;el=null},{passive:true});
 document.addEventListener("touchcancel",()=>{const o=ovEl();if(o){o.style.transform="";o.style.boxShadow=""}if(el)el.style.transform="";mode=null;el=null},{passive:true});
 })();
+</script><script>
+/* tiene la zona di orario e batteria allineata alla pagina: bianca di norma, velata solo mentre un pannello è aperto */
+(function(){const PAGE="#fdfcff",DIM="#c1c1c7";
+ let cap=document.getElementById("sbcap");if(!cap){cap=document.createElement("div");cap.id="sbcap";cap.setAttribute("aria-hidden","true");document.body.appendChild(cap)}
+ let m=document.querySelector('meta[name="theme-color"]');if(!m){m=document.createElement("meta");m.name="theme-color";document.head.appendChild(m)}
+ let last=null;const upd=()=>{const dim=!!document.querySelector(".scrim:not(.out),.w3.legon");const c=dim?DIM:PAGE;if(c===last)return;last=c;m.setAttribute("content",c)};
+ new MutationObserver(upd).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:["class"]});upd()})();
 </script>
 <script>/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica */
-(function(){const BUILD='2026-10-24f';let busy=false;
+(function(){const BUILD='2026-10-24g';let busy=false;
 async function chk(){if(busy||!navigator.onLine)return;busy=true;try{
  const r=await fetch('index.html?u='+Date.now(),{cache:'no-store'});const s=await r.text();
  const m=s.match(/const BUILD='([^']+)'/);
