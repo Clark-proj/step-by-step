@@ -970,6 +970,12 @@ body.g3 .app{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))!importa
 .g3 .wg5{background:transparent!important;box-shadow:none!important;padding:0!important}
 .g3 .wg5n{background:#fff;border-radius:22px;padding:6px 6px!important;box-shadow:var(--sh2);margin-bottom:10px}
 .g3 .wg5s{display:flex;justify-content:space-between;font-size:13.5px;color:var(--mut);margin:12px 6px 0}.g3 .wg5s b{color:var(--ink)}
+
+/* sotto la descrizione: linea sottilissima, poi tutto allineato al bordo sinistro del box */
+.g3 .r3 .dx5,.g3 .r3.cur .dx5{order:5;margin:6px 0 0!important;padding-top:8px;border-top:.5px solid #e7e6ee}
+.g3 .r3.cur .pp3{order:6!important;margin:6px 0 0!important}
+.g3 .r3 .brk{display:none}
+.g3 .dx5t{width:100%;justify-content:flex-start}.g3 .dx5t svg{margin-left:auto}
 </style>
 
 <div class="app" id="app"><main id="scr"></main></div>
@@ -2132,7 +2138,7 @@ document.addEventListener("touchcancel",()=>{const o=ovEl();if(o){o.style.transf
  m.setAttribute("content",PAGE)})();
 </script>
 <script>/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica */
-(function(){const BUILD='2026-10-24o';let busy=false;
+(function(){const BUILD='2026-10-24p';let busy=false;
 async function chk(){if(busy||!navigator.onLine)return;busy=true;try{
  const r=await fetch('index.html?u='+Date.now(),{cache:'no-store'});const s=await r.text();
  const m=s.match(/const BUILD='([^']+)'/);
