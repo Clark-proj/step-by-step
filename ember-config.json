@@ -1,0 +1,14 @@
+{
+  "name": "Ember",
+  "coordinateSystem": "normalized PNG UV: x left-to-right, y top-to-bottom",
+  "eye": [0.699, 0.194],
+  "headPivot": [0.64, 0.29],
+  "symbol": [0.752, 0.391],
+  "leftWing": [0.28, 0.40],
+  "rightWing": [0.91, 0.44],
+  "tail": [0.42, 0.83],
+  "body": [0.62, 0.45],
+  "lowerBeak": [0.785, 0.237],
+  "glints": [[0.24, 0.31], [0.90, 0.56], [0.41, 0.84]],
+  "notes": "Calibrated for assets/ember-pulito.png only. Do not swap image without recalibration."
+}
