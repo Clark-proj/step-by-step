@@ -872,7 +872,7 @@ html{background:#fdfcff}
 .g3 .w3 .wtop:has(.wfig.emb){min-height:440px}
 
 /* ===== v52: volti nei bollini, tappe come anello, fine pagina senza bianco, contorni sottilissimi ===== */
-.g3 img.face{object-fit:cover!important;border-radius:50%!important;background:#fff;box-shadow:inset 0 0 0 .5px rgba(30,27,75,.08)}
+.g3 img.face{object-fit:contain!important;object-position:center!important;background:transparent!important;border-radius:0!important;box-shadow:none!important}
 .g3 .ra.icn.face{width:54px!important;height:54px!important}.g3 .shh .shb.icn.face{width:66px!important;height:66px!important}
 .g3 .t5{display:flex;align-items:center;gap:16px;padding:14px 18px}
 .g3 .t5r{position:relative;width:96px;height:96px;flex:none}.g3 .t5r svg{width:100%;height:100%;overflow:visible}
@@ -1145,7 +1145,7 @@ const OLDHC={lettura:"mente__lettura",studio:"mente__studio",lingue:"mente__prat
 const BYNAME={};for(const id in ACT)BYNAME[ACT[id].n.toLowerCase()]=id;
 const actOf=h=>h.act&&ACT[h.act]?h.act:(OLDACT[h.ic]||OLDHC[h.k]||BYNAME[String(h.title||"").toLowerCase()]||null);
 const essIcon=(f,cls)=>{const a=AREAS[f]||AREAS[figOf(f)];return a?`<img class="${cls} ess" src="${a.fig}.png" alt="">`:`<span class="${cls} vuoto" aria-hidden="true"></span>`};
-const FACE=f=>{const a=AREAS[f]||AREAS[figOf(f)];return a?`face_${a.fig}.webp`:""};
+const FACE=f=>{const a=AREAS[f]||AREAS[figOf(f)];return a?`av_${a.fig}.png`:""};
 const faceIcon=(f,cls)=>{const s=FACE(f);return s?`<img class="${cls} face" src="${s}" alt="">`:`<span class="${cls} vuoto" aria-hidden="true"></span>`};
 const actIcon=(h,cls)=>{const id=actOf(h);return id?actImg(id,cls):""};
 
@@ -1267,7 +1267,7 @@ function render(){document.body.classList.toggle("rmode",RM);document.body.class
 function renderOggi(){const scr=$("#scr");const n=new Date();const tS=today();const md=isMiniDay(tS);
   const L=dayList(tS);const pk=pickNow();
   const lead=S.flt||(pk?figOf(pk[1].guide):L[0]?figOf(L[0][1].guide):H()[0]?figOf(H()[0][1].guide):"lavoro");
-  const head=`<header class="h3"><button class="av3" data-area="${lead}" aria-label="Apri ${AREAS[lead].fig}">${essIcon(lead,"avi")}</button><span class="sp"></span>${L.length?`<button class="tb3" data-miniday aria-pressed="${md}">${icon("moon",2)}<span>Giornata mini</span></button>`:""}<button class="rb3 acc" data-add aria-label="Aggiungi un'abitudine">${icon("l3plus",2)}</button></header>`;
+  const head=`<header class="h3"><button class="av3" data-area="${lead}" aria-label="Apri ${AREAS[lead].fig}">${faceIcon(lead,"avi")}</button><span class="sp"></span>${L.length?`<button class="tb3" data-miniday aria-pressed="${md}">${icon("moon",2)}<span>Giornata mini</span></button>`:""}<button class="rb3 acc" data-add aria-label="Aggiungi un'abitudine">${icon("l3plus",2)}</button></header>`;
   const dt=`${GIORNI[n.getDay()]} ${n.getDate()} ${MESI[n.getMonth()]}`;
   if(!H().length){scr.innerHTML=head+`<p class="kk3">${dt}</p><h1 class="big3">Iniziamo</h1><p class="sub3">Tre scelte e il tuo percorso è pronto.</p><button class="cta3" data-onb>Costruisci il percorso</button>`;return}
   const done=L.filter(([id])=>doneV(chk(tS,id))).length;
@@ -1484,7 +1484,7 @@ function drawOnb2(keep){const m=OV,p=m.p;let h="";
    <p class="o4hint">Serve solo a scegliere da dove partire, non a giudicarti.</p>
    <div class="o4foot"><button type="button" class="o4cta" data-o2go="2" id="o4n1" ${p.days?"":"disabled"}>${p.days?"Avanti":"Scegli i giorni a settimana"}</button></div>`}
   else if(m.step===2&&m.sub==null){h=oHead(1,"o2back")+`<h1 class="o4q">Da dove vuoi iniziare?</h1><p class="o4p">Scegli le aree che contano per te.</p>
-   <div class="o4grid2" role="group" aria-label="Aree">${AREA_KEYS.map(a=>{const c=p.acts.filter(id=>ACT[id].area===a).length;return pick("data-o2area",a,p.areas.includes(a),`<img class="ti" src="${AREAS[a].fig}.png" alt=""><span class="o4an">${portrait(a)}<b>${AREAS[a].name}</b></span><small>${AREAS[a].fig}${a==="mente"?" e Bloom":""}${c?` · ${c} scelt${c===1?"a":"e"}`:""}</small>`,"area",`style="--ac:${AREAS[a].dot}"`)}).join("")}</div>
+   <div class="o4grid2" role="group" aria-label="Aree">${AREA_KEYS.map(a=>{const c=p.acts.filter(id=>ACT[id].area===a).length;return pick("data-o2area",a,p.areas.includes(a),`<img class="ti face" src="av_${AREAS[a].fig}.png" alt=""><span class="o4an">${portrait(a)}<b>${AREAS[a].name}</b></span><small>${AREAS[a].fig}${a==="mente"?" e Bloom":""}${c?` · ${c} scelt${c===1?"a":"e"}`:""}</small>`,"area",`style="--ac:${AREAS[a].dot}"`)}).join("")}</div>
    <div class="o4foot"><button type="button" class="o4cta" data-o2acts id="o4n2" ${p.areas.length?"":"disabled"}>${p.areas.length?"Scegli le attività":"Scegli almeno un'area"}</button></div>`}
   else if(m.step===2){const a=p.areas[m.sub],A=AREAS[a],L=CAT[a];const op=!!m.open[a];const hidSel=L.filter(x=>!x.p&&p.acts.includes(x.id));const n=nSel();
    h=oHead(1,"o2subback")+`<h1 class="o4q">${ATIT[a]}</h1><div class="o4ah" style="--ac:${A.dot}"><span class="o4ap" style="background-image:url(${A.img}_c.webp)" aria-hidden="true"></span><div><b>${A.name} · <span>con ${A.fig}${a==="mente"?" e Bloom":""}</span></b><small>${A.mot}. Per iniziare ne bastano 1–3 in tutto.</small></div></div>
@@ -1554,7 +1554,7 @@ function drawOnb3(keep){const m=OV,p=m.p;let h="";
   if(m.step===0){h=`<div class="o4w"><div class="o4hero">${vimg("onboarding_benvenuto.webp","o4bg")}</div><h1 class="o4t">Un piccolo passo.<br>Un mondo di possibilità.</h1><p class="o4p">Un percorso in 5 tappe, al tuo ritmo, con un’essenza al tuo fianco.</p>
    <div class="o4foot"><button type="button" class="o4cta" data-o3go="1">Cominciamo · 3 passi</button>${S.mode==="local"?`<button type="button" class="lnk3" data-imp>Ho già un percorso: incolla i miei dati</button>`:""}</div></div>`}
   else if(m.step===2){const n=p.areas.length;h=o3Head(2)+`<h1 class="o4q">Cosa vuoi far crescere adesso?</h1><p class="o4p">Scegli le aree che contano per te.</p>
-   <div class="o4grid2 ess" role="group" aria-label="Aree">${AREA_KEYS.map(a=>pick("data-o3area",a,p.areas.includes(a),`<img class="ti" src="${AREAS[a].fig}.png" alt=""><b>${a==="mente"?"Mente e creatività":AREAS[a].name}</b><small>${AREAS[a].fig}</small>`,"essbox",`style="--ac:${AREAS[a].dot}"`)).join("")}</div>
+   <div class="o4grid2 ess" role="group" aria-label="Aree">${AREA_KEYS.map(a=>pick("data-o3area",a,p.areas.includes(a),`<img class="ti face" src="av_${AREAS[a].fig}.png" alt=""><b>${a==="mente"?"Mente e creatività":AREAS[a].name}</b><small>${AREAS[a].fig}</small>`,"essbox",`style="--ac:${AREAS[a].dot}"`)).join("")}</div>
    <p class="o5tip ${n>maxAree(p)?"warn":""}" id="o5tip" role="status">${areaTip(p)}</p>
    <div class="o4foot"><button type="button" class="o4cta" data-o3go="3" id="o5n1" ${n?"":"disabled"}>${n?"Avanti":"Scegli almeno un'area"}</button></div>`}
   else if(m.step===1){const rec=p.energy?recTappa(p.energy):null;h=o3Head(1)+`<h1 class="o4q">Da quale tappa parti?</h1><p class="o4p">Il percorso ha 5 tappe. Dimmi come stai di solito e ti propongo da dove partire.</p>
@@ -1820,7 +1820,7 @@ function drawAdd(){const m=OV;const have=new Set(H().map(([,h])=>h.title));
   const dtxt=x.days.length===7?"ogni giorno":x.days.map(d=>WDL[d]).join(", ");
   const mvt=mv=>mv.kind==="w"?`<b>${esc(mv.t)}</b> passa da ${MOML[mv.from]} a ${MOML[mv.to]} in tutti i suoi giorni, così ${GIORNI[mv.d===6?0:mv.d+1].toLowerCase()} ${MOML[mv.from]} resta libero`:`<b>${esc(mv.t)}</b> passa da ${GIORNI[mv.from===6?0:mv.from+1].toLowerCase()} a ${GIORNI[mv.to===6?0:mv.to+1].toLowerCase()}, un giorno più libero`;
   openOv(`${navBack("aback")}<div class="cf4" style="--selb:${AREAS[f].dot}">
-   <div class="cf4h">${essIcon(f,"cf4i")}<div class="nt"><h1>${esc(c.t)}</h1><small>${AREAS[f].name} · con ${AREAS[f].fig}</small></div></div>
+   <div class="cf4h">${faceIcon(f,"cf4i")}<div class="nt"><h1>${esc(c.t)}</h1><small>${AREAS[f].name} · con ${AREAS[f].fig}</small></div></div>
    <button class="sug4 ${same?"on":""}" ${same?"disabled":"data-asug"}><span class="kc4">${same?"Il percorso consigliato":"La tua scelta"}</span><b>${cap(MOML[x.w])} · ${dtxt}${x.m?` · ${x.m} min`:""}</b><small>${same?esc(sg.why.join(" · ")||"in base alla tua settimana"):"Tocca per tornare al consigliato"}</small></button>
    <div class="cf4r"><span class="lb4">Momento</span><div class="seg4">${MOMS.map(w=>`<button data-aw="${w}" aria-pressed="${x.w===w}">${cap(MOML[w]).replace("Pausa pranzo","Pranzo")}${w===sg.w?`<i class="sd4" aria-label="consigliato"></i>`:""}</button>`).join("")}</div></div>
    <div class="cf4r"><span class="lb4">Giorni <em>· la barra mostra quanto è piena la giornata</em></span><div class="dsel4">${WDS.map((w,d)=>{const pc=Math.min(100,Math.round(LD[d].tot/bud*100));return `<button data-ad="${d}" aria-pressed="${x.days.includes(d)}" aria-label="${WDL[d]}, giornata piena al ${pc}%"><b>${w}</b><span class="ld4"><i style="width:${pc}%" class="${pc>=100?"hi":""}"></i></span></button>`}).join("")}</div></div>
@@ -1851,7 +1851,7 @@ function drawSheet(first){const id=SH.id,h=norm(S.habits[id]);if(!h){closeSheet(
     <div class="two3">${md?"":`<button class="sec3" data-ck="${id}" data-val="m" aria-pressed="${!!(c&&c.v==="m")}">${icon("bolt",1.5)}<span><b>${c&&c.v==="m"?"Fatta mini":"Solo la mini"}</b><small>${esc(h.mini)}</small><em class="xp4">+6 XP</em><small class="trh">Costanza</small></span></button>`}<button class="sec3" data-pptog aria-expanded="${!!SH.pp}" ${d?"disabled":""}>${icon("clock",1.5)}<span><b>Rimanda</b><small>${c&&c.v==="p"?"già rimandata":"scegli quando"}</small><em class="xp4 z">0 XP</em><small class="trh">la Precisione cala</small></span></button></div><p class="xpn">Ogni nuovo grado di legame con ${AREAS[f].fig}: <b>+40 XP</b> · ${AREAS[f].fig} è al livello <b>${areaLevel(f).n}</b></p>
     <div class="exp ${SH.pp?"open":""}" id="ppx"><div><div class="opts3">${ppOptions(id).filter(o=>o.k!=="mini").map(o=>`<button data-pp="${o.k}" ${o.to?`data-to="${o.to}"`:""}><b>${o.t}</b><small>${o.d}</small></button>`).join("")}</div></div></div>`
    :`<p class="none3">Oggi non è in programma${nxt?`: la ritrovi ${nxt}`:""}.</p>`}
-   ${(()=>{const n=SH.tip||0;const T=n?tipFor(h,id,n):null;return `<button class="tip4" data-tipn aria-label="Mostra un altro consiglio" style="--ac:${AC[f].dot}"><span class="tph">${essIcon(f,"tpi")}<span class="kc4">${n?TIPT[T.k]:"Il consiglio di oggi"}</span><span class="tpc">${n?`${T.tn}`:""}</span></span><p class="tpt">${n?esc(T.txt):lineFor(h,id)}</p><span class="tpm">${icon("l3chev",1.5)}Tocca per un altro consiglio</span></button>`})()}
+   ${(()=>{const n=SH.tip||0;const T=n?tipFor(h,id,n):null;return `<button class="tip4" data-tipn aria-label="Mostra un altro consiglio" style="--ac:${AC[f].dot}"><span class="tph">${faceIcon(f,"tpi")}<span class="kc4">${n?TIPT[T.k]:"Il consiglio di oggi"}</span><span class="tpc">${n?`${T.tn}`:""}</span></span><p class="tpt">${n?esc(T.txt):lineFor(h,id)}</p><span class="tpm">${icon("l3chev",1.5)}Tocca per un altro consiglio</span></button>`})()}
    <div class="card3 acc3 ${acc.leg?"open":""}"><button class="acch" data-acc="leg" aria-expanded="${!!acc.leg}"><span class="nt"><b>Il legame · ${BOND[s.stage-1]}</b><small>${s.next?esc(s.next.t):"Il legame è completo"}</small></span>${icon("l3chev",1.5)}</button><div class="exp"><div><div class="accb">
     <div class="trk3">${BOND.map((n,i)=>`<div class="${i<s.stage?"on":""} ${i===s.stage-1?"now":""}"><i></i><span>${n}</span></div>`).join("")}</div>
     ${s.next?`<div class="pb3"><i style="width:${Math.round(Math.min(1,s.next.p)*100)}%"></i></div>`:""}
@@ -2080,7 +2080,7 @@ document.addEventListener("touchcancel",()=>{const o=ovEl();if(o){o.style.transf
  m.setAttribute("content",PAGE)})();
 </script>
 <script>/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica */
-(function(){const BUILD='2026-10-24m';let busy=false;
+(function(){const BUILD='2026-10-24n';let busy=false;
 async function chk(){if(busy||!navigator.onLine)return;busy=true;try{
  const r=await fetch('index.html?u='+Date.now(),{cache:'no-store'});const s=await r.text();
  const m=s.match(/const BUILD='([^']+)'/);
