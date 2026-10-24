@@ -820,7 +820,9 @@ body.g3{--sel:#fff;--vb:#fff}
 
 /* barra di stato iOS: sempre del colore della pagina, si scurisce solo con i pannelli aperti */
 html{background:#fdfcff}
-#sbcap{position:fixed;left:0;right:0;top:0;height:env(safe-area-inset-top,0px);background:#fdfcff;z-index:45;pointer-events:none}
+#sbcap{position:fixed;left:0;right:0;top:0;height:env(safe-area-inset-top,0px);background:#fdfcff;z-index:200;pointer-events:none}
+.scrim,.g3 .scrim,.g3 .lscrim{top:env(safe-area-inset-top,0px)!important}
+.g3 .av3{display:grid;place-items:center;overflow:hidden}.g3 .av3 .avi{width:44px;height:44px;object-fit:contain}
 
 /* ===== aggiungi: tutto in una schermata, con proposta ===== */
 .g3 .cf4{display:flex;flex-direction:column;gap:12px;min-height:calc(100dvh - 118px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
@@ -1135,7 +1137,7 @@ function render(){document.body.classList.toggle("rmode",RM);document.body.class
 function renderOggi(){const scr=$("#scr");const n=new Date();const tS=today();const md=isMiniDay(tS);
   const L=dayList(tS);const pk=pickNow();
   const lead=S.flt||(pk?figOf(pk[1].guide):L[0]?figOf(L[0][1].guide):H()[0]?figOf(H()[0][1].guide):"lavoro");
-  const head=`<header class="h3"><button class="av3" data-area="${lead}" aria-label="Apri ${AREAS[lead].fig}" style="background-image:url(${fimg(lead,"c")})"></button><span class="sp"></span>${L.length?`<button class="tb3" data-miniday aria-pressed="${md}">${icon("moon",2)}<span>Giornata mini</span></button>`:""}<button class="rb3 acc" data-add aria-label="Aggiungi un'abitudine">${icon("l3plus",2)}</button></header>`;
+  const head=`<header class="h3"><button class="av3" data-area="${lead}" aria-label="Apri ${AREAS[lead].fig}">${essIcon(lead,"avi")}</button><span class="sp"></span>${L.length?`<button class="tb3" data-miniday aria-pressed="${md}">${icon("moon",2)}<span>Giornata mini</span></button>`:""}<button class="rb3 acc" data-add aria-label="Aggiungi un'abitudine">${icon("l3plus",2)}</button></header>`;
   const dt=`${GIORNI[n.getDay()]} ${n.getDate()} ${MESI[n.getMonth()]}`;
   if(!H().length){scr.innerHTML=head+`<p class="kk3">${dt}</p><h1 class="big3">Iniziamo</h1><p class="sub3">Tre scelte e il tuo percorso è pronto.</p><button class="cta3" data-onb>Costruisci il percorso</button>`;return}
   const done=L.filter(([id])=>doneV(chk(tS,id))).length;
@@ -1890,11 +1892,10 @@ document.addEventListener("touchcancel",()=>{const o=ovEl();if(o){o.style.transf
 (function(){const PAGE="#fdfcff",DIM="#c1c1c7";
  let cap=document.getElementById("sbcap");if(!cap){cap=document.createElement("div");cap.id="sbcap";cap.setAttribute("aria-hidden","true");document.body.appendChild(cap)}
  let m=document.querySelector('meta[name="theme-color"]');if(!m){m=document.createElement("meta");m.name="theme-color";document.head.appendChild(m)}
- let last=null;const upd=()=>{const dim=!!document.querySelector(".scrim:not(.out),.w3.legon");const c=dim?DIM:PAGE;if(c===last)return;last=c;m.setAttribute("content",c)};
- new MutationObserver(upd).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:["class"]});upd()})();
+ m.setAttribute("content",PAGE)})();
 </script>
 <script>/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica */
-(function(){const BUILD='2026-10-24h';let busy=false;
+(function(){const BUILD='2026-10-24i';let busy=false;
 async function chk(){if(busy||!navigator.onLine)return;busy=true;try{
  const r=await fetch('index.html?u='+Date.now(),{cache:'no-store'});const s=await r.text();
  const m=s.match(/const BUILD='([^']+)'/);
