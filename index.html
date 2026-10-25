@@ -861,15 +861,21 @@ html{background:#fdfcff}
 .g3 .trh{display:block;font-size:11px;font-weight:700;color:var(--ac,var(--acc));margin-top:3px;letter-spacing:.01em}.g3 .sec3 .trh{margin-top:4px}
 .g3 .xp4{color:var(--ac,var(--acc))}
 /* Ember animato: grande, intero, toccabile */
-.g3 .wfig.emb{width:214px;height:330px;top:58px;right:-8px;pointer-events:auto}
-.g3 .emb-slot{position:absolute;inset:0}
-.ember-host{position:relative;width:100%;height:100%;isolation:isolate;background:transparent}
-.ember-host img,.ember-host canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
-.ember-static{z-index:0}.ember-render{z-index:1}.ember-effects{z-index:2;pointer-events:none}
-.ember-hit{position:absolute;inset:0;z-index:3;border:0;background:transparent;padding:0;border-radius:28px;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
-.g3 .emb-light{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);z-index:4;font-size:12px;font-weight:700;color:var(--ac);background:#fff;border-radius:16px;padding:6px 12px;box-shadow:var(--sh2);opacity:0;pointer-events:none}
-.g3 .emb-light:focus-visible{opacity:1;pointer-events:auto}
-.g3 .w3 .wtop:has(.wfig.emb){min-height:440px}
+.pv-slot{position:absolute;inset:0}
+.pv-slot .pv-static{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:2%;box-sizing:border-box}
+.pv-slot.on>.pv-static{visibility:hidden}
+.pv-host{position:absolute;inset:0;z-index:1}
+.essence-presence{position:relative;width:100%;height:100%;isolation:isolate;background:transparent}
+.essence-presence [hidden]{display:none!important}
+.essence-presence img,.essence-presence canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.essence-presence .essence-static{padding:2%;z-index:0;box-sizing:border-box}
+.essence-presence .essence-render{z-index:1}
+.essence-presence .essence-effects{z-index:2;pointer-events:none}
+.essence-presence .essence-hit{position:absolute;inset:0;z-index:3;background:transparent;border:0;padding:0;border-radius:25px;touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;cursor:pointer}
+.essence-presence .essence-hit:focus-visible{outline:2px solid #9580bd;outline-offset:-3px}
+.pv-light{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);z-index:4;font-size:12px;font-weight:700;color:var(--ac,#6a4fb0);background:#fff;border-radius:16px;padding:6px 12px;box-shadow:var(--sh2);opacity:0;pointer-events:none}
+.pv-light:focus-visible{opacity:1;pointer-events:auto}
+.g3 .w3 .wfig{pointer-events:auto}
 
 /* ===== v52: volti nei bollini, tappe come anello, fine pagina senza bianco, contorni sottilissimi ===== */
 .g3 img.face{object-fit:contain!important;object-position:center!important;background:transparent!important;border-radius:0!important;box-shadow:none!important}
@@ -894,9 +900,9 @@ body.g3 .app{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))!importa
 .g3 .whero .wtx{min-width:0;position:relative;z-index:2}.g3 .whero .wk{margin-top:0!important}
 .g3 .whero h2{font-size:clamp(26px,7.4vw,34px)!important;line-height:1.06!important;margin-top:4px;max-width:none!important;overflow-wrap:normal;hyphens:manual}
 .g3 .whero .wm{max-width:none!important;font-size:15.5px;line-height:1.35;margin-top:8px}
-.g3 .whero .wfig{position:relative!important;right:auto!important;top:auto!important;width:100%!important;height:230px!important}
-.g3 .whero .wfig .stage{height:230px!important}
-.g3 .whero .wfig.emb{height:290px!important}
+.g3 .whero .wfig{position:relative!important;right:auto!important;top:auto!important;width:100%!important;height:290px!important}
+.g3 .whero .wfig .stage{height:290px!important}
+
 .g3 .w3 .lv5.wpar{max-width:none;margin-top:10px}
 .g3 .w3 .wtabs{position:relative!important;margin-top:16px;bottom:auto!important}
 /* filtri delle Essenze: vanno a capo, niente uscita dalla pagina */
@@ -1191,20 +1197,14 @@ const faceIcon=(f,cls)=>{const s=FACE(f);return s?`<img class="${cls} face" src=
 const actIcon=(h,cls)=>{const id=actOf(h);return id?actImg(id,cls):""};
 
 const thumb=g=>`<span class="th3" style="background-image:url(${IMG[figOf(g)]}_c.webp)" aria-hidden="true"></span>`;
-function stageHTML(g,st,h,opt={}){const f=figOf(g);return `<div class="stage" ${opt.live?"data-live":""} data-f="${f}" style="--h:${h}px"><div class="gfhost" data-fig="${f}"></div></div>`}
-const FIGS=new Set();let GFmod=null;
-function loadGF(){return GFmod||(GFmod=import("./guide-figure.js").catch(e=>{GFmod=null;throw e}))}
-function mountStages(root){const hosts=[...(root||document).querySelectorAll(".gfhost")].filter(el=>!el._fig&&!el._pending);if(!hosts.length)return;hosts.forEach(el=>el._pending=1);
-  loadGF().then(m=>{for(const el of hosts){el._pending=0;if(!el.isConnected||el._fig)continue;const f=m.createGuideFigure(el,{guide:IMG[el.dataset.fig]||el.dataset.fig,moving:!RM,assetBase:""});el._fig=f;FIGS.add({el,f});if(el._celebrate){el._celebrate=0;f.celebrate()}}})
-  .catch(()=>{for(const el of hosts){el._pending=0;if(el.isConnected)el.innerHTML=`<img src="${IMG[el.dataset.fig]||el.dataset.fig}.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain">`}})}
-/* smonta le figure uscite dalla pagina: ciclo, observer, texture e renderer vengono liberati */
-function sweepFigs(){for(const r of [...FIGS])if(!r.el.isConnected){r.f.destroy();r.el._fig=null;FIGS.delete(r)}}
-new MutationObserver(()=>queueMicrotask(sweepFigs)).observe(document.body,{childList:true,subtree:true});
-function celebrateIn(stage){if(!stage)return;const host=stage.querySelector(".gfhost");if(!host)return;if(host._fig)host._fig.celebrate();else host._celebrate=1}
-function setMotionAll(on){for(const r of FIGS)on?r.f.resume():r.f.pause()}
+function stageHTML(g,st,h,opt={}){const e=essOf(g),N=essName(e);const im=`<img class="pv-static" src="ess-${e}-s.webp" alt="${N}">`;return opt.live?`<div class="stage" data-live data-f="${e}" style="--h:${h}px"><div class="pv-slot" data-ess="${e}">${im}<button class="pv-light" data-pvlight>Luce del simbolo</button></div></div>`:`<div class="stage still" data-f="${e}" style="--h:${h}px"><div class="pv-slot">${im}</div></div>`}
+/* figure grandi: motore Presenza viva 03 (pv-presence.js). Miniature e tessere restano immagini statiche */
+function mountStages(){pvQueue()}
+function celebrateIn(){}
+function setMotionAll(){pvQueue()}
 function liveStage(){return $("#cvw .stage[data-live]")||$("#sh .stage[data-live]")||$("#ov .stage[data-live]")||$("#scr .stage[data-live]")}
 /* la figura reagisce solo a un traguardo già salvato, una volta per evento: luce dell'amuleto. Rinvii e salti non cambiano nulla */
-subs.add(e=>{if(e.type===EV.HABIT_COMPLETED||e.type===EV.ROUTINE_COMPLETED)celebrateIn(liveStage())});
+
 /* icone */
 const IC={
  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
@@ -1257,25 +1257,41 @@ const rankOf=v=>v>=80?5:v>=60?4:v>=40?3:v>=20?2:v>0?1:0;
 function traitsHTML(f){const T=traitsOf(f);return `<div class="tr5">${TRAITS.map(([k,n,d])=>{const r=rankOf(T[k]);return `<div class="tr5r"><div class="tr5h"><b>${n}</b><span>${r?`rango ${r}`:"da scoprire"}</span></div><span class="tr5b" aria-label="${n}: ${T[k]}%">${[1,2,3,4,5].map(i=>`<i class="${i<=r?"on":""}"></i>`).join("")}</span><small>${d}</small></div>`}).join("")}</div>`}
 
 /* ===== Ember · Incanto 03: animazione solo nella pagina dell'area Lavoro, aperta e visibile ===== */
-const EMB={p:null,host:null,tok:0,mod:null,q:0};const EMB_SRC="ember-pulito.png";const CEL="celebr";
-const emberLedger={has(id){return ((S.meta[CEL]||{}).ids||[]).includes(id)},async mark(id){const cur=(S.meta[CEL]||{}).ids||[];if(cur.includes(id))return;await saveNow("meta",CEL,{ids:[...cur,id].slice(-600)})}};
-function emberCovered(){return !!document.querySelector("#sh .scrim,#cvw .scrim,.w3.legon,.cv,.bu")}
-async function emberSync(){const slot=document.querySelector("#ov .ov:not(.out) .emb-slot");
-  if(!slot){if(EMB.p||EMB.host){EMB.tok++;const p=EMB.p;EMB.p=null;EMB.host=null;try{p&&p.destroy()}catch(e){}}return}
-  if(EMB.host){if(EMB.host.parentNode!==slot)slot.replaceChildren(EMB.host)}
-  else{const tok=++EMB.tok;const host=document.createElement("div");host.className="ember-host";slot.replaceChildren(host);EMB.host=host;
-    try{const mod=EMB.mod||(EMB.mod=await import("./ember-presence.js"));const p=await mod.mountEmberPresence(host,{src:EMB_SRC,expanded:true,completionLedger:emberLedger,onReact:()=>{}});
-      if(tok!==EMB.tok||!host.isConnected){try{p&&p.destroy()}catch(e){}return}EMB.p=p}catch(e){if(tok===EMB.tok){EMB.mod=null;host.innerHTML=`<img class="ember-static" src="${EMB_SRC}" alt="Ember">`}console.warn("Ember statico",e)}}
-  if(EMB.p)EMB.p.setPaused(emberCovered()||RM)}
-function emberQueue(){if(EMB.q)return;EMB.q=requestAnimationFrame(()=>{EMB.q=0;emberSync()})}
-new MutationObserver(emberQueue).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:["class"]});
-window.__emb=EMB;window.__S=()=>S;window.__tip=(...a)=>tipFor(...a);window.__tips=()=>TIPS;
-function emberLight(){if(EMB.p&&!EMB.p.awaken())snack("La luce del simbolo si ricarica: riprova tra qualche secondo")}
-/* completamento salvato davvero di un'attività di Ember: celebra una sola volta per evento */
-async function emberCompleted(eventId,taskId){const rec={eventId,taskId,essenceId:"ember",outcome:"completed",saveStatus:"saved"};
-  if(document.querySelector("#sh .scrim")&&document.querySelector("#ov .emb-slot"))await new Promise(r=>setTimeout(r,320));
-  if(EMB.p){try{return await EMB.p.celebrateTask(rec)}catch(e){return null}}
-  try{if(!emberLedger.has(eventId))await emberLedger.mark(eventId)}catch(e){}return null}
+const CEL="celebr";
+const ESS_IDS=["sage","brook","hearth","moss","nyx","prism","wisp","fathom","aster","bloom","brume","echo","lumen","quartz","rill","veil","volt","ember"];
+function essOf(g){if(!g)return "sage";if(GD[g])return String(g).toLowerCase();const A=AREAS[g];if(A)return A.fig.toLowerCase();const s=String(g).toLowerCase();if(ESS_IDS.includes(s))return s;const B=AREAS[figOf(g)];return B?B.fig.toLowerCase():"sage"}
+const essName=e=>e[0].toUpperCase()+e.slice(1);
+/* registro persistente delle celebrazioni consumate: mark riesce prima dell'effetto */
+const presLedger={has(id){return ((S.meta[CEL]||{}).ids||[]).includes(id)},async mark(id){const cur=(S.meta[CEL]||{}).ids||[];if(cur.includes(id))return;await saveNow("meta",CEL,{ids:[...cur,id].slice(-600)})}};
+/* un solo personaggio grande attivo: lo slot più in alto tra copertina, pannello, pagina aperta e schermata */
+const PV={p:null,slot:null,host:null,ess:null,ctrl:null,tok:0,mod:null,q:0,mounting:null};
+const PV_LAYERS=["#cvw","#sh","#ov .ov:not(.out)","#scr"];
+function pvTop(){for(let i=0;i<PV_LAYERS.length;i++){const L=document.querySelector(PV_LAYERS[i]);const s=L&&L.querySelector(".pv-slot[data-ess]");if(s)return {s,i}}return null}
+function pvCovered(s,i){if(i>0&&document.querySelector("#cvw .bu,#cvw .cv,#cvw .scrim"))return true;if(i>1&&document.querySelector("#sh .scrim:not(.out)"))return true;return !!s.closest(".w3.legon")}
+function pvDrop(){PV.tok++;const {p,ctrl,slot,host}=PV;PV.p=null;PV.slot=null;PV.host=null;PV.ess=null;PV.ctrl=null;PV.mounting=null;
+  if(p){try{p.setExpanded(false)}catch(e){}}if(ctrl)ctrl.abort();if(p){try{p.destroy()}catch(e){}}if(host)host.remove();if(slot)slot.classList.remove("on")}
+function pvState(){const t=pvTop();if(!PV.p||!t||t.s!==PV.slot)return;PV.p.setCovered(pvCovered(t.s,t.i));PV.p.setPaused(RM)}
+function pvSync(){const t=pvTop();if(!t){if(PV.slot||PV.p)pvDrop();return}
+  const s=t.s,ess=s.dataset.ess;if(PV.slot===s&&PV.ess===ess&&s.isConnected){pvState();return}
+  pvDrop();const tok=PV.tok,ctrl=new AbortController(),host=document.createElement("div");host.className="pv-host";s.prepend(host);
+  Object.assign(PV,{slot:s,ess,ctrl,host});
+  PV.mounting=(async()=>{try{const mod=PV.mod||(PV.mod=await import("./pv-presence.js"));if(tok!==PV.tok)return null;
+      const p=await mod.mountEssencePresence(host,{essenceId:ess,expanded:true,signal:ctrl.signal,completionLedger:presLedger,onReact:pvReact});
+      if(tok!==PV.tok||!host.isConnected){try{p&&p.destroy()}catch(e){}return null}
+      if(!p)return null;PV.p=p;s.classList.add("on");pvState();return p}
+    catch(e){if(tok===PV.tok){PV.mod=null;host.remove()}console.warn(essName(ess)+": immagine statica",e);return null}})()}
+function pvQueue(){if(PV.q)return;PV.q=requestAnimationFrame(()=>{PV.q=0;pvSync()})}
+new MutationObserver(pvQueue).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:["class"]});
+window.__pv=PV;window.__S=()=>S;window.__tip=(...a)=>tipFor(...a);window.__tips=()=>TIPS;
+function pvReact(){}
+function pvLight(){if(PV.p&&!PV.p.awaken())snack("La luce del simbolo si ricarica: riprova tra qualche secondo")}
+/* celebra solo dopo il salvataggio confermato; se l'Essenza aperta è un'altra o è ferma, l'evento è consumato senza animazione */
+async function presCompleted(eventId,taskId,ess,waitMs=0){const rec={eventId,taskId,essenceId:ess,outcome:"completed",saveStatus:"saved"};const end=Date.now()+waitMs;
+  if(document.querySelector("#sh .scrim"))await new Promise(r=>setTimeout(r,320));
+  for(;;){if(PV.mounting&&PV.ess===ess){try{await PV.mounting}catch(e){}}
+    if(PV.p&&PV.ess===ess){try{return await PV.p.celebrateTask(rec)}catch(e){return null}}
+    if(Date.now()>=end)break;await new Promise(r=>setTimeout(r,150))}
+  try{if(!presLedger.has(eventId))await presLedger.mark(eventId)}catch(e){}return null}
 function row3(id,h,ds,o={}){const f=figOf(h.guide);const d=doneV(chk(ds,id));const md=isMiniDay(ds);const can=ds<=today()&&!o.off;
   const tag=later(ds,id)?"più tardi":movedIn(ds,id)?"spostata qui":"";
   const when=o.when!=null?o.when:esc(cap(h.anchor||MOML[h.when]));
@@ -1362,7 +1378,7 @@ function guide3HTML(){const by=Object.fromEntries(AREA_KEYS.map(k=>[k,[]]));for(
 function openArea(f){OV={kind:"area",f};const A=AREAS[f];
   openOv(`<div class="w3 ${S.legOpen?"legon":""}" style="--selb:${AC[f].dot};--ac:${AC[f].dot}"><div class="wtop"><div class="wbar"><button class="rb3" data-close aria-label="Indietro">${icon("back",2.2)}</button><span class="sp"></span><button class="rb3" data-legopen aria-label="Analizza il legame con ${A.fig}">${icon("sun",1.5)}</button></div>
    <div class="whero"><div class="wpar wtx"><p class="wk">con ${A.fig}</p><h2>${A.name}</h2><p class="wm">${AC[f].mot}</p></div>
-   ${f==="lavoro"?`<div class="wfig wpar emb"><div class="emb-slot"></div><button class="emb-light" data-emblight>Luce del simbolo</button></div>`:`<div class="wfig wpar">${stageHTML(f,1,250,{live:true})}</div>`}</div>
+   <div class="wfig wpar">${stageHTML(f,1,290,{live:true})}</div></div>
    ${(()=>{const Lv=areaLevel(f);return `<div class="lv5 wpar" style="--ac:${AC[f].dot}"><b>Livello ${Lv.n}</b><span class="lv5b"><i style="width:${Math.round(Lv.p*100)}%"></i></span><small>${Lv.xp-Lv.prev}/${Lv.next-Lv.prev} XP</small></div>`})()}
    <div class="wtabs" role="group" aria-label="Sezioni">${[["att","Attività"],["obi","Obiettivi"],["and","Andamento"]].map(([k,l])=>`<button data-wt="${k}" aria-pressed="${S.wt===k}">${l}</button>`).join("")}</div></div>
    <div id="wbody"></div><div class="lscrim" data-legclose></div><div class="leg3" id="leg3" role="dialog" aria-label="Il legame"></div></div>`);drawWorldBody();setupPar()}
@@ -1414,7 +1430,7 @@ function weekHTML(){const mon=addD(new Date(),-wd(new Date()));const tS=today();
 /* --- Guide --- */
 function guideTabHTML(){const by=Object.fromEntries(AREA_KEYS.map(k=>[k,[]]));for(const [id,h] of H())by[figOf(h.guide)].push(h);
   return topHTML("Le tue guide","Una per ogni parte della tua vita")+`<div style="margin-top:12px"><button class="ghost" style="width:100%" data-mot aria-pressed="${!RM}">${RM?"▶ Riprendi i movimenti":"Ⅱ Ferma i movimenti"}</button></div>`+
-  `<div class="alist">${AREA_KEYS.map(f=>{const A=AREAS[f],n=by[f].length;return `<div class="acard">${stageHTML(f,1,330)}<h3>${A.fig}</h3><small>${A.name} · ${n?n+(n===1?" abitudine":" abitudini"):"nessuna abitudine"}</small><div class="row2" style="grid-template-columns:1fr 1fr"><button class="ghost" data-try="${f}">☀ Prova il traguardo</button><button class="ghost" data-area="${f}">Apri</button></div></div>`}).join("")}</div>`}
+  `<div class="alist">${AREA_KEYS.map(f=>{const A=AREAS[f],n=by[f].length;return `<div class="acard">${stageHTML(f,1,330)}<h3>${A.fig}</h3><small>${A.name} · ${n?n+(n===1?" abitudine":" abitudini"):"nessuna abitudine"}</small><button class="ghost" data-area="${f}" style="width:100%;margin-top:10px">Apri</button></div>`}).join("")}</div>`}
 /* --- Percorso --- */
 function percorsoHTML(){const p=meta().profile||{},pl=meta().plan;const L=H();const tot=L.reduce((a,[,h])=>a+h.mins*h.days.length,0);
   return topHTML("Il tuo percorso",pl?`Dal ${parse(pl.start).getDate()} ${MESI[parse(pl.start).getMonth()]} · settimana ${weekN()}`:"")+
@@ -1926,7 +1942,7 @@ function drawSheet(first){const id=SH.id,h=norm(S.habits[id]);if(!h){closeSheet(
 let tmI=null;
 function startSession(id){const h=norm(S.habits[id]);if(!h)return;if(SH){SH=null;$("#sh").innerHTML=""}
   S.sess={id,start:Date.now(),dur:minsNow(h)*60000,acc:0,run:true};
-  openOv(`<div class="nav"><button class="back" data-sstop aria-label="Interrompi">${icon("back",2.2)}</button><span class="sp"></span><span class="pill">con Ember</span></div>
+  openOv(`<div class="nav"><button class="back" data-sstop aria-label="Interrompi">${icon("back",2.2)}</button><span class="sp"></span><span class="pill">con ${esc(h.guide)}</span></div>
    ${stageHTML(h.guide,stats(h,id).stage,Math.min(330,Math.round(innerHeight*.38)),{live:true})}
    <h1 class="pt" style="text-align:center">${esc(h.title)}</h1><p class="ps" style="text-align:center">Una cosa sola. Il resto può aspettare.</p>
    <div class="ring" id="ring"><div class="in"><div><b id="rt">${pad(Math.floor(S.sess.dur/60000))}:00</b><small>restano</small></div></div></div>
@@ -1940,9 +1956,10 @@ async function complete(id,v,ds){ds=ds||today();const k=ds+"__"+id,prev=S.checks
   if(prev&&prev.v===v&&!S.sess){try{await removeNow("checks",k)}catch(e){snack("Non salvato: controlla la connessione");return false}refresh();snack("Segnata come non fatta",async()=>{try{await saveNow("checks",k,prev)}catch(e){}refresh()});return false}
   const lvB=areaLevel(figOf(h.guide)).n;
   try{await saveNow("checks",k,{v,at:Date.now()})}catch(e){snack("Non salvato: riprova tra poco. La guida aspetta.");refresh();return false}
-  if(doneV({v})&&figOf(h.guide)==="lavoro")emberCompleted(`done:${k}`,id);
-  if(ds!==today()){refresh();return true}
-  S.feat=h.guide;const after=stats(h,id);
+  const essH=essOf(h.guide);
+  if(ds!==today()){if(doneV({v}))presCompleted(`done:${k}`,id,essH);refresh();return true}
+  S.feat=h.guide;const after=stats(h,id);const bondNow=after.stage>before&&after.stage>(h.stage||1);
+  if(doneV({v}))presCompleted(`done:${k}`,id,essH,bondNow?4200:0);
   if(after.stage>before&&after.stage>(h.stage||1)){try{await saveNow("habits",id,{...h,stage:after.stage})}catch(e){}}
   const L=dayList(ds);const all=L.length>0&&L.every(([x])=>doneV(chk(ds,x)));
   const n=L.filter(([x])=>doneV(chk(ds,x))).length;
@@ -1978,7 +1995,7 @@ async function postpone(id,kind,to){const ds=today(),k=ds+"__"+id;const h=S.habi
 function refresh(){if(SH)drawSheet();render()}
 /* legame che cresce */
 function bondUp(id,from,to){const h=S.habits[id];if(!h)return;const f=figOf(h.guide),A=AREAS[f];const tools=TOOLS.filter(t=>t.st===to).map(t=>t.n);
-  $("#cvw").innerHTML=`<div class="bu" style="--c:${A.c}" role="dialog" aria-modal="true"><div class="ovin">${stageHTML(f,1,Math.min(400,Math.round(innerHeight*.46)),{live:true})}
+  $("#cvw").innerHTML=`<div class="bu" style="--c:${A.c}" role="dialog" aria-modal="true"><div class="ovin">${stageHTML(h.guide,1,Math.min(400,Math.round(innerHeight*.46)),{live:true})}
    <p class="k">${esc(h.title)}</p><h2>Nuova fase: ${BOND[to-1]}</h2><p>${["","Le prime 5 volte sono fatte: l'abitudine sta prendendo forma.","Costanza raggiunta: ora regge anche nelle giornate storte.","Radicata: comincia a venire da sé.","Automatica: ormai fa parte di te."][to-1]}${tools.length?` Nuovi strumenti: <b>${tools.join(" e ")}</b>.`:""}</p>
    <div class="foot"><button class="cta" data-buok>Continua</button></div></div></div>`;mountStages($("#cvw"));celebrateIn($("#cvw .stage"))}
 /* ================= INTERAZIONI ================= */
@@ -1996,7 +2013,7 @@ document.addEventListener("click",async e=>{const t=e.target;
     try{const dd=JSON.parse(decodeURIComponent(escape(atob(t.slice(8)))));for(const c of COLS)S[c]=dd[c]||{};lsSave();OV=null;$("#ov").innerHTML="";S.tab="oggi";render();snack("Percorso importato")}catch(e){snack("Dati non validi")}return}
   if(d.acc&&SH){const bx=el.closest(".acc3,.tl3");const on=!bx.classList.contains("open");bx.classList.toggle("open",on);el.setAttribute("aria-expanded",String(on));SH.acc[d.acc]=on;return}
   if(d.pptog!=null&&SH){const x=$("#ppx");const on=!x.classList.contains("open");x.classList.toggle("open",on);el.setAttribute("aria-expanded",String(on));SH.pp=on;S.pp=on?SH.id:null;emit(on?EV.CHOICE_OPEN:EV.CHOICE_CLOSE);if(on)setTimeout(()=>{const b=$("#sh .sheet");if(b)b.scrollTo({top:Math.min(b.scrollHeight,x.offsetTop-120),behavior:RM?"auto":"smooth"})},60);return}
-  if(d.legopen!=null){S.legOpen=true;const w=$("#ov .w3");if(w)w.classList.add("legon");setTimeout(()=>celebrateIn(liveStage()),200);return}
+  if(d.legopen!=null){S.legOpen=true;const w=$("#ov .w3");if(w)w.classList.add("legon");return}
   if("flt" in d){S.flt=d.flt||null;render();return}
   if(d.cday){S.cday=d.cday;render();return}
   if(d.cview){S.cview=d.cview;render();return}
@@ -2020,7 +2037,7 @@ document.addEventListener("click",async e=>{const t=e.target;
   if(d.miniday!=null){const md={...(meta().miniDays||{})};const tS=today();if(md[tS])delete md[tS];else md[tS]=true;setMeta({miniDays:md});S.line=null;render();snack(md[tS]?"Giornata mini: ogni attività nella versione breve":"Giornata normale");return}
   if(d.hset&&SH){const id=SH.id,h=S.habits[id];save("habits",id,{...h,[d.hset]:d.hval});drawSheet();snack("Salvato");return}
   if(d.area){openArea(d.area);return}
-  if(d.try){celebrateIn(liveStage()||(el.closest(".acard")||document).querySelector(".stage"));return}
+  
   if(d.mot!=null){RM=!RM;try{localStorage.setItem("ip3-rm",RM?"1":"0")}catch(e){}setMotionAll(!RM);render();return}
   if(d.addg){openAdd(d.addg);return}
   if(d.rmt!=null){RM=!RM;try{localStorage.setItem("ip3-rm",RM?"1":"0")}catch(e){}setMotionAll(!RM);render();return}
@@ -2038,7 +2055,7 @@ document.addEventListener("click",async e=>{const t=e.target;
   if(d.dxno!=null){S.dx=null;dxRefresh();return}
   if(d.dxok!=null){dxSave();return}
   if(d.wkopen!=null){S.tab="cal";S.cview="s";S.cday=today();render();return}
-  if(d.emblight!=null){emberLight();return}
+  if(d.pvlight!=null){pvLight();return}
   if(d.tipn!=null&&SH){SH.tip=(SH.tip||0)+1;drawSheet();const tp=$("#sh .tip4");if(tp&&!RM){tp.classList.remove("flip");void tp.offsetWidth;tp.classList.add("flip")}return}
   if(d.tip!=null&&SH){SH.tip=!SH.tip;drawSheet();emit(SH.tip?EV.TIP_OPEN:EV.TIP_CLOSE);return}
   if(d.hed!=null&&SH){SH.ed=!SH.ed;drawSheet();return}
@@ -2092,7 +2109,7 @@ document.addEventListener("change",e=>{const t=e.target;if(t.dataset.hf&&SH){con
 document.addEventListener("submit",e=>{if(e.target.id!=="todoF")return;e.preventDefault();const v=$("#todoT").value.trim();if(!v)return;save("todos",uid(),{title:v,due:$("#todoD").value||"",done:false,created:today()});render();setTimeout(()=>{const i=$("#todoT");if(i)i.focus()},30)});
 let snT=null;function snack(text,undo){clearTimeout(snT);$("#snack").innerHTML=`<div class="snack" role="status"><span>${esc(text)}</span>${undo?'<button id="undoB">ANNULLA</button>':""}</div>`;const b=$("#undoB");if(b)b.onclick=()=>{undo();$("#snack").innerHTML=""};snT=setTimeout(()=>{$("#snack").innerHTML=""},4000)}
 window.addEventListener("error",e=>snack("Errore: "+(e.message||"sconosciuto")));
-window.__ip={FIGS,emit,complete,stats,bondUp,set fail(v){S.failNext=v}};
+window.__ip={emit,complete,stats,bondUp,set fail(v){S.failNext=v}};
 /* ================= AVVIO ================= */
 /* senza spunta = rimandata: le attività non segnate nei giorni scorsi passano al primo giorno libero, senza chiedere nulla */
 let carrying=false;
@@ -2153,7 +2170,7 @@ document.addEventListener("touchcancel",()=>{const o=ovEl();if(o){o.style.transf
  m.setAttribute("content",PAGE)})();
 </script>
 <script>/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica */
-(function(){const BUILD='2026-10-24s';let busy=false;
+(function(){const BUILD='2026-10-25a';let busy=false;
 async function chk(){if(busy||!navigator.onLine)return;busy=true;try{
  const r=await fetch('index.html?u='+Date.now(),{cache:'no-store'});const s=await r.text();
  const m=s.match(/const BUILD='([^']+)'/);
