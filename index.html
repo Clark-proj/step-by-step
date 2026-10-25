@@ -955,6 +955,15 @@ body.g3 .app{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))!importa
 .g3 .wg5s{font-size:13px;color:var(--mut);margin:10px 6px 0}
 
 /* ===== v55: giorni attivi espandibili, vista settimana a giorni ===== */
+.g3 .av5{display:flex;flex-direction:column;align-items:center;gap:3px;flex:none}
+.g3 .tm5{font-size:11.5px;font-weight:800;color:var(--mut);font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.g3 .av6{display:flex;flex-direction:column;align-items:center;gap:4px;flex:none}
+.g3 .tm6{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 10px;border-radius:14px;background:#fff;box-shadow:inset 0 0 0 .5px #e2dfea;font-size:13px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.g3 .tm6 svg{width:13px;height:13px}.g3 .tm6[aria-expanded="true"]{box-shadow:inset 0 0 0 .5px var(--selb,#b9a6ea)}
+.g3 .tm7{display:flex;align-items:center;justify-content:center;gap:8px;margin:4px 0 12px}
+.g3 .tm7 button{height:36px;min-width:52px;padding:0 10px;border-radius:18px;background:#fff;box-shadow:var(--sh2);font-size:13.5px;font-weight:700;color:var(--ink)}
+.g3 .tm7 b{min-width:64px;text-align:center;font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+.g3 .dx5p{margin-top:0}
 .g3 .dx5{order:6;flex-basis:100%;margin:2px 0 0 68px;min-width:0}
 .g3 .r3.cur .dx5{margin-left:90px}
 .g3 .dx5t{display:flex;align-items:center;gap:8px;min-height:30px;padding:2px 0;color:var(--mut)}
@@ -1104,7 +1113,12 @@ const moves=()=>meta().moves||{};
 const movedAway=(ds,id)=>{const c=chk(ds,id);return !!(c&&c.v==="p"&&c.to&&c.to!==ds)};
 const movedIn=(ds,id)=>(moves()[ds]||[]).includes(id);
 const later=(ds,id)=>{const c=chk(ds,id);return !!(c&&c.v==="p"&&(!c.to||c.to===ds))};
-const dayList=ds=>{const L=H();const base=L.filter(([id,h])=>sched(h,ds)&&!movedAway(ds,id));const extra=L.filter(([id,h])=>movedIn(ds,id)&&!base.some(([x])=>x===id));return base.concat(extra)};
+const DEF_T={mattina:"08:00",pranzo:"13:00",pomeriggio:"17:00",sera:"21:00",best:"10:00"};
+const timeOf=h=>(h&&/^\d\d:\d\d$/.test(h.time||""))?h.time:(DEF_T[h&&h.when]||"09:00");
+const tmin=s=>{const [a,b]=s.split(":").map(Number);return a*60+b};
+const whenOfTime=s=>{const m=tmin(s);return m<690?"mattina":m<870?"pranzo":m<1110?"pomeriggio":"sera"};
+const dayListRaw=ds=>{const L=H();const base=L.filter(([id,h])=>sched(h,ds)&&!movedAway(ds,id));const extra=L.filter(([id,h])=>movedIn(ds,id)&&!base.some(([x])=>x===id));return base.concat(extra)};
+const dayList=ds=>dayListRaw(ds).map((x,i)=>[x,i]).sort((a,b)=>tmin(timeOf(a[0][1]))-tmin(timeOf(b[0][1]))||a[1]-b[1]).map(x=>x[0]);
 const isMiniDay=ds=>!!(meta().miniDays||{})[ds];
 function minsNow(h){if(h.free)return 0;const p=meta().plan;if(!p||!p.start)return h.mins;const wk=Math.floor(daysBetween(p.start,today())/7);return wk<2&&h.plan&&!h.cat?Math.max(5,Math.round(h.mins*.6/5)*5):h.mins}
 function stats(h,id){const tS=today();const c0=h.created||tS;let reps=0;const dd=new Set();
@@ -1303,18 +1317,17 @@ function row3(id,h,ds,o={}){const f=figOf(h.guide);const d=doneV(chk(ds,id));con
   const when=o.when!=null?o.when:esc(cap(h.anchor||MOML[h.when]));
   const info=[md?"mini":durTxt(h),tag].filter(Boolean).join(" · ");
   const extra=`${when} · ${capFact(h,id,ds)}`;
-  return `<div class="r3 ${d?"dn":""} ${o.cur?"cur":""}" style="--selb:${AC[f].dot}"><button class="nb" data-open="${id}">${faceIcon(f,"ra icn")}<span class="nt">${o.cur?`<em>${later(ds,id)?"Più tardi":"Adesso"}</em>`:""}<b>${movedIn(ds,id)?"↪ ":""}${esc(h.title)}</b><small><i class="gd" style="background:${AC[f].dot}"></i>${AREAS[f].name} · ${info}</small><small class="x">${extra}</small></span></button>${can?`<button class="ck3" data-ck="${id}" data-ds="${ds}" data-val="${md?"m":"f"}" aria-pressed="${d}" aria-label="${d?"Segna come non fatta":"Segna come fatta"}: ${esc(h.title)}">${icon("l3ck",1.8)}</button>`:""}${dxHTML(id,h,f)}</div>`}
+  return `<div class="r3 ${d?"dn":""} ${o.cur?"cur":""}" style="--selb:${AC[f].dot}"><button class="nb" data-open="${id}"><span class="av5">${faceIcon(f,"ra icn")}<small class="tm5">${timeOf(h)}</small></span><span class="nt">${o.cur?`<em>${later(ds,id)?"Più tardi":"Adesso"}</em>`:""}<b>${movedIn(ds,id)?"↪ ":""}${esc(h.title)}</b><small><i class="gd" style="background:${AC[f].dot}"></i>${AREAS[f].name} · ${info}</small><small class="x">${extra}</small></span></button>${can?`<button class="ck3" data-ck="${id}" data-ds="${ds}" data-val="${md?"m":"f"}" aria-pressed="${d}" aria-label="${d?"Segna come non fatta":"Segna come fatta"}: ${esc(h.title)}">${icon("l3ck",1.8)}</button>`:""}${dxHTML(id,h,f)}</div>`}
 /* giorni della settimana di un'attività: striscia compatta, si espande per cambiarli */
 function dxHTML(id,h,f){const open=S.dx&&S.dx.id===id;const days=open?S.dx.days:(h.days||[]);const tw=wd(new Date());
-  const strip=`<button class="dx5t" data-dx="${id}" aria-expanded="${open}" aria-label="Giorni attivi: ${days.map(d=>WDL[d]).join(", ")||"nessuno"}. ${open?"Chiudi":"Modifica"}"><span class="dx5d">${WDS.map((w,i)=>`<i class="${days.includes(i)?"on":""}"></i>`).join("")}</span><span class="dx5l">${days.length===7?"ogni giorno":`${days.length} ${days.length===1?"giorno":"giorni"}`}</span>${icon("l3chev",1.5)}</button>`;
-  if(!open)return `<div class="dx5" style="--ac:${AC[f].dot}">${strip}</div>`;
+  const grid=ld=>`<div class="dx5p" role="group" aria-label="Giorni attivi di ${esc(h.title)}">${WDS.map((w,i)=>{const pc=ld?Math.min(100,Math.round(ld[i].tot/dayBudget()*100)):0;return `<button data-dxd="${i}" data-dxid="${id}" aria-pressed="${days.includes(i)}" aria-label="${WDL[i]}${ld?`, giornata piena al ${pc}%`:""}"><b>${w}</b>${ld?`<span class="ld4"><i style="width:${pc}%" class="${pc>=100?"hi":""}"></i></span>`:""}</button>`}).join("")}</div>`;
+  if(!open)return `<div class="dx5" style="--ac:${AC[f].dot}">${grid(null)}</div>`;
   const orig=(h.days||[]).slice().sort().join(),cur=days.slice().sort().join();const changed=orig!==cur;
   let prop="";if(changed){const LD=weekLoad(id);const added=days.filter(d=>!(h.days||[]).includes(d));const {moves,heavy}=movesFor(LD,h.when||"mattina",added,h.free?0:(h.mins||10),dayBudget());S.dx.moves=moves;for(const mv of moves)if(!(mv.id in S.dx.acc))S.dx.acc[mv.id]=true;
     const nA=moves.filter(mv=>S.dx.acc[mv.id]).length;
     prop=`<div class="dx5x">${moves.length?`<p class="dx5k">Per fare spazio ti propongo</p>${moves.map(mv=>`<button class="mvi" data-dxmv="${mv.id}" aria-pressed="${!!S.dx.acc[mv.id]}"><span class="ck4">${icon("l3ck",2)}</span><span>${mv.kind==="w"?`<b>${esc(mv.t)}</b> passa da ${MOML[mv.from]} a ${MOML[mv.to]} in tutti i suoi giorni`:`<b>${esc(mv.t)}</b> passa da ${GIORNI[(mv.from+1)%7].toLowerCase()} a ${GIORNI[(mv.to+1)%7].toLowerCase()}`}</span></button>`).join("")}`:heavy.length?`<p class="dx5w">${heavy.map(d=>GIORNI[(d+1)%7].toLowerCase()).join(" e ")} ${heavy.length>1?"sono già giornate piene":"è già una giornata piena"}: valuta un giorno più leggero.</p>`:`<p class="dx5w ok">La settimana resta in equilibrio.</p>`}
      <div class="dx5b"><button class="dx5no" data-dxno>Annulla</button><button class="dx5ok" data-dxok>${nA?`Salva e sposta ${nA}`:"Salva i giorni"}</button></div></div>`}
-  const LD=weekLoad(id),bud=dayBudget();
-  return `<div class="dx5 open" style="--ac:${AC[f].dot}">${strip}<div class="dx5p" role="group" aria-label="Giorni attivi">${WDS.map((w,i)=>{const pc=Math.min(100,Math.round(LD[i].tot/bud*100));return `<button data-dxd="${i}" aria-pressed="${days.includes(i)}" aria-label="${WDL[i]}, giornata piena al ${pc}%"><b>${w}</b><span class="ld4"><i style="width:${pc}%" class="${pc>=100?"hi":""}"></i></span></button>`}).join("")}</div>${prop}</div>`}
+  return `<div class="dx5 open" style="--ac:${AC[f].dot}">${grid(weekLoad(id))}${prop}</div>`}
 function dxRefresh(){if(OV&&OV.kind==="area")drawWorldBody();render()}
 async function dxSave(){const x=S.dx;if(!x)return;const h=S.habits[x.id];if(!h)return;const days=x.days.slice().sort((a,b)=>a-b);
   try{await saveNow("habits",x.id,{...h,days})}catch(e){snack("Non salvato: riprova tra poco");return}
@@ -1360,7 +1373,7 @@ function renderOggi(){const scr=$("#scr");const n=new Date();const tS=today();co
   const curId=pk&&open.some(([id])=>id===pk[0])?pk[0]:open[0]&&open[0][0];
   const ord=[...open.filter(([id])=>id===curId),...open.filter(([id])=>id!==curId),...dn];
   const rows=ord.map(([id,h])=>row3(id,h,tS,{cur:id===curId})).join("");
-  scr.innerHTML=head+`<p class="kk3">${dt}</p><h1 class="big3">${title}</h1>${tappaCardHome()}<p class="sub3">${L.length?`${done} di ${L.length} fatte`:"Nessuna attività"}${dayStreak()?` · ${dayStreak()} ${dayStreak()===1?"giorno":"giorni"} di fila`:""}</p>${chips}${card}<div class="nl3">${rows||`<div class="em3">${L.length?"Tutto fatto. Domani si riparte da qui.":(()=>{for(let i=1;i<8;i++){const ds=iso(addD(new Date(),i));if(dayList(ds).length)return `Oggi è libero: il percorso riprende ${i===1?"domani":GIORNI[parse(ds).getDay()].toLowerCase()}.`}return "Nessuna attività oggi: anche riposare fa parte del percorso."})()}</div>`}</div>`}
+  scr.innerHTML=head+`<p class="kk3">${dt}</p><h1 class="big3">${title}</h1>${tappaCardHome()}<p class="sub3">${L.length?`${done} di ${L.length} fatte`:"Nessuna attività"}${dayStreak()?` · ${dayStreak()} ${dayStreak()===1?"giorno":"giorni"} di fila`:""}</p>${chips}<div class="nl3">${rows||`<div class="em3">${L.length?"Tutto fatto. Domani si riparte da qui.":(()=>{for(let i=1;i<8;i++){const ds=iso(addD(new Date(),i));if(dayList(ds).length)return `Oggi è libero: il percorso riprende ${i===1?"domani":GIORNI[parse(ds).getDay()].toLowerCase()}.`}return "Nessuna attività oggi: anche riposare fa parte del percorso."})()}</div>`}</div>`}
 function renderCal(){const scr=$("#scr");const pst=scr.querySelector(".wk3");const psl=pst&&scr.dataset.t==="cal"&&S._calR?pst.scrollLeft:null;S._calR=1;const tS=today();const sel=S.cday||tS;const sd=parse(sel);const mon=addD(new Date(),-wd(new Date()));
   const days=[...Array(14)].map((_,i)=>addD(mon,i));
   const strip=`<div class="wk3">${days.map(d=>{const ds=iso(d);const L=dayList(ds);const dots=L.slice(0,4).map(([id,h])=>`<i style="background:${AC[figOf(h.guide)].dot}${ds<=tS&&!doneV(chk(ds,id))?";opacity:.45":""}"></i>`).join("");return `<button data-cday="${ds}" aria-pressed="${ds===sel}" class="${ds===tS?"tdy":""}" aria-label="${GIORNI[d.getDay()]} ${d.getDate()}">${WDS[wd(d)]}<b>${d.getDate()}</b><em>${dots}</em></button>`}).join("")}</div>`;
@@ -1925,7 +1938,8 @@ function drawSheet(first){const id=SH.id,h=norm(S.habits[id]);if(!h){closeSheet(
     const key="t"+t.k;return `<div class="tl3 ${acc[key]&&!lock?"open":""} ${lock?"lock":""}"><button class="tlh" ${lock?"disabled":`data-acc="${key}"`} aria-expanded="${!!acc[key]}"><span class="ti3">${icon(TIC[t.k],1.5)}</span><span class="nt"><b>${t.n}</b><small>${state}</small></span>${icon(lock?"l3lock":"l3chev",1.5)}</button><div class="exp"><div><div class="tlb">${b}</div></div></div></div>`}).join("");
   const nxt=(()=>{for(let i=1;i<8;i++){const ds=iso(addD(new Date(),i));if(sched(h,ds))return i===1?"domani":GIORNI[parse(ds).getDay()].toLowerCase()}return ""})();
   const inner=`<div class="grab"></div>
-   <div class="shh">${faceIcon(f,"shb icn")}<div class="nt"><h2>${esc(h.title)}</h2><small><i class="gd" style="background:${AC[f].dot}"></i>${AREAS[f].name} · con ${AREAS[f].fig} · ${durTxt(h)}</small><span class="dl3">${WDS.map((w,i)=>`<i class="${h.days.includes(i)?"on":""}">${w}</i>`).join("")}</span></div><button class="xb3" data-shx aria-label="Chiudi">${icon("l3x",1.6)}</button></div>
+   <div class="shh"><span class="av6">${faceIcon(f,"shb icn")}<button class="tm6" data-tmed aria-expanded="${!!SH.tm}" aria-label="Orario ${timeOf(h)}: cambia">${icon("clock",1.6)}${timeOf(h)}</button></span><div class="nt"><h2>${esc(h.title)}</h2><small><i class="gd" style="background:${AC[f].dot}"></i>${AREAS[f].name} · con ${AREAS[f].fig} · ${durTxt(h)}</small><span class="dl3">${WDS.map((w,i)=>`<i class="${h.days.includes(i)?"on":""}">${w}</i>`).join("")}</span></div><button class="xb3" data-shx aria-label="Chiudi">${icon("l3x",1.6)}</button></div>
+   ${SH.tm?`<div class="tm7" role="group" aria-label="Orario"><button data-tmadj="-60" aria-label="Un'ora prima">−1 h</button><button data-tmadj="-15" aria-label="15 minuti prima">−15</button><b>${timeOf(h)}</b><button data-tmadj="15" aria-label="15 minuti dopo">+15</button><button data-tmadj="60" aria-label="Un'ora dopo">+1 h</button></div>`:""}
    ${sc?`<button class="ok3" data-ck="${id}" data-val="${md?"m":"f"}" aria-pressed="${!!(d&&(md||c.v==="f"))}">${icon("l3ck",1.8)}<span><b>${d&&(md||c.v==="f")?"Fatta":"Fatto"}</b><small>${d&&(md||c.v==="f")?"tocca di nuovo per annullare":md?`versione mini · ${esc(h.mini)}`:durTxt(h)}</small></span><span class="xp4w"><em class="xp4">+${md?6:10} XP</em><small class="trh">${md?"Costanza":"Costanza · Precisione"}</small></span></button>
     <div class="two3">${md?"":`<button class="sec3" data-ck="${id}" data-val="m" aria-pressed="${!!(c&&c.v==="m")}">${icon("bolt",1.5)}<span><b>${c&&c.v==="m"?"Fatta mini":"Solo la mini"}</b><small>${esc(h.mini)}</small><em class="xp4">+6 XP</em><small class="trh">Costanza</small></span></button>`}<button class="sec3" data-pptog aria-expanded="${!!SH.pp}" ${d?"disabled":""}>${icon("clock",1.5)}<span><b>Rimanda</b><small>${c&&c.v==="p"?"già rimandata":"scegli quando"}</small><em class="xp4 z">0 XP</em><small class="trh">la Precisione cala</small></span></button></div><p class="xpn">Ogni nuovo grado di legame con ${AREAS[f].fig}: <b>+40 XP</b> · ${AREAS[f].fig} è al livello <b>${areaLevel(f).n}</b></p>
     <div class="exp ${SH.pp?"open":""}" id="ppx"><div><div class="opts3">${ppOptions(id).filter(o=>o.k!=="mini").map(o=>`<button data-pp="${o.k}" ${o.to?`data-to="${o.to}"`:""}><b>${o.t}</b><small>${o.d}</small></button>`).join("")}</div></div></div>`
@@ -2055,7 +2069,11 @@ document.addEventListener("click",async e=>{const t=e.target;
   if(d.sstop!=null){stopSession();return}
   // scheda
   if(d.shx!=null){closeSheet();return}
+  if(d.tmed!=null&&SH){SH.tm=!SH.tm;drawSheet();return}
+  if(d.tmadj!=null&&SH){const id=SH.id,h=S.habits[id];if(!h)return;let m=tmin(timeOf(h))+(+d.tmadj);m=Math.max(300,Math.min(1425,m));const tm=`${pad(Math.floor(m/60))}:${pad(m%60)}`;const prev={...h};
+    try{await saveNow("habits",id,{...h,time:tm,when:whenOfTime(tm)})}catch(e){snack("Non salvato: riprova tra poco");return}refresh();clearTimeout(SH._tmT);SH._tmT=setTimeout(()=>snack(`Orario: ${tm}`,async()=>{try{await saveNow("habits",id,prev)}catch(e){}refresh()}),700);return}
   if(d.dx){S.dx=S.dx&&S.dx.id===d.dx?null:{id:d.dx,days:(S.habits[d.dx].days||[]).slice(),acc:{}};dxRefresh();return}
+  if(d.dxd!=null&&d.dxid&&(!S.dx||S.dx.id!==d.dxid)&&S.habits[d.dxid])S.dx={id:d.dxid,days:(S.habits[d.dxid].days||[]).slice(),acc:{}};
   if(d.dxd!=null&&S.dx){const i=+d.dxd;const ds=S.dx.days;S.dx.days=ds.includes(i)?(ds.length>1?ds.filter(z=>z!==i):ds):[...ds,i].sort((a,b)=>a-b);dxRefresh();return}
   if(d.dxmv&&S.dx){S.dx.acc[d.dxmv]=!S.dx.acc[d.dxmv];dxRefresh();return}
   if(d.dxno!=null){S.dx=null;dxRefresh();return}
@@ -2176,7 +2194,7 @@ document.addEventListener("touchcancel",()=>{const o=ovEl();if(o){o.style.transf
  m.setAttribute("content",PAGE)})();
 </script>
 <script>/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica */
-(function(){const BUILD='2026-10-25d';let busy=false;
+(function(){const BUILD='2026-10-25e';let busy=false;
 async function chk(){if(busy||!navigator.onLine)return;busy=true;try{
  const r=await fetch('index.html?u='+Date.now(),{cache:'no-store'});const s=await r.text();
  const m=s.match(/const BUILD='([^']+)'/);
