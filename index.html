@@ -906,6 +906,13 @@ body.g3 .app{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))!importa
 .g3 .w3 .lv5.wpar{max-width:none;margin-top:10px}
 .g3 .w3 .wtabs{position:relative!important;margin-top:16px;bottom:auto!important}
 /* filtri delle Essenze: vanno a capo, niente uscita dalla pagina */
+.g3 .ef5{--d:clamp(36px,calc((100vw - 44px - 66px)/7),46px);display:flex;align-items:center;gap:8px;margin:16px 0 0;flex-wrap:nowrap}
+.g3 .ef5 button{flex:none;width:var(--d);height:var(--d);border-radius:50%;padding:0;background:#fff;box-shadow:var(--sh2);display:grid;place-items:center;overflow:hidden}
+.g3 .ef5 .ef5f{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+.g3 .ef5 [aria-pressed="true"]{box-shadow:var(--sh2),0 0 0 1.5px #fff,0 0 0 2.5px var(--selb,#b9a6ea)}
+.g3 .ef5all svg{width:48%;height:48%;fill:none;stroke:var(--ink);stroke-width:1.7}
+.g3 .ef5all[aria-pressed="true"]{background:var(--sel,#f4f0fd)}
+.g3 .ef5sep{flex:none;width:1px;height:calc(var(--d) * .55);background:#e2dfea;margin:0 4px;border-radius:1px}
 .g3 .chips3.wrap5{flex-wrap:wrap;margin:16px 0 0!important;padding:0!important;overflow:visible!important;gap:8px}
 .g3 .chips3.wrap5 button{min-height:40px;padding:4px 14px 4px 4px;font-size:14px}.g3 .chips3.wrap5 button:first-child{padding:0 16px}
 .g3 .cb3.face{width:32px!important;height:32px!important}
@@ -1346,7 +1353,7 @@ function renderOggi(){const scr=$("#scr");const n=new Date();const tS=today();co
   const done=L.filter(([id])=>doneV(chk(tS,id))).length;
   const title=!L.length?"Oggi si riposa":done===L.length?"Giornata completa":md?"Oggi in piccolo, ma ci sei":"Un passo alla volta";
   const areas=AREA_KEYS.filter(f=>L.some(([,h])=>figOf(h.guide)===f));
-  const chips=areas.length>1?`<div class="chips3 wrap5" role="group" aria-label="Filtra per guida"><button data-flt="" aria-pressed="${!S.flt}">Tutte</button>${areas.map(f=>`<button data-flt="${f}" aria-pressed="${S.flt===f}" style="--selb:${AREAS[f].dot}">${faceIcon(f,"cb3")}${AREAS[f].name}</button>`).join("")}</div>`:"";
+  const chips=areas.length>1?`<div class="ef5" role="group" aria-label="Filtra per essenza"><button class="ef5all" data-flt="" aria-pressed="${!S.flt}" aria-label="Tutte le essenze"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="4.5" width="6" height="6" rx="2"/><rect x="13.5" y="4.5" width="6" height="6" rx="2"/><rect x="4.5" y="13.5" width="6" height="6" rx="2"/><rect x="13.5" y="13.5" width="6" height="6" rx="2"/></svg></button><span class="ef5sep" aria-hidden="true"></span>${areas.map(f=>`<button data-flt="${f}" aria-pressed="${S.flt===f}" aria-label="${AREAS[f].fig} · ${AREAS[f].name}" style="--selb:${AREAS[f].dot}">${faceIcon(f,"ef5f")}</button>`).join("")}</div>`:"";
   const AL=L.filter(([,h])=>figOf(h.guide)===lead);const mins=AL.reduce((a,[,h])=>a+minsNow(h),0);const adn=AL.filter(([id])=>doneV(chk(tS,id))).length;
   const card=`<button class="gc3" data-area="${lead}" aria-label="Apri il mondo di ${AREAS[lead].fig}"><span class="gt"><small class="kk">con ${AREAS[lead].fig} · liv. ${areaLevel(lead).n}</small><b>${AREAS[lead].name}</b><small>${AC[lead].mot}</small></span><span class="gs"><span><small>Fatte</small><b>${adn}<i>/${AL.length}</i></b></span><span><small>Tempo</small><b>${AL.length?(md?"mini":durH(mins).replace(/ ?(min|h)/,m=>`<i>${m.trim()}</i>`)):"–"}</b></span></span><span class="go3">${icon("l3go",2)}</span><span class="gf3"><img src="${fimg(lead,"trim")}" alt=""></span></button>`;
   const R=L.filter(([,h])=>!S.flt||figOf(h.guide)===S.flt);
@@ -2170,7 +2177,7 @@ document.addEventListener("touchcancel",()=>{const o=ovEl();if(o){o.style.transf
  m.setAttribute("content",PAGE)})();
 </script>
 <script>/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica */
-(function(){const BUILD='2026-10-25a';let busy=false;
+(function(){const BUILD='2026-10-25b';let busy=false;
 async function chk(){if(busy||!navigator.onLine)return;busy=true;try{
  const r=await fetch('index.html?u='+Date.now(),{cache:'no-store'});const s=await r.text();
  const m=s.match(/const BUILD='([^']+)'/);
