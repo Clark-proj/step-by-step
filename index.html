@@ -1060,8 +1060,10 @@ body.g3 .app{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))!importa
 .g3 .hf6tm i{font-style:normal;color:color-mix(in srgb,var(--ac) 75%,#1e1a3b)}
 .g3 .hf6du{font-size:16px;font-weight:600;color:var(--mut);margin-top:6px}
 .g3 .hf6l{font-size:15.5px;font-weight:600;color:var(--mut);margin-top:12px;line-height:1.4}
-.g3 .hf6ok{display:flex;align-items:center;justify-content:center;gap:10px;width:min(100%,320px);height:58px;margin:20px auto 0;border-radius:29px;background:var(--ink);color:#fff;font-size:18px;font-weight:800;box-shadow:0 12px 28px color-mix(in srgb,var(--ac) 35%,transparent)}
-.g3 .hf6ok svg{width:22px;height:22px;stroke:#fff}
+.g3 .hf6ok{display:flex;align-items:center;justify-content:center;gap:10px;width:min(100%,320px);height:58px;margin:20px auto 0;border-radius:29px;background:#fff;color:var(--ink);font-size:18px;font-weight:800;box-shadow:0 0 0 1px color-mix(in srgb,var(--ac) 45%,#fff),0 0 18px color-mix(in srgb,var(--ac) 55%,transparent),0 0 42px color-mix(in srgb,var(--ac) 30%,transparent);animation:neon6 3.2s ease-in-out infinite}
+@keyframes neon6{50%{box-shadow:0 0 0 1px color-mix(in srgb,var(--ac) 60%,#fff),0 0 24px color-mix(in srgb,var(--ac) 70%,transparent),0 0 54px color-mix(in srgb,var(--ac) 38%,transparent)}}
+.rmode .g3 .hf6ok,.g3.rmode .hf6ok{animation:none}@media (prefers-reduced-motion:reduce){.g3 .hf6ok{animation:none}}
+.g3 .hf6ok svg{width:22px;height:22px;stroke:var(--ac)}
 .g3 .hf6pp{display:block;margin:12px auto 0;padding:8px 18px;font-size:16px;font-weight:700;color:var(--mut)}
 /* scheda attività: ancora più compatta */
 .g3 .r6 .rfg{grid-template-columns:1fr auto auto;grid-template-areas:"nb tm ck" "xd xd xd";align-items:center;padding:10px 10px 10px 12px;row-gap:0}
@@ -1079,6 +1081,12 @@ body.g3 .app{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))!importa
 /* barra in basso con le etichette */
 .g3 .lg3 button span{position:static!important;width:auto!important;height:auto!important;overflow:visible!important;clip:auto!important;font-size:11.5px;font-weight:700;margin-top:2px}
 .g3 .lg3 button svg{width:20px!important;height:20px!important}
+.g3 .hf6side{position:absolute;right:16px;top:12px;z-index:3;display:flex;flex-direction:column;gap:10px}
+.g3 .hf6b{display:flex;flex-direction:column;align-items:center;gap:3px;padding:0}
+.g3 .hf6b>span{width:44px;height:44px;border-radius:50%;background:#fff;box-shadow:0 4px 14px rgba(60,40,140,.12);display:grid;place-items:center;position:relative}
+.g3 .orb6::after{content:"";width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0,var(--ac) 75%);box-shadow:0 0 12px color-mix(in srgb,var(--ac) 70%,transparent)}
+.g3 .gem6::after{content:"";width:15px;height:15px;border-radius:4px;transform:rotate(45deg);background:linear-gradient(135deg,#efe6ff,#8b5cf6);box-shadow:0 0 12px rgba(139,92,246,.55)}
+.g3 .hf6b small{font-size:12px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
 .g3 .av5{display:flex;flex-direction:column;align-items:center;gap:3px;flex:none}
 .g3 .tm5{font-size:11.5px;font-weight:800;color:var(--mut);font-variant-numeric:tabular-nums;letter-spacing:.01em}
 .g3 .av6{display:flex;flex-direction:column;align-items:center;gap:4px;flex:none}
@@ -1515,6 +1523,11 @@ function render(){document.body.classList.toggle("rmode",RM);document.body.class
   if(S.anim){scr.classList.remove("tin-l","tin-r");void scr.offsetWidth;scr.classList.add(S.anim>0?"tin-r":"tin-l");S.anim=0}
   if(OV&&OV.kind==="page"){const o=$("#ov .ov");const sy=o?o.scrollTop:0;openPage(OV.page);const o2=$("#ov .ov");if(o2)o2.scrollTop=sy}
   if(OV&&OV.kind==="area")drawWorldBody()}
+const fmtK=n=>n>=10000?Math.round(n/1000)+"k":n>=1000?(n/1000).toFixed(1).replace(".",",")+"k":String(n);
+/* gemme dai traguardi: giornata completa +1, ogni 5 giorni di fila +2 */
+function gemsAll(){const by={};for(const k in S.checks){const ds=k.slice(0,10);(by[ds]=by[ds]||[]).push(k)}let g=0,run=0;const days=Object.keys(by).sort();let prev=null;
+  for(const ds of days){const L=dayList(ds);const all=L.length&&L.every(([x])=>doneV(chk(ds,x)));if(all)g+=1;const any=by[ds].some(k=>doneV(S.checks[k]));run=any&&prev&&daysBetween(prev,ds)===1?run+1:any?1:0;if(any)prev=ds;if(run&&run%5===0)g+=2}
+  return g}
 function renderOggi(){const scr=$("#scr");const n=new Date();const tS=today();const md=isMiniDay(tS);
   const L=dayList(tS);const pk=pickNow();
   const lead=S.flt||(pk?figOf(pk[1].guide):L[0]?figOf(L[0][1].guide):H()[0]?figOf(H()[0][1].guide):"lavoro");
@@ -1537,6 +1550,7 @@ function renderOggi(){const scr=$("#scr");const n=new Date();const tS=today();co
   const ftm=FH?((chk(tS,fid)||{}).tm||timeOf(FH)):"";const [fh,fm]=ftm?ftm.split(":"):["",""];
   const dots=open.length>1?`<div class="hf6d" role="group" aria-label="Attività di oggi">${open.map(([x,h])=>`<button data-focus="${x}" aria-pressed="${x===fid}" aria-label="${esc(h.title)}"></button>`).join("")}</div>`:"";
   const hero=`<section class="hf6" data-hx5 style="--ac:${FA.dot}">
+    <div class="hf6side" role="group" aria-label="Le tue risorse"><button class="hf6b" data-res="ep" aria-label="Energia pulita: ${xpAll()} EP"><span class="orb6"></span><small>${fmtK(xpAll())}</small></button><button class="hf6b" data-res="gem" aria-label="Gemme: ${gemsAll()}"><span class="gem6"></span><small>${gemsAll()}</small></button></div>
     <div class="hf6fig" data-hxa="${ff}" role="link" aria-label="Apri ${FA.fig}">${stageHTML(ff,1,Math.round(Math.min(400,innerHeight*.43)),{live:true})}</div>${dots}
     <p class="hf6k">con ${FA.fig}</p>
     ${FH?`<h2 class="hf6t">${esc(FH.title)}</h2><p class="hf6tm"><b>${fh}<i>:${fm}</i></b></p><p class="hf6du">${md?`versione mini · ${esc(FH.mini||"")}`:durTxt(FH)}</p><p class="hf6l">${capFact(FH,fid,tS)}</p>
@@ -2252,6 +2266,7 @@ document.addEventListener("click",async e=>{const t=e.target;
   if(d.legopen!=null){S.legOpen=true;const w=$("#ov .w3");if(w)w.classList.add("legon");return}
   if("flt" in d){S.flt=d.flt||null;render();return}
   if(d.focus){S.focus=d.focus;render();return}
+  if(d.res){snack(d.res==="ep"?`Energia pulita: ${xpAll().toLocaleString("it-IT")} EP guadagnati finora`:`${gemsAll()} gemme dai tuoi traguardi. Presto potrai usarle nell'Atelier`);return}
   if(d.cday){S.cday=d.cday;render();return}
   if(d.cview){S.cview=d.cview;render();return}
   if(d.cweek){S.cday=iso(addD(parse(S.cday||today()),+d.cweek));render();return}
@@ -2423,7 +2438,7 @@ document.addEventListener("touchcancel",()=>{const o=ovEl();if(o){o.style.transf
  m.setAttribute("content",PAGE)})();
 </script>
 <script>/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica */
-(function(){const BUILD='2026-10-26b';let busy=false;
+(function(){const BUILD='2026-10-26c';let busy=false;
 async function chk(){if(busy||!navigator.onLine)return;busy=true;try{
  const r=await fetch('index.html?u='+Date.now(),{cache:'no-store'});const s=await r.text();
  const m=s.match(/const BUILD='([^']+)'/);
