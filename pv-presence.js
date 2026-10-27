@@ -6,7 +6,7 @@ import {createLivingRig} from './pv-rig.js';
 import {createSafeSurface} from './pv-surface.js';
 
 /** Browser component: only mount inside the LARGE Essence detail. Pass an AbortSignal. */
-export async function mountEssencePresence(host,{essenceId,expanded=false,completionLedger=null,signal,onReact=()=>{}}={}){
+export async function mountEssencePresence(host,{essenceId,expanded=false,completionLedger=null,signal,onReact=()=>{},density=1}={}){
   const p=profiles[essenceId];if(!p)throw Error('Essenza sconosciuta: '+essenceId);
   const rig=createLivingRig(essenceId);
   if(signal?.aborted)return null;
@@ -23,7 +23,7 @@ export async function mountEssencePresence(host,{essenceId,expanded=false,comple
   function position(uv){const {iw,ih}=size(),q=surface?surface.transform(uv):uv;return {x:(w-iw)/2+q[0]*iw,y:(h-ih)/2+q[1]*ih};}
   function uvOf(e){const rect=wrap.getBoundingClientRect(),{iw,ih}=size(),screen=[(e.clientX-rect.left-(w-iw)/2)/iw,(e.clientY-rect.top-(h-ih)/2)/ih];let q=[...screen];for(let i=0;i<3;i++){const f=surface?surface.transform(q):q;q=[q[0]+screen[0]-f[0],q[1]+screen[1]-f[1]];}return q;}
   function opaqueAt(uv){const [x,y]=uv;return !!alphaData&&x>=0&&y>=0&&x<1&&y<1&&alphaData[(Math.floor(y*maskH)*maskW+Math.floor(x*maskW))*4+3]>=50;}
-  const effects=createEssenceEffects(fx,{profile:p,position,opaqueAt});
+  const effects=createEssenceEffects(fx,{profile:p,position,opaqueAt,density});
   const u={time:{value:0},blink:{value:0},reaction:{value:0},charge:{value:0},awakening:{value:0},completion:{value:0},portrait:{value:null},imageHeight:{value:3}};
   const vec=v=>`vec2(${v.map(n=>Number(n).toFixed(5)).join(',')})`;
   const eyes=p.eyes.map(e=>`{vec2 d=(q-${vec(e.center)})/${vec(e.radius)};float z=exp(-pow(d.x,4.)-pow(d.y,4.));v.y+=(q.y-${e.center[1].toFixed(5)})*blink*.62*z*imageHeight;}`).join('\n');
@@ -54,7 +54,7 @@ export async function mountEssencePresence(host,{essenceId,expanded=false,comple
     charge=pressed?Math.min(1,(time-heldAt)/1.1):Math.max(0,charge-step*2.8);u.charge.value=charge;
     if(pressed&&charge===1&&!holdTriggered){holdTriggered=true;awaken();}
     const a=(time-awakenAt)/3.6,c=(time-completionAt)/3.6;u.awakening.value=a>=0&&a<1?Math.sin(a*Math.PI):0;u.completion.value=c>=0&&c<1?Math.sin(c*Math.PI):0;
-    if(time>=ambientAt){ambientAt=time+.8+Math.random()*.7;effects.ambient();}effects.draw(step,time,charge,u.completion.value);paint();
+    if(time>=ambientAt){ambientAt=time+(.8+Math.random()*.7)/Math.max(1,density);effects.ambient();}effects.draw(step,time,charge,u.completion.value);paint();
   }
   function onClick(e){if(suppressClick){suppressClick=false;return;}if(destroyed||!expanded||!visible||covered||document.hidden||!ready)return;const uv=e.detail===0?p.symbol:uvOf(e);if(e.detail!==0&&!opaqueAt(uv))return;if(performance.now()-lastTap<650)return;lastTap=performance.now();onReact('tap');if(!active())return;tapAt=time;rig.react('tap',time);nextBlink=time+.1;effects.tap(uv);}
   function onDown(e){if(e.button!==0||!active()||!opaqueAt(uvOf(e)))return;pressed=true;heldAt=time;holdTriggered=false;suppressClick=false;startPoint=[e.clientX,e.clientY];hit.setPointerCapture(e.pointerId);}
