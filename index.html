@@ -1087,6 +1087,24 @@ body.g3 .app{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))!importa
 .g3 .orb6::after{content:"";width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0,var(--ac) 75%);box-shadow:0 0 12px color-mix(in srgb,var(--ac) 70%,transparent)}
 .g3 .gem6::after{content:"";width:15px;height:15px;border-radius:4px;transform:rotate(45deg);background:linear-gradient(135deg,#efe6ff,#8b5cf6);box-shadow:0 0 12px rgba(139,92,246,.55)}
 .g3 .hf6b small{font-size:12px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+/* monete */
+#coinfx{position:fixed;inset:0;z-index:400;pointer-events:none}
+#coinfx .cn6{position:fixed;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#fff 0,#fff 14%,var(--c) 62%,color-mix(in srgb,var(--c) 70%,#000) 100%);box-shadow:0 0 14px var(--c),0 0 4px #fff inset;will-change:transform}
+#coinfx .cn6::after{content:"";position:absolute;left:4px;top:3px;width:7px;height:4px;border-radius:50%;background:rgba(255,255,255,.9);animation:shine6 .5s linear infinite alternate}
+#coinfx .cn6.gem{width:17px;height:17px;border-radius:4px;background:linear-gradient(135deg,#fff 0,#e9ddff 25%,#8b5cf6 75%,#5b2fd6 100%);box-shadow:0 0 16px rgba(139,92,246,.8)}
+@keyframes shine6{to{opacity:.2}}
+#coinfx .sp6{position:fixed;width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 8px 2px var(--c)}
+#coinfx .cc6{position:fixed;left:50%;top:22vh;transform:translateX(-50%);background:#fff;border-radius:22px;padding:12px 18px;box-shadow:0 14px 40px rgba(60,40,140,.18);text-align:center;min-width:180px}
+#coinfx .cc6 b{display:block;font-size:24px;font-weight:800;color:#1e1a3b;font-variant-numeric:tabular-nums}
+#coinfx .cc6r{display:flex;justify-content:center;gap:12px;margin-top:8px}
+#coinfx .cc6r span{display:flex;flex-direction:column;align-items:center;gap:2px}
+#coinfx .cc6f{width:34px!important;height:34px!important}
+#coinfx .cc6r em{font-style:normal;font-size:12.5px;font-weight:800;color:#6d4fe0}
+#coinfx .cc6 small{display:block;font-size:12.5px;font-weight:700;color:#8e88a6;margin-top:6px}
+.g3 .hf6b.full>span{box-shadow:0 4px 14px rgba(60,40,140,.12),0 0 0 1.5px #fff,0 0 16px color-mix(in srgb,var(--ac) 60%,transparent);animation:wait6 2.6s ease-in-out infinite}
+.g3 .hf6b[data-res=gem].full>span{box-shadow:0 4px 14px rgba(60,40,140,.12),0 0 0 1.5px #fff,0 0 16px rgba(139,92,246,.6)}
+@keyframes wait6{0%,70%,100%{transform:none}78%{transform:translateY(-5px) scale(1.06)}86%{transform:none}92%{transform:translateY(-2px)}}
+@media (prefers-reduced-motion:reduce){.g3 .hf6b.full>span{animation:none}}
 .g3 .av5{display:flex;flex-direction:column;align-items:center;gap:3px;flex:none}
 .g3 .tm5{font-size:11.5px;font-weight:800;color:var(--mut);font-variant-numeric:tabular-nums;letter-spacing:.01em}
 .g3 .av6{display:flex;flex-direction:column;align-items:center;gap:4px;flex:none}
@@ -1269,7 +1287,12 @@ function guideStage(g){let m=0;for(const [id,h] of H())if(h.guide===g)m=Math.max
 /* Energia pulita: base + bonus salvati con la spunta (puntuale, costanza, superamento, ripartenza, giornata completa) */
 const epParts=c=>c&&c.ep?c.ep:{b:c&&c.v==="f"?100:c&&c.v==="m"?60:0,p:c&&c.r?20:0};
 const epOf=c=>{if(!c||!doneV(c))return 0;const e=epParts(c);return (e.b||0)+(e.p||0)+(e.c||0)+(e.s||0)+(e.r||0)+(e.g||0)};
-function xpAll(){let x=0;for(const k in S.checks)x+=epOf(S.checks[k]);for(const h of Object.values(S.habits))if(h)x+=400*((h.stage||1)-1);return x}
+/* la Energia guadagnata resta nei bottoni della Home finché non la raccogli: conta nelle Essenze solo quella raccolta */
+const collAt=()=>(meta().coll||{}).at||0;const isColl=c=>(c&&c.at||0)<=collAt();
+function xpPend(){let x=0;for(const k in S.checks){const c=S.checks[k];if(!isColl(c))x+=epOf(c)}return x}
+function xpPendBy(){const o={};for(const k in S.checks){const c=S.checks[k];if(isColl(c))continue;const e=epOf(c);if(!e)continue;const h=S.habits[k.slice(12)];if(!h)continue;const f=figOf(h.guide);o[f]=(o[f]||0)+e}return o}
+const gemsPend=()=>Math.max(0,gemsAll()-((meta().coll||{}).gem||0));
+function xpAll(){let x=0;for(const k in S.checks){const c=S.checks[k];if(isColl(c))x+=epOf(c)}for(const h of Object.values(S.habits))if(h)x+=400*((h.stage||1)-1);return x}
 const needL=n=>Math.round(600*Math.pow(n,1.4));
 function levelOf(xp){let n=1,acc=0;while(xp>=acc+needL(n)){acc+=needL(n);n++}return {n,prev:acc,next:acc+needL(n),name:LEVELS[Math.min(LEVELS.length-1,Math.floor((n-1)/3))]}}
 function dayStreak(){let n=0,miss=0;for(let i=0;i<400;i++){const ds=iso(addD(new Date(),-i));let any=false;for(const k in S.checks)if(k.startsWith(ds+"__")&&doneV(S.checks[k])){any=true;break}if(any){n++;miss=0}else{if(i===0)continue;miss++;if(miss>=2)break}}return n}
@@ -1410,7 +1433,7 @@ function stateOf(f){const st0=(meta().estart||{})[f];const sv=(meta().estate||{}
   const E=[...Array(14)].map((_,i)=>energyAt(f,iso(addD(new Date(),-i))).e);
   if(s<2&&E.slice(0,7).every(e=>e>=ESTB[s+1]))s++;else if(s>0&&(st0==null||s>st0)&&E.every(e=>e<ESTB[s]))s--;
   return s}
-function areaXP(f){const L=areaHabits(f);const ids=new Set(L.map(([id])=>id));let x=0;for(const k in S.checks){const id=k.slice(12);if(!ids.has(id))continue;x+=epOf(S.checks[k])}for(const [,h] of L)x+=400*((h.stage||1)-1);return x}
+function areaXP(f){const L=areaHabits(f);const ids=new Set(L.map(([id])=>id));let x=0;for(const k in S.checks){const id=k.slice(12);if(!ids.has(id))continue;const c=S.checks[k];if(isColl(c))x+=epOf(c)}for(const [,h] of L)x+=400*((h.stage||1)-1);return x}
 const needA=n=>Math.round(400*Math.pow(n,1.3));
 function areaLevel(f){const xp=areaXP(f);let n=1,acc=0;while(xp>=acc+needA(n)){acc+=needA(n);n++}return {n,xp,prev:acc,next:acc+needA(n),p:(xp-acc)/needA(n)}}
 const TRAITS=[["cos","Costanza","quante volte ti presenti nei giorni previsti"],["pre","Precisione","fatta nel giorno giusto e per intero"],["sla","Slancio","giorni di fila senza interruzioni"],["ded","Dedizione","minuti dati in questa settimana"],["cre","Crescita","quanto è avanzato il legame"]];
@@ -1550,7 +1573,7 @@ function renderOggi(){const scr=$("#scr");const n=new Date();const tS=today();co
   const ftm=FH?((chk(tS,fid)||{}).tm||timeOf(FH)):"";const [fh,fm]=ftm?ftm.split(":"):["",""];
   const dots=open.length>1?`<div class="hf6d" role="group" aria-label="Attività di oggi">${open.map(([x,h])=>`<button data-focus="${x}" aria-pressed="${x===fid}" aria-label="${esc(h.title)}"></button>`).join("")}</div>`:"";
   const hero=`<section class="hf6" data-hx5 style="--ac:${FA.dot}">
-    <div class="hf6side" role="group" aria-label="Le tue risorse"><button class="hf6b" data-res="ep" aria-label="Energia pulita: ${xpAll()} EP"><span class="orb6"></span><small>${fmtK(xpAll())}</small></button><button class="hf6b" data-res="gem" aria-label="Gemme: ${gemsAll()}"><span class="gem6"></span><small>${gemsAll()}</small></button></div>
+    <div class="hf6side" role="group" aria-label="Le tue risorse">${(()=>{const xp=xpPend(),gm=gemsPend();return `<button class="hf6b ${xp?"full":""}" data-res="ep" aria-label="${xp?`Raccogli ${xp} EP`:"Nessuna energia da raccogliere"}"><span class="orb6"></span><small data-cnt="ep">${fmtK(xp)}</small></button><button class="hf6b ${gm?"full":""}" data-res="gem" aria-label="${gm?`Raccogli ${gm} gemme`:"Nessuna gemma da raccogliere"}"><span class="gem6"></span><small data-cnt="gem">${gm}</small></button>`})()}</div>
     <div class="hf6fig" data-hxa="${ff}" role="link" aria-label="Apri ${FA.fig}">${stageHTML(ff,1,Math.round(Math.min(400,innerHeight*.43)),{live:true})}</div>${dots}
     <p class="hf6k">con ${FA.fig}</p>
     ${FH?`<h2 class="hf6t">${esc(FH.title)}</h2><p class="hf6tm"><b>${fh}<i>:${fm}</i></b></p><p class="hf6du">${md?`versione mini · ${esc(FH.mini||"")}`:durTxt(FH)}</p><p class="hf6l">${capFact(FH,fid,tS)}</p>
@@ -2166,7 +2189,7 @@ function stopSession(){clearInterval(tmI);S.sess=null;emit(EV.SESSION_END);close
 /* ================= REGISTRAZIONI (salva, poi la guida reagisce) ================= */
 async function complete(id,v,ds){ds=ds||today();const k=ds+"__"+id,prev=S.checks[k];const h=S.habits[id];if(!h)return false;norm(h);const before=stats(h,id).stage;
   if(prev&&prev.v===v&&!S.sess){try{await removeNow("checks",k)}catch(e){snack("Non salvato: controlla la connessione");return false}refresh();snack("Segnata come non fatta",async()=>{try{await saveNow("checks",k,prev)}catch(e){}refresh()});return false}
-  const lvB=areaLevel(figOf(h.guide)).n;
+  const lvB=areaLevel(figOf(h.guide)).n;S.earnFrom={ep:xpPend(),gem:gemsPend()};
   const rec={v,at:Date.now()};if(doneV({v})){const b=v==="f"?100:60;const ep={b};
     if(ds===today()){const nm=new Date();const dm=Math.abs(nm.getHours()*60+nm.getMinutes()-tmin(timeOf(h)));if(dm<=30)ep.p=Math.round(b*.2)}
     const ch=stats(h,id).chain||0;if(ch>0){ep.c=Math.round(b*Math.min(1,(ch+1)*.1));ep.n=ch+1}
@@ -2231,13 +2254,53 @@ function premioHTML(id,k){const h=norm(S.habits[id]),c=S.checks[k];if(!h||!c)ret
    <div class="pze"><div class="pzet"><span><b>${A.fig}</b> · ${ESTN[s]}</span><span>${en.e} / 100${s<2?` → ${ESTN[s+1]}`:""}</span></div><div class="pzeb" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${en.e}" aria-label="Energia di ${A.fig}"><i style="width:${Math.max(0,en.e-gain)}%"></i><u style="left:${Math.max(0,en.e-gain)}%;width:${gain}%"></u><s style="left:${nx}%"></s></div></div>
    ${c.v==="f"&&mins?`<div class="pzm" role="group" aria-label="Hai fatto di più?"><span>Hai fatto di più?</span>${[[10,"+10′"],[20,"+20′"],[mins,"×2"]].map(([m,l])=>`<button data-pzx="${m}" aria-pressed="${x===m}">${l}</button>`).join("")}</div>`:""}
    <button class="pzok" data-pzok>Continua</button><button class="pzun" data-pzundo>Annulla la spunta</button></div></div>`}
+/* ---------- monete: guadagno e raccolta ---------- */
+function fxLayer(){let L=document.getElementById("coinfx");if(!L){L=document.createElement("div");L.id="coinfx";L.setAttribute("aria-hidden","true");document.body.appendChild(L)}return L}
+function centerOf(el){const r=el.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2}}
+function bump(el){if(!el||RM)return;el.animate([{transform:"scale(1)"},{transform:"scale(1.32)",offset:.35},{transform:"scale(.92)",offset:.7},{transform:"scale(1)"}],{duration:420,easing:"cubic-bezier(.32,1.25,.42,1)"})}
+function countTo(el,a,b,dur,fmt){if(!el)return;if(RM){el.textContent=fmt(b);return}const t0=performance.now();const st=now=>{const q=Math.min(1,(now-t0)/dur);el.textContent=fmt(Math.round(a+(b-a)*(1-Math.pow(1-q,3))));if(q<1)requestAnimationFrame(st)};requestAnimationFrame(st)}
+/* lancia n monete da A a B: saltano, brillano, curvano e "entrano" con un piccolo rimbalzo del bersaglio */
+function coinFly(A,B,n,kind,color,onHit,onDone){if(RM||!A||!B){onDone&&onDone();return}const L=fxLayer();let left=n;
+  for(let i=0;i<n;i++){const c=document.createElement("i");c.className="cn6 "+kind;c.style.setProperty("--c",color);c.style.left=A.x+"px";c.style.top=A.y+"px";L.appendChild(c);
+    const ang=Math.random()*Math.PI*2,r=26+Math.random()*46,sx=Math.cos(ang)*r,sy=Math.sin(ang)*r-30;const dx=B.x-A.x,dy=B.y-A.y;const mx=sx+(dx-sx)*.5+(Math.random()-.5)*80,my=Math.min(sy,dy)-90-Math.random()*60;
+    const dur=980+Math.random()*260,delay=i*55;
+    c.animate([{transform:"translate(-50%,-50%) scale(0) rotate(0deg)",opacity:0},{transform:`translate(calc(-50% + ${sx}px),calc(-50% + ${sy}px)) scale(1.35) rotate(90deg)`,opacity:1,offset:.22},{transform:`translate(calc(-50% + ${sx}px),calc(-50% + ${sy+14}px)) scale(1) rotate(140deg)`,offset:.36},{transform:`translate(calc(-50% + ${mx}px),calc(-50% + ${my}px)) scale(1.05) rotate(260deg)`,offset:.68},{transform:`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px)) scale(.35) rotate(360deg)`,opacity:.9}],{duration:dur,delay,easing:"cubic-bezier(.55,0,.45,1)",fill:"both"})
+     .onfinish=()=>{c.remove();onHit&&onHit(i);try{navigator.vibrate&&navigator.vibrate(6)}catch(e){}if(--left===0)onDone&&onDone()}}}
+function sparkle(P,color,n=10){if(RM||!P)return;const L=fxLayer();for(let i=0;i<n;i++){const s=document.createElement("i");s.className="sp6";s.style.setProperty("--c",color);s.style.left=P.x+"px";s.style.top=P.y+"px";L.appendChild(s);const a=Math.PI*2*i/n+Math.random()*.4,r=30+Math.random()*30;
+  s.animate([{transform:"translate(-50%,-50%) scale(.2)",opacity:1},{transform:`translate(calc(-50% + ${Math.cos(a)*r}px),calc(-50% + ${Math.sin(a)*r}px)) scale(1)`,opacity:0}],{duration:620,easing:"cubic-bezier(.2,.9,.25,1)"}).onfinish=()=>s.remove()}}
+/* dopo il premio: l'energia guadagnata vola nei bottoni della Home e li riempie */
+function earnFly(fr){const ef=S.earnFrom;S.earnFrom=null;if(!ef)return;requestAnimationFrame(()=>{const bE=$("#scr .hf6b[data-res=ep]"),bG=$("#scr .hf6b[data-res=gem]");if(!bE)return;
+  const xp=xpPend(),gm=gemsPend();const A=fr?{x:fr.left+fr.width/2,y:fr.top+fr.height/2}:{x:innerWidth/2,y:innerHeight*.55};const ac=getComputedStyle($("#scr .hf6")||document.body).getPropertyValue("--ac")||"#8b5cf6";
+  const cE=bE.querySelector("[data-cnt]"),cG=bG&&bG.querySelector("[data-cnt]");
+  if(xp>ef.ep){if(cE)cE.textContent=fmtK(ef.ep);const n=Math.max(6,Math.min(16,Math.round((xp-ef.ep)/25)));let k=0;
+    coinFly(A,centerOf(bE.querySelector("span")),n,"ep",ac,()=>{k++;bump(bE.querySelector("span"));if(cE)cE.textContent=fmtK(Math.round(ef.ep+(xp-ef.ep)*k/n))},()=>{sparkle(centerOf(bE.querySelector("span")),ac,12);bE.classList.add("full")})}
+  if(bG&&gm>ef.gem){if(cG)cG.textContent=ef.gem;const n=Math.min(8,3+(gm-ef.gem)*2);setTimeout(()=>coinFly(A,centerOf(bG.querySelector("span")),n,"gem","#8b5cf6",()=>bump(bG.querySelector("span")),()=>{if(cG)countTo(cG,ef.gem,gm,300,String);sparkle(centerOf(bG.querySelector("span")),"#8b5cf6",12);bG.classList.add("full")}),380)}})}
+/* raccolta: dai bottoni all'Essenza, che assorbe l'energia; poi il riepilogo per Essenza */
+async function collect(kind,btn){const xp=xpPend(),gm=gemsPend();const amt=kind==="ep"?xp:gm;
+  if(!amt){snack(kind==="ep"?"Niente da raccogliere: completa un'attività e l'energia arriverà qui":"Le gemme arrivano dai traguardi: giornate complete e giorni di fila");return}
+  if(S.collecting)return;S.collecting=true;const by=kind==="ep"?xpPendBy():null;const lv0={};if(by)for(const f in by)lv0[f]=areaLevel(f).n;
+  const co={...(meta().coll||{})};if(kind==="ep")co.at=Date.now();else co.gem=gemsAll();
+  try{await saveNow("meta","main",{...meta(),coll:co})}catch(e){S.collecting=false;snack("Non salvato: riprova tra poco");return}
+  const src=btn.querySelector("span"),cnt=btn.querySelector("[data-cnt]");const fig=$("#scr .hf6fig");const ac=getComputedStyle($("#scr .hf6")||document.body).getPropertyValue("--ac")||"#8b5cf6";
+  const B=fig?(()=>{const r=fig.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height*.45}})():{x:innerWidth/2,y:innerHeight/3};
+  const n=kind==="ep"?Math.max(8,Math.min(22,Math.round(amt/40))):Math.min(12,4+amt*2);let k=0;
+  if(cnt)countTo(cnt,amt,0,900,v=>kind==="ep"?fmtK(v):String(v));btn.classList.remove("full");
+  const done=()=>{S.collecting=false;if(fig&&!RM)fig.animate([{filter:"brightness(1) drop-shadow(0 0 0 transparent)"},{filter:`brightness(1.25) drop-shadow(0 0 28px ${ac.trim()})`,offset:.3},{filter:"brightness(1) drop-shadow(0 0 0 transparent)"}],{duration:1100,easing:"ease-out"});sparkle(B,kind==="ep"?ac:"#8b5cf6",16);
+    try{PV.p&&PV.p.awaken&&PV.p.awaken()}catch(e){}
+    if(kind==="ep"){const ups=Object.keys(by).filter(f=>areaLevel(f).n>lv0[f]);collectCard(amt,by,ups)}else collectCard(amt,null,[]);
+    render()};
+  coinFly(centerOf(src),B,n,kind,kind==="ep"?ac:"#8b5cf6",()=>{k++;if(fig&&!RM&&k%3===0)fig.animate([{transform:"scale(1)"},{transform:"scale(1.03)"},{transform:"scale(1)"}],{duration:260,easing:"ease-out"})},done);if(RM)done()}
+function collectCard(amt,by,ups){const L=fxLayer();const c=document.createElement("div");c.className="cc6";c.setAttribute("role","status");
+  c.innerHTML=`<b>+${amt.toLocaleString("it-IT")} ${by?"EP":"gemme"}</b>${by?`<span class="cc6r">${Object.entries(by).sort((a,b)=>b[1]-a[1]).map(([f,v])=>`<span>${faceIcon(f,"cc6f")}<em>+${v}</em></span>`).join("")}</span>`:`<small>Nel tuo portafoglio di gemme</small>`}${ups.length?`<small>${ups.map(f=>`${AREAS[f].fig} sale al livello ${areaLevel(f).n}`).join(" · ")}</small>`:""}`;
+  L.appendChild(c);if(!RM)c.animate([{transform:"translate(-50%,20px) scale(.8)",opacity:0},{transform:"translate(-50%,-4px) scale(1.06)",opacity:1,offset:.6},{transform:"translate(-50%,0) scale(1)",opacity:1}],{duration:480,easing:"cubic-bezier(.32,1.25,.42,1)",fill:"both"});
+  setTimeout(()=>{if(RM){c.remove();return}c.animate([{opacity:1},{opacity:0,transform:"translate(-50%,-10px)"}],{duration:300,fill:"forwards"}).onfinish=()=>c.remove()},2600)}
 function openPremio(id,k,o={}){S.pz={id,k};const h=S.habits[id];if(!h)return;const c=S.checks[k];if(!c)return;const f=figOf(h.guide);
   const s=stateOf(f);const sv=(meta().estate||{})[f];if(sv!==s){const es={...(meta().estate||{})};es[f]=s;setMeta({estate:es})}
   $("#cvw").innerHTML=premioHTML(id,k);if(RM)return;
   const n=$("#pzn");const to=+n.dataset.to;const t0=performance.now();const dur=900+120*$$("#cvw .pzw").length;
   const step=now=>{if(!n.isConnected)return;const q=Math.min(1,(now-t0)/dur);n.textContent=`+${Math.round(to*(1-Math.pow(1-q,3)))} EP`;if(q<1)requestAnimationFrame(step)};requestAnimationFrame(step);
   $$("#cvw .pzw").forEach((r,i)=>setTimeout(()=>{r.classList.add("in");try{navigator.vibrate&&navigator.vibrate(8)}catch(e){}},260+i*260))}
-function closePremio(){const sc=$("#cvw .pz5");S.pz=null;const go=()=>{$("#cvw").innerHTML="";const b=S.bondNext;S.bondNext=null;if(b)setTimeout(()=>bondUp(...b),250)};if(sc&&!RM){sc.classList.add("out");setTimeout(go,240)}else go()}
+function closePremio(){const sc=$("#cvw .pz5");const from=sc&&sc.querySelector("#pzn");const fr=from?from.getBoundingClientRect():null;S.pz=null;const go=()=>{$("#cvw").innerHTML="";earnFly(fr);const b=S.bondNext;S.bondNext=null;if(b)setTimeout(()=>bondUp(...b),250)};if(sc&&!RM){sc.classList.add("out");setTimeout(go,240)}else go()}
 async function premioExtra(m){const z=S.pz;if(!z)return;const c=S.checks[z.k],h=S.habits[z.id];if(!c||!h)return;const mins=h.mins||20;const x=c.x===m?0:m;
   const ep={...epParts(c),s:x?Math.round(100*Math.min(1,x/mins)):0};try{await saveNow("checks",z.k,{...c,x,ep})}catch(e){snack("Non salvato: riprova tra poco");return}
   $("#cvw").innerHTML=premioHTML(z.id,z.k);$$("#cvw .pzw").forEach(r=>r.classList.add("in"));render()}
@@ -2266,7 +2329,7 @@ document.addEventListener("click",async e=>{const t=e.target;
   if(d.legopen!=null){S.legOpen=true;const w=$("#ov .w3");if(w)w.classList.add("legon");return}
   if("flt" in d){S.flt=d.flt||null;render();return}
   if(d.focus){S.focus=d.focus;render();return}
-  if(d.res){snack(d.res==="ep"?`Energia pulita: ${xpAll().toLocaleString("it-IT")} EP guadagnati finora`:`${gemsAll()} gemme dai tuoi traguardi. Presto potrai usarle nell'Atelier`);return}
+  if(d.res){collect(d.res,el);return}
   if(d.cday){S.cday=d.cday;render();return}
   if(d.cview){S.cview=d.cview;render();return}
   if(d.cweek){S.cday=iso(addD(parse(S.cday||today()),+d.cweek));render();return}
@@ -2438,7 +2501,7 @@ document.addEventListener("touchcancel",()=>{const o=ovEl();if(o){o.style.transf
  m.setAttribute("content",PAGE)})();
 </script>
 <script>/* aggiornamento automatico: se su GitHub c'è una versione nuova, la carica */
-(function(){const BUILD='2026-10-26c';let busy=false;
+(function(){const BUILD='2026-10-27a';let busy=false;
 async function chk(){if(busy||!navigator.onLine)return;busy=true;try{
  const r=await fetch('index.html?u='+Date.now(),{cache:'no-store'});const s=await r.text();
  const m=s.match(/const BUILD='([^']+)'/);
